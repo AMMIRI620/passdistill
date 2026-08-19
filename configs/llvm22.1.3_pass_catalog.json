@@ -1,0 +1,99 @@
+{
+  "llvm_version": "22.1.3",
+  "source": {
+    "basis": [
+      "LLVM 22.1.3 opt --print-passes",
+      "LLVM 22.1.3 opt --help-hidden",
+      "observed expanded default<O3> pipeline",
+      "observed PassDistill 2mm recovery failures and valid preflight behavior"
+    ],
+    "coverage": "Focused static subset for PassDistill recovery around loop, vectorization, scalar cleanup, inlining, and O3-adjacent passes."
+  },
+  "managers": {
+    "module": {"can_contain": ["module", "cgscc", "function"]},
+    "cgscc": {"can_contain": ["cgscc", "function"]},
+    "function": {"can_contain": ["function", "loop", "loop-mssa"]},
+    "loop": {"can_contain": ["loop"]},
+    "loop-mssa": {"can_contain": ["loop"]}
+  },
+  "passes": {
+    "adce": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "aggressive-instcombine": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "alignment-from-assumptions": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "always-inline": {"scope": "module", "allowed_managers": ["module"], "family": "inline"},
+    "argpromotion": {"scope": "cgscc", "allowed_managers": ["cgscc"], "family": "inline"},
+    "bdce": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "callsite-splitting": {
+      "scope": "function",
+      "allowed_managers": ["function"],
+      "family": "scalar-cleanup",
+      "source": "opt --print-passes Function passes"
+    },
+    "called-value-propagation": {"scope": "module", "allowed_managers": ["module"], "family": "ipo"},
+    "coro-cleanup": {"scope": "module", "allowed_managers": ["module"], "family": "coroutine"},
+    "coro-early": {"scope": "module", "allowed_managers": ["module"], "family": "coroutine"},
+    "deadargelim": {"scope": "module", "allowed_managers": ["module"], "family": "ipo"},
+    "div-rem-pairs": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "drop-unnecessary-assumes": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "dse": {"scope": "function", "allowed_managers": ["function"], "family": "memory"},
+    "early-cse": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "float2int": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "function-attrs": {"scope": "cgscc", "allowed_managers": ["cgscc"], "family": "ipo"},
+    "globaldce": {"scope": "module", "allowed_managers": ["module"], "family": "ipo"},
+    "globalopt": {"scope": "module", "allowed_managers": ["module"], "family": "ipo"},
+    "gvn": {"scope": "function", "allowed_managers": ["function"], "family": "memory", "soft_hints": {"often_before": ["loop-vectorize", "slp-vectorizer"]}},
+    "indvars": {"scope": "loop", "allowed_managers": ["loop", "loop-mssa"], "family": "loop-canonicalize"},
+    "infer-alignment": {"scope": "function", "allowed_managers": ["function"], "family": "vectorization"},
+    "inline": {"scope": "cgscc", "allowed_managers": ["cgscc"], "family": "inline"},
+    "instcombine": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "instsimplify": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "ipsccp": {"scope": "module", "allowed_managers": ["module"], "family": "ipo"},
+    "jump-threading": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "lcssa": {"scope": "function", "allowed_managers": ["function"], "family": "loop-canonicalize"},
+    "licm": {"scope": "loop", "allowed_managers": ["loop-mssa"], "required_manager": "loop-mssa", "requires": ["MemorySSA"], "family": "loop-memory"},
+    "load-store-vectorizer": {"scope": "function", "allowed_managers": ["function"], "family": "vectorization"},
+    "loop-deletion": {"scope": "loop", "allowed_managers": ["loop", "loop-mssa"], "family": "loop-cleanup"},
+    "loop-distribute": {"scope": "function", "allowed_managers": ["function"], "family": "loop-transform"},
+    "loop-interchange": {"scope": "loop", "allowed_managers": ["loop", "loop-mssa"], "family": "loop-transform", "soft_hints": {"often_after": ["loop-distribute"], "often_before": ["loop-vectorize"]}},
+    "loop-load-elim": {"scope": "function", "allowed_managers": ["function"], "family": "loop-memory"},
+    "loop-rotate": {"scope": "loop", "allowed_managers": ["loop", "loop-mssa"], "family": "loop-canonicalize"},
+    "loop-simplify": {"scope": "function", "allowed_managers": ["function"], "family": "loop-canonicalize"},
+    "loop-simplifycfg": {"scope": "loop", "allowed_managers": ["loop", "loop-mssa"], "family": "loop-canonicalize"},
+    "loop-sink": {"scope": "function", "allowed_managers": ["function"], "family": "loop-memory"},
+    "loop-unroll": {
+      "scope": "function",
+      "allowed_managers": ["function"],
+      "canonical_spelling": "loop-unroll<O0;O1;O2;O3;full-unroll-max=N;no-partial;partial;no-peeling;peeling;no-profile-peeling;profile-peeling;no-runtime;runtime;no-upperbound;upperbound>",
+      "parameter_schema": ["O0", "O1", "O2", "O3", "full-unroll-max=N", "no-partial", "partial", "no-peeling", "peeling", "no-profile-peeling", "profile-peeling", "no-runtime", "runtime", "no-upperbound", "upperbound"],
+      "family": "loop-transform",
+      "source": "opt --print-passes Function passes with params; sanity: function(loop-unroll<O3>) accepted, function(loop(loop-unroll)) rejected"
+    },
+    "loop-unroll-and-jam": {"scope": "loop", "allowed_managers": ["loop", "loop-mssa"], "family": "loop-transform", "related_options": ["allow-unroll-and-jam"]},
+    "loop-vectorize": {"scope": "function", "allowed_managers": ["function"], "family": "vectorization"},
+    "loop-versioning-licm": {"scope": "function", "allowed_managers": ["function"], "family": "loop-memory"},
+    "mem2reg": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "mldst-motion": {"scope": "function", "allowed_managers": ["function"], "family": "memory"},
+    "reassociate": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "sccp": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "simplifycfg": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "slp-vectorizer": {"scope": "function", "allowed_managers": ["function"], "family": "vectorization"},
+    "sroa": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "tailcallelim": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "verify": {"scope": "module", "allowed_managers": ["module"], "family": "verification"},
+    "vector-combine": {"scope": "function", "allowed_managers": ["function"], "family": "vectorization"}
+  },
+  "opt_options": {
+    "allow-unroll-and-jam": {"cli_name": "-allow-unroll-and-jam", "type": "bool", "related_passes": ["loop-unroll-and-jam"]},
+    "debug-pass-manager": {"cli_name": "-debug-pass-manager", "type": "bool"},
+    "enable-loopinterchange": {"cli_name": "-enable-loopinterchange", "type": "bool", "related_passes": ["loop-interchange"]},
+    "force-vector-width": {"cli_name": "-force-vector-width", "type": "int", "related_passes": ["loop-vectorize"]},
+    "force-vector-interleave": {"cli_name": "-force-vector-interleave", "type": "int", "related_passes": ["loop-vectorize"]}
+  },
+  "families": {
+    "loop-transform": ["loop-distribute", "loop-interchange", "loop-unroll", "loop-unroll-and-jam"],
+    "loop-canonicalize": ["loop-simplify", "lcssa", "loop-rotate", "indvars", "loop-simplifycfg"],
+    "loop-memory": ["licm", "loop-versioning-licm", "loop-load-elim", "loop-sink"],
+    "vectorization": ["loop-vectorize", "slp-vectorizer", "vector-combine", "load-store-vectorizer", "infer-alignment"],
+    "scalar-cleanup": ["instcombine", "instsimplify", "simplifycfg", "gvn", "reassociate", "adce", "bdce", "callsite-splitting"]
+  }
+}

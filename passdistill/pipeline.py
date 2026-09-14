@@ -335,12 +335,22 @@ class PipelineEditor:
 
     def apply_candidate(self, candidate: dict[str, Any]) -> PipelineEditResult:
         for edit in candidate.get("edits", []):
-            self.apply_edit(edit)
+            try:
+                self.apply_edit(edit)
+            except Exception as exc:
+                self.invalid_errors.append(f"malformed edit: {exc}")
+                break
         for option in candidate.get("opt_options", []):
-            self.set_opt_option(option)
+            try:
+                self.set_opt_option(option)
+            except Exception as exc:
+                self.invalid_errors.append(f"malformed opt option: {exc}")
         # Compatibility for older mock/artifacts.
         for operation in candidate.get("operations", []):
-            self.apply_legacy_operation(operation)
+            try:
+                self.apply_legacy_operation(operation)
+            except Exception as exc:
+                self.invalid_errors.append(f"malformed legacy operation: {exc}")
         return self.result()
 
     def apply_all(self, operations: list[dict[str, Any]]) -> PipelineEditResult:

@@ -13,6 +13,7 @@ def to_jsonable(value: Any) -> Any:
             "elapsed_sec": value.elapsed_sec,
             "stdout_path": str(value.stdout_path) if value.stdout_path else None,
             "stderr_path": str(value.stderr_path) if value.stderr_path else None,
+            "timed_out": value.timed_out,
         }
     if hasattr(value, "__dataclass_fields__"):
         return {item.name: to_jsonable(getattr(value, item.name)) for item in fields(value)}
@@ -34,6 +35,7 @@ class CommandResult:
     elapsed_sec: float = 0.0
     stdout_path: Path | None = None
     stderr_path: Path | None = None
+    timed_out: bool = False
 
     @property
     def ok(self) -> bool:
@@ -46,6 +48,8 @@ class Kernel:
     source: Path
     header: Path
     rel_dir: Path
+    target_function: str = ""
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass

@@ -8,7 +8,12 @@ from passdistill.agents.catalog import load_static_catalog, relevant_catalog
 from passdistill.agents.recovery_planner import plan_recovery_candidates
 from passdistill.config import ExperimentConfig
 from passdistill.search.recovery_search import global_candidate_id, requested_candidate_count, sanitize_local_candidate_id
-from passdistill.search.teacher_search import global_direction_id, sort_valid_directions_for_recovery
+from passdistill.search.teacher_search import (
+    completed_teachers_in_round,
+    global_direction_id,
+    resume_artifact_dir,
+    sort_valid_directions_for_recovery,
+)
 from passdistill.types import BuildArtifacts, CorrectnessResult, EvaluationResult, Kernel, TimingResult
 
 
@@ -21,6 +26,25 @@ def test_global_candidate_id_includes_direction_and_round():
     assert global_candidate_id("T1_D1", 1, "C1") == "T1_D1_R1_C1"
     assert global_candidate_id("T1_D1", 2, "C1") == "T1_D1_R2_C1"
     assert sanitize_local_candidate_id("T1_D2_R2_C1", 9) == "C1"
+
+
+def test_teacher_resume_reconstructs_round_progress_and_preserves_artifacts(tmp_path):
+    history = [
+        {"direction_id": "T1_D1"},
+        {"direction_id": "T1_D2"},
+        {"direction_id": "T1_D3"},
+        {"direction_id": "T2_D1"},
+    ]
+    assert completed_teachers_in_round(history, 1) == 3
+    assert completed_teachers_in_round(history, 2) == 1
+    assert completed_teachers_in_round(history, 3) == 0
+
+    original = tmp_path / "oracle_round_2"
+    original.mkdir()
+    (original / "error_0.txt").write_text("transport failure")
+    assert resume_artifact_dir(original) == tmp_path / "oracle_round_2_resume_1"
+    (tmp_path / "oracle_round_2_resume_1").mkdir()
+    assert resume_artifact_dir(original) == tmp_path / "oracle_round_2_resume_2"
 
 
 def test_budget_schedule_prioritizes_fast_teachers_for_first_batches():

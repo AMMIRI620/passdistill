@@ -34,6 +34,7 @@ def propose_teachers(
     backend: AgentBackend,
     *,
     kernel_name: str,
+    target_function: str | None = None,
     original_source: str,
     baseline_remarks: str,
     baseline_runtime: float,
@@ -45,7 +46,7 @@ def propose_teachers(
     repo_root: Path = Path.cwd(),
 ) -> list[dict[str, Any]]:
     system = load_prompt(repo_root, "source_oracle")
-    target_function = f"kernel_{kernel_name.replace('-', '_')}"
+    target_function = target_function or f"kernel_{kernel_name.replace('-', '_')}"
     try:
         kernel_span = extract_function_span(original_source, target_function)
         target_source = kernel_span.text
@@ -65,10 +66,10 @@ Teacher round: {round_index}
 Requested new directions this round: {max_candidates}
 
 Experiment:
-- LLVM: 22.1.3
-- optimization: -O3 -ffast-math
+- LLVM version: 22.1.3
+- Optimization level: -O3 -ffast-math
 - dataset: LARGE_DATASET
-- clang baseline median: {baseline_runtime} s
+- Baseline runtime: {baseline_runtime} s (clang median)
 
 Previous teacher/recovery feedback:
 {history_text}

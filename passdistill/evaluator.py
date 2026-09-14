@@ -33,7 +33,7 @@ def run_binary(
     command_log: list[dict] = []
     argv = [*pinned_prefix(config), str(binary)]
     for index in range(warmup_count + measured_count):
-        result = run_command(argv, config.repo_root)
+        result = run_command(argv, config.repo_root, timeout=config.command_timeout_sec)
         if log_dir is not None:
             save_command_result(log_dir / f"run_{index}.json", result)
         command_log.append({"phase": "run", "index": index, "result": result})
@@ -59,7 +59,7 @@ def dump_output(config: ExperimentConfig, kernel: Kernel, source: Path, out_dir:
     save_command_result(out_dir / f"{stem}_compile_dump.json", compile_result)
     if not compile_result.ok:
         return out_dir / f"{stem}.stdout", out_dir / f"{stem}.stderr", logs, False, compile_result.stderr
-    run_result = run_command([str(binary)], config.repo_root)
+    run_result = run_command([str(binary)], config.repo_root, timeout=config.command_timeout_sec)
     stdout = out_dir / f"{stem}.stdout"
     stderr = out_dir / f"{stem}.stderr"
     stdout.write_text(run_result.stdout)
@@ -211,7 +211,7 @@ def evaluate_pipeline_candidate(
     if not dump_link_result.ok:
         result.error = dump_link_result.stderr
         return result
-    dump_run_result = run_command([str(dump_binary)], config.repo_root)
+    dump_run_result = run_command([str(dump_binary)], config.repo_root, timeout=config.command_timeout_sec)
     dump_stdout = out_dir / f"{candidate_id}_dump.stdout"
     dump_stderr = out_dir / f"{candidate_id}_dump.stderr"
     dump_stdout.write_text(dump_run_result.stdout)

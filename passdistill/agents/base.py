@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
@@ -203,6 +204,7 @@ class MockBackend:
         raw = json.dumps(payload, indent=2)
         (out_dir / "raw_response.txt").write_text(raw)
         write_json(out_dir / "parsed_response.json", payload)
+        write_json(out_dir / "response.json", payload)
         return payload
 
 
@@ -211,7 +213,8 @@ class OpenAICompatBackend:
     model: str
     base_url: str | None = None
     api_key: str | None = None
-    retries: int = 2
+    retries: int = 5
+    request_timeout_sec: int = 300
 
     def complete_json(self, system: str, user: str, *, schema_hint: str, out_dir: Path) -> Any:
         api_key = self.api_key or _env_value("PASSDISTILL_OPENAI_API_KEY", "OPENAI_API_KEY")
@@ -231,7 +234,9 @@ class OpenAICompatBackend:
             "temperature": 0.2,
         }
         last_error: Exception | None = None
+        repair_mode = False
         for attempt in range(self.retries + 1):
+            content: str | None = None
             request = urllib.request.Request(
                 base_url.rstrip("/") + "/chat/completions",
                 data=json.dumps(payload).encode(),
@@ -239,37 +244,43 @@ class OpenAICompatBackend:
                 method="POST",
             )
             try:
-                with urllib.request.urlopen(request, timeout=120) as response:
+                with urllib.request.urlopen(request, timeout=self.request_timeout_sec) as response:
                     raw = response.read().decode()
                 data = json.loads(raw)
                 content = data["choices"][0]["message"]["content"]
-                if attempt == 0:
-                    (out_dir / "raw_response.txt").write_text(content)
-                else:
+                if repair_mode:
                     (out_dir / f"repair_response_{attempt}.txt").write_text(content)
-                data = json.loads(raw)
+                else:
+                    (out_dir / "raw_response.txt").write_text(content)
                 parsed = extract_json(content)
                 write_json(out_dir / "parsed_response.json", parsed)
+                write_json(out_dir / "response.json", parsed)
                 return parsed
             except Exception as exc:  # JSON retry is intentionally small and visible on disk.
                 last_error = exc
                 (out_dir / f"error_{attempt}.txt").write_text(str(exc))
                 if attempt < self.retries:
-                    repair_prompt = (
-                        "previous response is not valid JSON; return the same information using exactly "
-                        "the required schema, no markdown, no prose"
-                    )
-                    (out_dir / f"repair_prompt_{attempt + 1}.txt").write_text(repair_prompt)
-                    payload = {
-                        "model": self.model,
-                        "messages": [
-                            {"role": "system", "content": system},
-                            {"role": "user", "content": user},
-                            {"role": "assistant", "content": content if "content" in locals() else ""},
-                            {"role": "user", "content": repair_prompt},
-                        ],
-                        "temperature": 0.0,
-                    }
+                    time.sleep(min(2**attempt, 30))
+                    # A transport failure produced no response to repair. Retrying the
+                    # original payload avoids turning a connection problem into a new
+                    # generation request with a misleading JSON-repair conversation.
+                    if content is not None:
+                        repair_prompt = (
+                            "previous response is not valid JSON; return the same information using exactly "
+                            "the required schema, no markdown, no prose"
+                        )
+                        (out_dir / f"repair_prompt_{attempt + 1}.txt").write_text(repair_prompt)
+                        payload = {
+                            "model": self.model,
+                            "messages": [
+                                {"role": "system", "content": system},
+                                {"role": "user", "content": user},
+                                {"role": "assistant", "content": content},
+                                {"role": "user", "content": repair_prompt},
+                            ],
+                            "temperature": 0.0,
+                        }
+                        repair_mode = True
         raise RuntimeError(f"LLM JSON completion failed: {last_error}")
 
 

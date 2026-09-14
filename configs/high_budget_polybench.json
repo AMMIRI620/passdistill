@@ -1,0 +1,25 @@
+{
+  "run_id": "high-budget-polybench",
+  "kernels": [
+    "2mm", "3mm", "gemm", "gemver", "gesummv", "mvt", "atax", "bicg",
+    "symm", "syr2k", "syrk", "trmm", "correlation", "covariance",
+    "jacobi-1d", "jacobi-2d", "seidel-2d", "adi", "fdtd-2d", "doitgen",
+    "cholesky", "lu", "nussinov", "heat-3d", "gramschmidt", "durbin",
+    "ludcmp", "trisolv", "deriche", "floyd-warshall"
+  ],
+  "dataset": "LARGE_DATASET",
+  "opt_level": "-O3",
+  "fast_math": true,
+  "max_teacher_rounds": 3,
+  "max_teachers": 6,
+  "max_recovery_rounds": 5,
+  "max_pass_candidates": 200,
+  "uniform_fixed_recovery_budget": true,
+  "warmups": 1,
+  "runs": 3,
+  "promotion_min_relative_gain": 0.01,
+  "llm_backend": "openai",
+  "model": "gpt-5.6-sol",
+  "flat_kernel_artifacts": true,
+  "command_timeout_sec": 300
+}

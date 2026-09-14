@@ -30,15 +30,27 @@ def run_command(
     env: dict[str, str] | None = None,
 ) -> CommandResult:
     start = time.perf_counter()
-    proc = subprocess.run(
-        argv,
-        cwd=str(cwd),
-        env=env,
-        text=True,
-        capture_output=True,
-        timeout=timeout,
-        check=False,
-    )
+    try:
+        proc = subprocess.run(
+            argv,
+            cwd=str(cwd),
+            env=env,
+            text=True,
+            capture_output=True,
+            timeout=timeout,
+            check=False,
+        )
+    except subprocess.TimeoutExpired as exc:
+        stdout = exc.stdout.decode(errors="replace") if isinstance(exc.stdout, bytes) else (exc.stdout or "")
+        stderr = exc.stderr.decode(errors="replace") if isinstance(exc.stderr, bytes) else (exc.stderr or "")
+        return CommandResult(
+            argv=argv,
+            returncode=124,
+            stdout=stdout,
+            stderr=(stderr + f"\ncommand timed out after {timeout} seconds").strip(),
+            elapsed_sec=time.perf_counter() - start,
+            timed_out=True,
+        )
     return CommandResult(
         argv=argv,
         returncode=proc.returncode,

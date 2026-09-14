@@ -1,4 +1,20 @@
 .passdistill.env
+.env
+.env.*
+api.txt
+env.sh
+
+# Local experiment outputs and generated binaries.
+artifacts/
+baseline/
+build/
+work/
+
+# Python caches and local tooling state.
 __pycache__/
 *.py[cod]
-
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/

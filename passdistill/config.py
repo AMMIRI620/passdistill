@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
@@ -32,6 +33,7 @@ class Toolchain:
 class ExperimentConfig:
     repo_root: Path = Path.cwd()
     polybench_root: Path = Path("third_party/polybench-c-4.2.1-beta")
+    kernel_metadata: Path = Path("configs/polybench_kernels.json")
     artifacts_root: Path = Path("artifacts/runs")
     dataset: str = "LARGE_DATASET"
     opt_level: str = "-O3"
@@ -46,6 +48,7 @@ class ExperimentConfig:
     max_teachers: int = 6
     max_recovery_rounds: int = 3
     max_pass_candidates: int = 36
+    uniform_fixed_recovery_budget: bool = False
     promotion_min_relative_gain: float = 0.01
     llm_backend: str = "mock"
     model: str | None = None
@@ -53,11 +56,14 @@ class ExperimentConfig:
     baseline_only: bool = False
     resume: bool = False
     run_id: str | None = None
+    flat_kernel_artifacts: bool = False
+    command_timeout_sec: int = 300
     toolchain: Toolchain = field(default_factory=Toolchain)
 
     def __post_init__(self) -> None:
         self.repo_root = self.repo_root.resolve()
         self.polybench_root = (self.repo_root / self.polybench_root).resolve()
+        self.kernel_metadata = (self.repo_root / self.kernel_metadata).resolve()
         self.artifacts_root = (self.repo_root / self.artifacts_root).resolve()
 
     @property
@@ -80,3 +86,22 @@ class ExperimentConfig:
         data["artifacts_root"] = str(self.artifacts_root)
         data["toolchain"]["llvm_bin"] = str(self.toolchain.llvm_bin)
         return data
+
+    @classmethod
+    def load_json(cls, path: Path, *, repo_root: Path) -> dict[str, Any]:
+        """Load user-facing experiment defaults without constructing the config yet."""
+        data = json.loads(path.read_text())
+        if not isinstance(data, dict):
+            raise ValueError(f"experiment config must be a JSON object: {path}")
+        allowed = set(cls.__dataclass_fields__) - {"repo_root", "toolchain"}
+        unknown = sorted(set(data) - allowed - {"llvm_bin", "kernels"})
+        if unknown:
+            raise ValueError(f"unknown experiment config keys: {', '.join(unknown)}")
+        result = {key: value for key, value in data.items() if key in allowed}
+        for key in ("polybench_root", "kernel_metadata", "artifacts_root"):
+            if key in result:
+                result[key] = Path(result[key])
+        if "llvm_bin" in data:
+            result["llvm_bin"] = Path(data["llvm_bin"])
+        result["repo_root"] = repo_root
+        return result

@@ -16,6 +16,15 @@ def _include_flags(config: ExperimentConfig, kernel: Kernel) -> list[str]:
     return flags
 
 
+def _compile_flags(config: ExperimentConfig, kernel: Kernel, *, dump_arrays: bool = False) -> list[str]:
+    configured = kernel.metadata.get("compilation_flags") if kernel.metadata else None
+    if not configured:
+        return config.dump_cflags if dump_arrays else config.cflags
+    flags = [str(flag) for flag in configured if flag not in {"-DPOLYBENCH_TIME", "-DPOLYBENCH_DUMP_ARRAYS"}]
+    flags.append("-DPOLYBENCH_DUMP_ARRAYS" if dump_arrays else "-DPOLYBENCH_TIME")
+    return flags
+
+
 def compile_c(
     config: ExperimentConfig,
     kernel: Kernel,
@@ -26,7 +35,7 @@ def compile_c(
     remarks: Path | None = None,
 ) -> CommandResult:
     ensure_dir(output.parent)
-    flags = config.dump_cflags if dump_arrays else config.cflags
+    flags = _compile_flags(config, kernel, dump_arrays=dump_arrays)
     argv = [
         str(config.toolchain.clang),
         *flags,
@@ -40,7 +49,7 @@ def compile_c(
     if remarks is not None:
         ensure_dir(remarks.parent)
         argv.extend(["-fsave-optimization-record", f"-foptimization-record-file={remarks}"])
-    return run_command(argv, config.repo_root)
+    return run_command(argv, config.repo_root, timeout=config.command_timeout_sec)
 
 
 def emit_frontend_ir(
@@ -52,7 +61,7 @@ def emit_frontend_ir(
     dump_arrays: bool = False,
 ) -> CommandResult:
     ensure_dir(output.parent)
-    flags = config.dump_cflags if dump_arrays else config.cflags
+    flags = _compile_flags(config, kernel, dump_arrays=dump_arrays)
     argv = [
         str(config.toolchain.clang),
         *flags,
@@ -65,7 +74,7 @@ def emit_frontend_ir(
         "-o",
         str(output),
     ]
-    return run_command(argv, config.repo_root)
+    return run_command(argv, config.repo_root, timeout=config.command_timeout_sec)
 
 
 def emit_optimized_ir(
@@ -77,7 +86,7 @@ def emit_optimized_ir(
     ensure_dir(output.parent)
     argv = [
         str(config.toolchain.clang),
-        *config.cflags,
+        *_compile_flags(config, kernel),
         *_include_flags(config, kernel),
         "-S",
         "-emit-llvm",
@@ -85,7 +94,7 @@ def emit_optimized_ir(
         "-o",
         str(output),
     ]
-    return run_command(argv, config.repo_root)
+    return run_command(argv, config.repo_root, timeout=config.command_timeout_sec)
 
 
 def expanded_o3_pipeline(config: ExperimentConfig) -> CommandResult:
@@ -125,7 +134,7 @@ def opt_pipeline(
         argv.extend(["-pass-remarks=.*", "-pass-remarks-missed=.*", "-pass-remarks-analysis=.*"])
     if extra_options:
         argv[1:1] = extra_options
-    result = run_command(argv, config.repo_root)
+    result = run_command(argv, config.repo_root, timeout=config.command_timeout_sec)
     if remarks is not None:
         remarks.write_text(result.stderr)
     return result
@@ -141,7 +150,7 @@ def preflight_pipeline(
     argv = [str(config.toolchain.opt), f"-passes={pipeline}", str(input_ir), "-disable-output"]
     if extra_options:
         argv[1:1] = extra_options
-    return run_command(argv, config.repo_root)
+    return run_command(argv, config.repo_root, timeout=config.command_timeout_sec)
 
 
 def compile_ir_to_object(
@@ -159,7 +168,7 @@ def compile_ir_to_object(
         "-o",
         str(output),
     ]
-    return run_command(argv, config.repo_root)
+    return run_command(argv, config.repo_root, timeout=config.command_timeout_sec)
 
 
 def compile_polybench_object(
@@ -170,14 +179,14 @@ def compile_polybench_object(
     ensure_dir(output.parent)
     argv = [
         str(config.toolchain.clang),
-        *config.cflags,
+        *_compile_flags(config, kernel),
         *_include_flags(config, kernel),
         "-c",
         str(config.polybench_root / "utilities" / "polybench.c"),
         "-o",
         str(output),
     ]
-    return run_command(argv, config.repo_root)
+    return run_command(argv, config.repo_root, timeout=config.command_timeout_sec)
 
 
 def link_objects(
@@ -195,7 +204,7 @@ def link_objects(
         "-o",
         str(output),
     ]
-    return run_command(argv, config.repo_root)
+    return run_command(argv, config.repo_root, timeout=config.command_timeout_sec)
 
 
 def pinned_prefix(config: ExperimentConfig) -> list[str]:

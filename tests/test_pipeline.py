@@ -119,6 +119,25 @@ def test_catalog_validation_rejects_illegal_scope_required_manager_unknowns():
     assert "unknown opt option" in " ".join(unknown_option.invalid_errors)
 
 
+def test_malformed_fragment_is_reported_as_invalid_candidate():
+    malformed = {
+        "edits": [
+            {
+                "type": "replace_region",
+                "target": {
+                    "parent_manager": "function",
+                    "start_anchor": "loop-distribute#1",
+                    "end_anchor": "loop-vectorize#1",
+                },
+                "replacement": [{"kind": "indvars", "name": "indvars"}],
+            }
+        ]
+    }
+    result = PipelineEditor(BASE, catalog=catalog_dict()).apply_candidate(malformed)
+    assert not result.valid
+    assert "unknown fragment node kind: indvars" in " ".join(result.invalid_errors)
+
+
 def test_unknown_parent_pass_can_be_inherited_but_unknown_new_pass_is_invalid():
     catalog = catalog_dict()
     catalog["passes"].pop("callsite-splitting", None)

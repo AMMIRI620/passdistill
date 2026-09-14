@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
+import time
 
 from .agents.base import make_backend
 from .baseline import build_baseline
@@ -16,12 +17,14 @@ def make_run_dir(config: ExperimentConfig) -> Path:
     return ensure_dir(config.artifacts_root / run_id)
 
 
-def selected_kernels(config: ExperimentConfig, kernel: str | None, all_kernels: bool):
+def selected_kernels(config: ExperimentConfig, kernel: str | None, all_kernels: bool, kernels: list[str] | None = None):
     if all_kernels:
-        return discover_kernels(config.polybench_root)
+        return discover_kernels(config.polybench_root, config.kernel_metadata)
+    if kernels:
+        return [find_kernel(config.polybench_root, name, config.kernel_metadata) for name in kernels]
     if not kernel:
         raise ValueError("choose --kernel NAME or --all")
-    return [find_kernel(config.polybench_root, kernel)]
+    return [find_kernel(config.polybench_root, kernel, config.kernel_metadata)]
 
 
 def _get(obj, *keys):
@@ -37,13 +40,46 @@ def _runtime(summary: dict, key: str) -> float | None:
         return None
 
 
-def run(config: ExperimentConfig, *, kernel: str | None, all_kernels: bool) -> Path:
+def _best_timing_metrics(
+    search_summary: dict,
+) -> dict:
+    best_recovery = search_summary.get("best_recovery") or {}
+    best_id = best_recovery.get("current_measured_best_id")
+    best_entry = next(
+        (item for item in best_recovery.get("history", []) if item.get("candidate_id") == best_id),
+        None,
+    )
+    return {
+        "best_recovery_round": (
+            0 if best_id == "SEARCH_BASELINE"
+            else best_entry.get("round") if best_entry
+            else best_recovery.get("best_candidate_round")
+        ),
+    }
+
+
+def run(
+    config: ExperimentConfig,
+    *,
+    kernel: str | None,
+    all_kernels: bool,
+    kernels: list[str] | None = None,
+) -> Path:
     run_dir = make_run_dir(config)
     write_json(run_dir / "config.json", config.as_json())
     backend = None
-    final: dict = {"kernels": {}}
-    for item in selected_kernels(config, kernel, all_kernels):
-        kernel_dir = ensure_dir(run_dir / "kernels" / item.name)
+    summary_path = run_dir / "summary.json"
+    final: dict = read_json(summary_path) if config.resume and summary_path.exists() else {"kernels": {}}
+    final["active_experiment_model"] = config.model
+    for item in selected_kernels(config, kernel, all_kernels, kernels):
+        kernel_started = time.perf_counter()
+        kernel_dir = ensure_dir(run_dir / item.name if config.flat_kernel_artifacts else run_dir / "kernels" / item.name)
+        timing_path = kernel_dir / "experiment_timing.json"
+        if config.resume and timing_path.exists():
+            experiment_timing = read_json(timing_path)
+        else:
+            experiment_timing = {"kernel_started_at_utc": datetime.now(timezone.utc).isoformat()}
+            write_json(timing_path, experiment_timing)
         baseline_file = kernel_dir / "baseline" / "baseline_summary.json"
         if config.resume and baseline_file.exists():
             baseline_summary = read_json(baseline_file)
@@ -95,7 +131,38 @@ def run(config: ExperimentConfig, *, kernel: str | None, all_kernels: bool) -> P
             else None
         )
         recovery_ratio = pass_gain / teacher_gain if teacher_gain and teacher_gain > 0 and pass_gain is not None else None
-        final["kernels"][item.name] = {
+        failure_counts = {name: 0 for name in (
+            "pipeline_invalid",
+            "llvm_preflight_failed",
+            "compile_failed",
+            "runtime_failed",
+            "incorrect",
+            "timeout",
+        )}
+        failure_counts.update(search_summary.get("failure_counts", {}) if isinstance(search_summary, dict) else {})
+        timing_metrics = _best_timing_metrics(search_summary if isinstance(search_summary, dict) else {})
+        try:
+            kernel_total_time_seconds = max(
+                0.0,
+                (
+                    datetime.now(timezone.utc)
+                    - datetime.fromisoformat(experiment_timing["kernel_started_at_utc"])
+                ).total_seconds(),
+            )
+        except (KeyError, TypeError, ValueError):
+            kernel_total_time_seconds = time.perf_counter() - kernel_started
+        valid_teacher_count = search_summary.get("valid_teacher_count", 0) if isinstance(search_summary, dict) else 0
+        pass_candidates_tried = search_summary.get("pass_candidates_tried", 0) if isinstance(search_summary, dict) else 0
+        if not (config.baseline_only or config.dry_run) and valid_teacher_count == 0:
+            recovery_status = "no_valid_teacher"
+        elif pass_candidates_tried >= config.max_pass_candidates:
+            recovery_status = "complete"
+        else:
+            recovery_status = "incomplete"
+        kernel_summary = {
+            "kernel": item.name,
+            "agent_model": config.model,
+            "baseline_runtime": clang_baseline_runtime,
             "clang_baseline_runtime": clang_baseline_runtime,
             "search_baseline_runtime": search_baseline_runtime,
             "best_teacher_runtime": best_teacher_runtime,
@@ -106,11 +173,28 @@ def run(config: ExperimentConfig, *, kernel: str | None, all_kernels: bool) -> P
             "teacher_gain": teacher_gain,
             "pass_gain": pass_gain,
             "recovery_ratio": recovery_ratio,
+            "teacher_speedup": teacher_speedup_vs_clang,
+            "pass_speedup": pass_speedup_vs_search,
+            "transfer_ratio": recovery_ratio,
+            "teacher_count": search_summary.get("teacher_candidates_tried", 0) if isinstance(search_summary, dict) else 0,
             "teacher_candidates_tried": search_summary.get("teacher_candidates_tried", 0) if isinstance(search_summary, dict) else 0,
-            "pass_candidates_tried": search_summary.get("pass_candidates_tried", 0) if isinstance(search_summary, dict) else 0,
+            "valid_teacher_count": valid_teacher_count,
+            "recovery_status": recovery_status,
+            "total_recovery_budget": config.max_pass_candidates,
+            "pass_candidates_tried": pass_candidates_tried,
+            "evaluated_candidates": search_summary.get("evaluated_candidates", 0) if isinstance(search_summary, dict) else 0,
+            "measured_candidates": search_summary.get("measured_candidates", 0) if isinstance(search_summary, dict) else 0,
             "best_teacher_direction": best_teacher.get("direction_id") if best_teacher else None,
+            "best_pass_candidate": best_recovery.get("current_measured_best_id") if best_recovery else None,
+            "best_recovery_round": timing_metrics["best_recovery_round"],
+            "kernel_total_time_seconds": kernel_total_time_seconds,
             "best_pass_pipeline": best_recovery.get("best_pipeline") if best_recovery else None,
+            "failure_counts": failure_counts,
+            "recovery_depth": search_summary.get("recovery_depth", []) if isinstance(search_summary, dict) else [],
             "final_correctness": True,
         }
-    write_json(run_dir / "summary.json", final)
+        final["kernels"][item.name] = kernel_summary
+        write_json(kernel_dir / "summary.json", kernel_summary)
+        write_json(summary_path, final)
+    write_json(summary_path, final)
     return run_dir

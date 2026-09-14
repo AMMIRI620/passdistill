@@ -36,6 +36,12 @@ def normalize_error(error: str, limit: int = 600) -> str:
     return text[:limit]
 
 
+def _timed_out(eval_result: Any) -> bool:
+    if not eval_result:
+        return False
+    return any(getattr(item.get("result"), "timed_out", False) for item in eval_result.command_log)
+
+
 def requested_candidate_count(remaining_kernel_budget: int, remaining_episode_budget: int, per_round_limit: int = 3) -> int:
     return max(0, min(per_round_limit, remaining_kernel_budget, remaining_episode_budget))
 
@@ -105,18 +111,67 @@ def run_recovery_episode(
     ensure_dir(out_dir)
     history: list[dict[str, Any]] = read_json(out_dir / "history.json") if (out_dir / "history.json").exists() else []
     previous_summary = read_json(out_dir / "summary.json") if (out_dir / "summary.json").exists() else {}
-    previous_candidates = int(previous_summary.get("candidates_tried", 0))
-    candidates_tried = previous_candidates
-    stats = {
-        "proposed_candidates": int(previous_summary.get("proposed_candidates", 0)),
-        "valid_pipeline_candidates": int(previous_summary.get("valid_pipeline_candidates", 0)),
-        "compiled_candidates": int(previous_summary.get("compiled_candidates", 0)),
-        "correctness_pass_candidates": int(previous_summary.get("correctness_pass_candidates", 0)),
-        "measured_candidates": int(previous_summary.get("measured_candidates", 0)),
-    }
+    planner_failures = list(previous_summary.get("planner_failures", []))
 
     catalog = build_pass_catalog(config, out_dir / "catalog", baseline_pipeline)
     direction_id = str(direction.get("direction_id") or out_dir.name)
+    known_ids = {item.get("candidate_id") for item in history}
+    candidates_root = out_dir / "candidates"
+    for candidate_dir in sorted(candidates_root.glob("*")) if candidates_root.exists() else []:
+        candidate_id = candidate_dir.name
+        if candidate_id in known_ids or (candidate_dir / "candidate_summary.json").exists():
+            continue
+        fragment_path = candidate_dir / "planner_fragment.json"
+        parent_pipeline_path = candidate_dir / "parent_pipeline.txt"
+        if not (fragment_path.exists() and parent_pipeline_path.exists()):
+            continue
+        candidate = read_json(fragment_path)
+        parent_id = (candidate_dir / "parent_id.txt").read_text().strip() if (candidate_dir / "parent_id.txt").exists() else "SEARCH_BASELINE"
+        edit_result = PipelineEditor(parent_pipeline_path.read_text().strip(), catalog=catalog.for_prompt(limit_passes=200, limit_options=80)).apply_candidate(candidate)
+        match = re.search(r"_R(\d+)_", candidate_id)
+        failure_class = "pipeline_invalid" if not edit_result.valid else "runtime_failed"
+        error = "; ".join(edit_result.invalid_errors) if edit_result.invalid_errors else "candidate evaluation interrupted before completion"
+        feedback = {
+            "candidate_id": candidate_id,
+            "local_candidate_id": candidate_id.rsplit("_", 1)[-1],
+            "round": int(match.group(1)) if match else 0,
+            "parent_id": parent_id,
+            "status": "invalid_candidate" if failure_class == "pipeline_invalid" else "unknown_failed",
+            "failure_class": failure_class,
+            "hypothesis": candidate.get("hypothesis", ""),
+            "edits": candidate.get("edits", []),
+            "opt_options": edit_result.opt_options,
+            "pipeline_warnings": edit_result.warnings,
+            "compile_ok": False,
+            "correctness_ok": False,
+            "runtime": None,
+            "speedup_vs_search_baseline": None,
+            "speedup_vs_parent": None,
+            "speedup_vs_current_best": None,
+            "normalized_error": normalize_error(error),
+            "important_remarks": [],
+            "error": error,
+            "pipeline_fragment": _candidate_fragment(candidate),
+            "pipeline": edit_result.pipeline,
+        }
+        write_json(candidate_dir / "candidate_summary.json", feedback)
+        history.append(feedback)
+        known_ids.add(candidate_id)
+    write_json(out_dir / "history.json", history)
+
+    previous_candidates = len(history)
+    candidates_tried = previous_candidates
+    stats = {
+        "proposed_candidates": len(history),
+        "valid_pipeline_candidates": sum(item.get("failure_class") != "pipeline_invalid" for item in history),
+        "compiled_candidates": sum(bool(item.get("compile_ok")) for item in history),
+        "correctness_pass_candidates": sum(bool(item.get("correctness_ok")) for item in history),
+        "measured_candidates": sum(item.get("status") == "measured" for item in history),
+    }
+    failure_counts: dict[str, int] = {}
+    for item in history:
+        if item.get("failure_class"):
+            failure_counts[item["failure_class"]] = failure_counts.get(item["failure_class"], 0) + 1
     parents: dict[str, dict[str, Any]] = {
         "SEARCH_BASELINE": {
             "pipeline": baseline_pipeline,
@@ -132,20 +187,33 @@ def run_recovery_episode(
                 "speedup_vs_search_baseline": item.get("speedup_vs_search_baseline"),
             }
 
-    best_id = previous_summary.get("current_measured_best_id", "SEARCH_BASELINE")
-    promoted_id = previous_summary.get("current_promoted_parent_id", best_id)
-    best_runtime = float(previous_summary.get("best_runtime", baseline_runtime))
-    best_pipeline = previous_summary.get("best_pipeline", baseline_pipeline)
+    best_id = "SEARCH_BASELINE"
+    promoted_id = "SEARCH_BASELINE"
+    best_runtime = baseline_runtime
+    best_pipeline = baseline_pipeline
     promotion_min_relative_gain = float(getattr(config, "promotion_min_relative_gain", 0.01))
-    if best_id not in parents:
-        best_id = "SEARCH_BASELINE"
-    if promoted_id not in parents:
-        promoted_id = best_id
+    for item in history:
+        candidate_id = item.get("candidate_id")
+        runtime = item.get("runtime")
+        if item.get("status") != "measured" or candidate_id not in parents or runtime is None:
+            continue
+        if runtime < best_runtime:
+            best_runtime = runtime
+            best_pipeline = parents[candidate_id]["pipeline"]
+            best_id = candidate_id
+        promoted_runtime = parents[promoted_id]["runtime"]
+        gain_vs_promoted = (promoted_runtime - runtime) / promoted_runtime if promoted_runtime else 0.0
+        if gain_vs_promoted >= promotion_min_relative_gain:
+            promoted_id = candidate_id
 
     round_limit = config.max_recovery_rounds if max_rounds is None else start_round + max_rounds - 1
     for round_index in range(start_round, min(config.max_recovery_rounds, round_limit) + 1):
         local_used = candidates_tried - previous_candidates
-        requested = requested_candidate_count(remaining_budget - local_used, remaining_budget - local_used)
+        requested = requested_candidate_count(
+            remaining_budget - local_used,
+            remaining_budget - local_used,
+            per_round_limit=remaining_budget,
+        )
         if requested <= 0:
             break
         current_parent = parents[promoted_id]
@@ -163,21 +231,33 @@ def run_recovery_episode(
             baseline_pipeline=baseline_pipeline,
             current_pipeline=current_parent["pipeline"],
         )
-        planned = plan_recovery_candidates(
-            backend,
-            direction=direction,
-            baseline_context=baseline_context,
-            current_promoted_parent=current_promoted_parent,
-            current_measured_best=current_measured_best,
-            allowed_parents=allowed,
-            previous_history=history,
-            relevant_catalog=rel_catalog,
-            remaining_budget=remaining_budget - local_used,
-            round_index=round_index,
-            max_candidates=requested,
-            out_dir=out_dir / f"planner_round_{round_index}",
-            repo_root=config.repo_root,
-        )
+        planner_dir = out_dir / f"planner_round_{round_index}"
+        if any(int(item.get("round", 0)) == round_index for item in history) or (planner_dir / "response.json").exists():
+            resume_index = 1
+            while (out_dir / f"planner_round_{round_index}_resume_{resume_index}").exists():
+                resume_index += 1
+            planner_dir = out_dir / f"planner_round_{round_index}_resume_{resume_index}"
+        try:
+            planned = plan_recovery_candidates(
+                backend,
+                direction=direction,
+                baseline_context=baseline_context,
+                current_promoted_parent=current_promoted_parent,
+                current_measured_best=current_measured_best,
+                allowed_parents=allowed,
+                previous_history=history,
+                relevant_catalog=rel_catalog,
+                remaining_budget=remaining_budget - local_used,
+                round_index=round_index,
+                max_candidates=requested,
+                out_dir=planner_dir,
+                repo_root=config.repo_root,
+            )
+        except Exception as exc:
+            failure = {"round": round_index, "requested_candidates": requested, "error": normalize_error(str(exc))}
+            planner_failures.append(failure)
+            write_json(planner_dir / "planner_failure.json", failure)
+            planned = []
         if not planned:
             break
         for local_index, candidate in enumerate(planned, start=1):
@@ -186,6 +266,12 @@ def run_recovery_episode(
                 break
             local_candidate_id = sanitize_local_candidate_id(candidate.get("candidate_id"), local_index)
             candidate_id = global_candidate_id(direction_id, round_index, local_candidate_id)
+            if any(item.get("candidate_id") == candidate_id for item in history):
+                suffix = 1
+                while any(item.get("candidate_id") == global_candidate_id(direction_id, round_index, f"C{suffix}") for item in history):
+                    suffix += 1
+                local_candidate_id = f"C{suffix}"
+                candidate_id = global_candidate_id(direction_id, round_index, local_candidate_id)
             parent_id = _resolve_parent_id(candidate.get("parent_id"), promoted_id, parents)
             parent = parents[parent_id]
             candidate_dir = ensure_dir(out_dir / "candidates" / candidate_id)
@@ -202,6 +288,7 @@ def run_recovery_episode(
 
             eval_result = None
             status = "invalid_candidate"
+            failure_class = "pipeline_invalid"
             remarks_text = ""
             error = "; ".join(edit_result.invalid_errors)
             if edit_result.valid:
@@ -217,16 +304,24 @@ def run_recovery_episode(
                     baseline_runtime=baseline_runtime,
                     extra_options=edit_result.opt_options,
                 )
-                if not eval_result.compile_ok and eval_result.command_log and eval_result.command_log[0].get("phase") == "preflight":
+                if _timed_out(eval_result):
+                    status = "timeout"
+                    failure_class = "timeout"
+                elif not eval_result.compile_ok and eval_result.command_log and eval_result.command_log[0].get("phase") == "preflight":
                     status = "preflight_failed"
+                    failure_class = "llvm_preflight_failed"
                 elif not eval_result.compile_ok:
                     status = "compile_failed"
+                    failure_class = "compile_failed"
                 elif eval_result.correctness and not eval_result.correctness.ok:
                     status = "correctness_failed"
+                    failure_class = "incorrect"
                 elif eval_result.timing and eval_result.timing.median:
                     status = "measured"
+                    failure_class = None
                 else:
                     status = "unknown_failed"
+                    failure_class = "runtime_failed"
                 if eval_result.compile_ok:
                     stats["compiled_candidates"] += 1
                 if eval_result.correctness and eval_result.correctness.ok:
@@ -235,7 +330,7 @@ def run_recovery_episode(
                     stats["measured_candidates"] += 1
                 if eval_result.artifacts.remarks and eval_result.artifacts.remarks.exists():
                     remarks_text = eval_result.artifacts.remarks.read_text(errors="replace")
-                    target_function = f"kernel_{kernel.name.replace('-', '_')}"
+                    target_function = kernel.target_function or f"kernel_{kernel.name.replace('-', '_')}"
                     remark_events = select_relevant_remark_events(parse_optimization_remarks(remarks_text), target_function=target_function, limit=30)
                     write_json(candidate_dir / "structured_remarks.json", structured_remarks(remark_events))
                 error = eval_result.error
@@ -261,6 +356,7 @@ def run_recovery_episode(
                 "round": round_index,
                 "parent_id": parent_id,
                 "status": status,
+                "failure_class": failure_class,
                 "hypothesis": candidate.get("hypothesis", ""),
                 "edits": candidate.get("edits", []),
                 "opt_options": edit_result.opt_options,
@@ -272,12 +368,18 @@ def run_recovery_episode(
                 "speedup_vs_parent": speedup_vs_parent,
                 "speedup_vs_current_best": speedup_vs_current_best,
                 "normalized_error": normalize_error(error),
-                "important_remarks": summarize_remarks_text(remarks_text, target_function=f"kernel_{kernel.name.replace('-', '_')}", limit=30),
+                "important_remarks": summarize_remarks_text(
+                    remarks_text,
+                    target_function=kernel.target_function or f"kernel_{kernel.name.replace('-', '_')}",
+                    limit=30,
+                ),
                 "error": error,
                 "pipeline_fragment": _candidate_fragment(candidate),
                 "pipeline": edit_result.pipeline,
             }
             write_json(candidate_dir / "candidate_summary.json", feedback)
+            if failure_class:
+                failure_counts[failure_class] = failure_counts.get(failure_class, 0) + 1
             history.append(feedback)
             write_json(out_dir / "history.json", history)
 
@@ -298,6 +400,7 @@ def run_recovery_episode(
                         promoted_id = candidate_id
 
     new_candidates = candidates_tried - previous_candidates
+    best_history_entry = next((item for item in history if item.get("candidate_id") == best_id), None)
     summary = {
         "direction_id": direction.get("direction_id"),
         "search_baseline_runtime": baseline_runtime,
@@ -306,7 +409,10 @@ def run_recovery_episode(
         **stats,
         "current_promoted_parent_id": promoted_id,
         "current_measured_best_id": best_id,
+        "best_candidate_round": best_history_entry.get("round") if best_history_entry else 0,
         "promotion_min_relative_gain": promotion_min_relative_gain,
+        "failure_counts": failure_counts,
+        "planner_failures": planner_failures,
         "best_runtime": best_runtime,
         "best_speedup": baseline_runtime / best_runtime if best_runtime else None,
         "best_speedup_vs_search": baseline_runtime / best_runtime if best_runtime else None,

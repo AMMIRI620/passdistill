@@ -42,8 +42,10 @@ class ExperimentConfig:
     numa_node: int = 0
     warmups: int = 1
     runs: int = 3
-    rtol: float = 1e-4
-    atol: float = 1e-6
+    rtol: float = 0.0
+    atol: float = 0.0
+    correctness_mode: str = "stderr_md5"
+    correctness_reference: str = "search_baseline"
     max_teacher_rounds: int = 3
     max_teachers: int = 6
     max_recovery_rounds: int = 3
@@ -61,6 +63,10 @@ class ExperimentConfig:
     toolchain: Toolchain = field(default_factory=Toolchain)
 
     def __post_init__(self) -> None:
+        if self.correctness_mode != "stderr_md5" or self.correctness_reference != "search_baseline":
+            raise ValueError("correctness requires stderr_md5 against search_baseline")
+        if self.rtol != 0 or self.atol != 0:
+            raise ValueError("stderr_md5 correctness does not allow tolerances; use rtol=0 and atol=0")
         self.repo_root = self.repo_root.resolve()
         self.polybench_root = (self.repo_root / self.polybench_root).resolve()
         self.kernel_metadata = (self.repo_root / self.kernel_metadata).resolve()

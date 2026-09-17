@@ -1,0 +1,19 @@
+{
+  "run_id": "2mm-dmxapi-50-fast-math-on",
+  "kernels": ["2mm"],
+  "dataset": "LARGE_DATASET",
+  "opt_level": "-O3",
+  "fast_math": true,
+  "max_teacher_rounds": 3,
+  "max_teachers": 6,
+  "max_recovery_rounds": 5,
+  "max_pass_candidates": 50,
+  "uniform_fixed_recovery_budget": true,
+  "warmups": 1,
+  "runs": 3,
+  "promotion_min_relative_gain": 0.01,
+  "llm_backend": "openai",
+  "model": "gpt-5.6-sol",
+  "flat_kernel_artifacts": true,
+  "command_timeout_sec": 300
+}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+import hashlib
 import re
 from pathlib import Path
 
@@ -25,6 +26,7 @@ def compare_text(
     atol: float,
     max_reported: int = 5,
 ) -> CorrectnessResult:
+    """Legacy numeric comparison for offline analysis; evaluators use stderr MD5."""
     left = _tokenize(expected)
     right = _tokenize(actual)
     if len(left) != len(right):
@@ -58,3 +60,24 @@ def compare_text(
 def compare_files(expected: Path, actual: Path, *, rtol: float, atol: float) -> CorrectnessResult:
     return compare_text(expected.read_text(errors="replace"), actual.read_text(errors="replace"), rtol=rtol, atol=atol)
 
+
+def stderr_md5(path: Path) -> str:
+    digest = hashlib.md5()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def compare_stderr_md5(expected: Path, actual: Path) -> CorrectnessResult:
+    """Compare complete saved stderr, without tokenization or whitespace changes."""
+    expected_md5 = stderr_md5(expected)
+    actual_md5 = stderr_md5(actual)
+    ok = expected_md5 == actual_md5
+    return CorrectnessResult(
+        ok=ok,
+        message="stderr MD5 matches O3 pipeline reference" if ok else "stderr MD5 differs from O3 pipeline reference",
+        mismatches=0 if ok else 1,
+        expected_md5=expected_md5,
+        actual_md5=actual_md5,
+    )

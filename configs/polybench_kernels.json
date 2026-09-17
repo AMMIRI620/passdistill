@@ -3,158 +3,158 @@
   "evaluator_placeholders": {
     "build_command": "{clang} {compilation_flags} -I{utilities_dir} -I{kernel_dir} {source_file} {polybench_c} -lm -o {binary}",
     "run_command": "{binary}",
-    "correctness_command": "{dump_binary} 2> {candidate_dump}; compare {baseline_dump} {candidate_dump} --rtol=1e-4 --atol=1e-6"
+    "correctness_command": "{dump_binary} 2> {candidate_dump}; compare-md5 {search_baseline_dump} {candidate_dump}"
   },
   "kernels": [
     {
       "kernel_name": "2mm", "source_file": "linear-algebra/kernels/2mm/2mm.c", "target_function": "kernel_2mm",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "3mm", "source_file": "linear-algebra/kernels/3mm/3mm.c", "target_function": "kernel_3mm",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "gemm", "source_file": "linear-algebra/blas/gemm/gemm.c", "target_function": "kernel_gemm",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "gemver", "source_file": "linear-algebra/blas/gemver/gemver.c", "target_function": "kernel_gemver",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "gesummv", "source_file": "linear-algebra/blas/gesummv/gesummv.c", "target_function": "kernel_gesummv",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "mvt", "source_file": "linear-algebra/kernels/mvt/mvt.c", "target_function": "kernel_mvt",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "atax", "source_file": "linear-algebra/kernels/atax/atax.c", "target_function": "kernel_atax",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "bicg", "source_file": "linear-algebra/kernels/bicg/bicg.c", "target_function": "kernel_bicg",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "symm", "source_file": "linear-algebra/blas/symm/symm.c", "target_function": "kernel_symm",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "syr2k", "source_file": "linear-algebra/blas/syr2k/syr2k.c", "target_function": "kernel_syr2k",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "syrk", "source_file": "linear-algebra/blas/syrk/syrk.c", "target_function": "kernel_syrk",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "trmm", "source_file": "linear-algebra/blas/trmm/trmm.c", "target_function": "kernel_trmm",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "correlation", "source_file": "datamining/correlation/correlation.c", "target_function": "kernel_correlation",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "covariance", "source_file": "datamining/covariance/covariance.c", "target_function": "kernel_covariance",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "jacobi-1d", "source_file": "stencils/jacobi-1d/jacobi-1d.c", "target_function": "kernel_jacobi_1d",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "jacobi-2d", "source_file": "stencils/jacobi-2d/jacobi-2d.c", "target_function": "kernel_jacobi_2d",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "seidel-2d", "source_file": "stencils/seidel-2d/seidel-2d.c", "target_function": "kernel_seidel_2d",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "adi", "source_file": "stencils/adi/adi.c", "target_function": "kernel_adi",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "fdtd-2d", "source_file": "stencils/fdtd-2d/fdtd-2d.c", "target_function": "kernel_fdtd_2d",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "doitgen", "source_file": "linear-algebra/kernels/doitgen/doitgen.c", "target_function": "kernel_doitgen",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "cholesky", "source_file": "linear-algebra/solvers/cholesky/cholesky.c", "target_function": "kernel_cholesky",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "lu", "source_file": "linear-algebra/solvers/lu/lu.c", "target_function": "kernel_lu",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "nussinov", "source_file": "medley/nussinov/nussinov.c", "target_function": "kernel_nussinov",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "heat-3d", "source_file": "stencils/heat-3d/heat-3d.c", "target_function": "kernel_heat_3d",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "gramschmidt", "source_file": "linear-algebra/solvers/gramschmidt/gramschmidt.c", "target_function": "kernel_gramschmidt",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "durbin", "source_file": "linear-algebra/solvers/durbin/durbin.c", "target_function": "kernel_durbin",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "ludcmp", "source_file": "linear-algebra/solvers/ludcmp/ludcmp.c", "target_function": "kernel_ludcmp",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "trisolv", "source_file": "linear-algebra/solvers/trisolv/trisolv.c", "target_function": "kernel_trisolv",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "deriche", "source_file": "medley/deriche/deriche.c", "target_function": "kernel_deriche",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     },
     {
       "kernel_name": "floyd-warshall", "source_file": "medley/floyd-warshall/floyd-warshall.c", "target_function": "kernel_floyd_warshall",
-      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_numeric_dump", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
-      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_dump_compare"
+      "dataset": "LARGE_DATASET", "correctness_checker": "polybench_stderr_md5", "compilation_flags": ["-O3", "-ffast-math", "-DLARGE_DATASET"],
+      "build_command": "polybench_clang", "run_command": "polybench_time", "correctness_command": "polybench_stderr_md5_compare"
     }
   ]
 }

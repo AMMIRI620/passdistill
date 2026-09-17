@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from .compiler import emit_frontend_ir, emit_optimized_ir, expanded_o3_pipeline
+from .correctness import stderr_md5
 from .config import ExperimentConfig
 from .evaluator import evaluate_pipeline_candidate, evaluate_source
 from .types import EvaluationResult, Kernel
@@ -49,10 +50,16 @@ def build_baseline(
         pipeline,
         out_dir / "search_baseline",
         "search_o3",
-        baseline_dump=source_eval.artifacts.dump_stderr,
+        # The O3 pipeline establishes the reference; it is not gated by Clang's output.
+        baseline_dump=None,
         baseline_runtime=source_eval.timing.median,
     )
+    if search_eval.timing is None or search_eval.timing.median is None or not search_eval.artifacts.dump_stderr:
+        raise RuntimeError(f"O3 pipeline reference failed for {kernel.name}: {search_eval.error}")
     summary = {
+        "correctness_mode": config.correctness_mode,
+        "correctness_reference": config.correctness_reference,
+        "correctness_reference_md5": stderr_md5(search_eval.artifacts.dump_stderr),
         "kernel": kernel.name,
         "baseline": source_eval,
         "frontend_ir": frontend_ir,
@@ -62,4 +69,3 @@ def build_baseline(
     }
     write_json(out_dir / "baseline_summary.json", summary)
     return summary
-

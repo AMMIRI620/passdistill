@@ -143,10 +143,13 @@ def test_mock_parent_refinement_smoke(tmp_path, monkeypatch):
     expanded.write_text(BASE)
     dump = tmp_path / "baseline.stderr"
     dump.write_text("0.0\n")
+    search_dump = tmp_path / "search_baseline.stderr"
+    search_dump.write_text("0.0\n")
     remarks = tmp_path / "o3.opt.yaml"
     remarks.write_text("--- !Passed\nPass: loop-vectorize\n")
 
     def fake_source_eval(config, kernel, candidate_source, out_dir, candidate_id, *, baseline_dump=None, baseline_runtime=None):
+        assert baseline_dump == search_dump
         out_dir.mkdir(parents=True, exist_ok=True)
         teacher_remarks = out_dir / "remarks" / "o3.opt.yaml"
         teacher_remarks.parent.mkdir(parents=True, exist_ok=True)
@@ -161,6 +164,7 @@ def test_mock_parent_refinement_smoke(tmp_path, monkeypatch):
         )
 
     def fake_pipeline_eval(config, kernel, frontend_ir, pipeline, out_dir, candidate_id, *, baseline_dump, baseline_runtime, extra_options=None):
+        assert baseline_dump == search_dump
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / "pipeline.txt").write_text(pipeline + "\n")
         remarks_path = out_dir / "remarks.txt"
@@ -199,7 +203,7 @@ def test_mock_parent_refinement_smoke(tmp_path, monkeypatch):
         kernel,
         baseline_summary={
             "baseline": {"timing": {"median": 1.0}, "artifacts": {"dump_stderr": str(dump), "remarks": str(remarks)}},
-            "search_baseline": {"timing": {"median": 1.0}},
+            "search_baseline": {"timing": {"median": 1.0}, "artifacts": {"dump_stderr": str(search_dump)}},
             "frontend_ir": str(frontend_ir),
             "expanded_pipeline": str(expanded),
         },

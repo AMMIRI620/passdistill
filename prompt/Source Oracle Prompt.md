@@ -9,7 +9,7 @@ The teacher source is NOT the final optimized artifact. Its purpose is to demons
 Given:
 
 * the original PolyBench kernel source,
-* LLVM `-O3 -ffast-math` optimization feedback,
+* LLVM `{{COMPILATION_MODE}}` optimization feedback,
 * baseline runtime,
 * previously attempted teacher directions,
 * and previous compiler recovery results,
@@ -43,9 +43,9 @@ Do NOT use:
 
 The experiment already uses:
 
-`-O3 -ffast-math`
+`{{COMPILATION_MODE}}`
 
-Therefore you may assume relaxed floating-point optimization semantics consistent with this compilation mode.
+{{FLOATING_POINT_POLICY}}
 
 You MAY use compiler-style source transformations such as:
 

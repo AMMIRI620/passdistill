@@ -8,6 +8,7 @@ class RecordingBackend:
         self.user = ""
 
     def complete_json(self, system, user, *, schema_hint, out_dir):
+        self.system = system
         self.user = user
         out_dir.mkdir(parents=True, exist_ok=True)
         return {"directions": []}
@@ -78,3 +79,29 @@ Args:
     assert "String:" not in backend.user
     assert "--- !Missed" not in backend.user
     assert (tmp_path / "structured_remarks.json").exists()
+    assert "`-O3 -ffast-math`" in backend.system
+    assert "{{" not in backend.system
+
+
+def test_source_oracle_prompt_reflects_disabled_fast_math(tmp_path):
+    backend = RecordingBackend()
+    propose_teachers(
+        backend,
+        kernel_name="2mm",
+        original_source="static void kernel_2mm(void) {}",
+        baseline_remarks="",
+        baseline_runtime=1.0,
+        history=[],
+        round_index=1,
+        max_candidates=1,
+        remaining_teacher_budget=1,
+        out_dir=tmp_path,
+        repo_root=Path.cwd(),
+        fast_math=False,
+    )
+    assert "Optimization level: -O3 (fast-math disabled)" in backend.user
+    assert "-ffast-math" not in backend.user
+    assert "-ffast-math" not in backend.system
+    assert "Fast-math is disabled" in backend.system
+    assert "Therefore you may assume relaxed" not in backend.system
+    assert "{{" not in backend.system

@@ -64,6 +64,8 @@ class CorrectnessResult:
     ok: bool
     message: str = ""
     mismatches: int = 0
+    expected_md5: str | None = None
+    actual_md5: str | None = None
 
 
 @dataclass

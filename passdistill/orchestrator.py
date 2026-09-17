@@ -66,6 +66,11 @@ def run(
     kernels: list[str] | None = None,
 ) -> Path:
     run_dir = make_run_dir(config)
+    config_path = run_dir / "config.json"
+    if config.resume and config_path.exists():
+        previous = read_json(config_path)
+        if any(previous.get(key) != getattr(config, key) for key in ("correctness_mode", "correctness_reference")):
+            raise ValueError("Cannot resume artifacts with a different or legacy correctness policy; choose a new run_id")
     write_json(run_dir / "config.json", config.as_json())
     backend = None
     summary_path = run_dir / "summary.json"
@@ -83,6 +88,8 @@ def run(
         baseline_file = kernel_dir / "baseline" / "baseline_summary.json"
         if config.resume and baseline_file.exists():
             baseline_summary = read_json(baseline_file)
+            if baseline_summary.get("correctness_mode") != config.correctness_mode or baseline_summary.get("correctness_reference") != config.correctness_reference:
+                raise ValueError("Legacy baseline correctness reference; choose a new run_id")
         else:
             baseline_summary = build_baseline(config, item, kernel_dir / "baseline")
         if config.baseline_only:
@@ -160,6 +167,9 @@ def run(
         else:
             recovery_status = "incomplete"
         kernel_summary = {
+            "correctness_mode": config.correctness_mode,
+            "correctness_reference": config.correctness_reference,
+            "correctness_reference_md5": baseline_summary.get("correctness_reference_md5"),
             "kernel": item.name,
             "agent_model": config.model,
             "baseline_runtime": clang_baseline_runtime,

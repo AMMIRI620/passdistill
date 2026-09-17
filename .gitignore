@@ -1,4 +1,5 @@
 .passdistill.env
+.passdistill_dmxapi.env
 .env
 .env.*
 api.txt

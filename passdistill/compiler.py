@@ -20,7 +20,13 @@ def _compile_flags(config: ExperimentConfig, kernel: Kernel, *, dump_arrays: boo
     configured = kernel.metadata.get("compilation_flags") if kernel.metadata else None
     if not configured:
         return config.dump_cflags if dump_arrays else config.cflags
-    flags = [str(flag) for flag in configured if flag not in {"-DPOLYBENCH_TIME", "-DPOLYBENCH_DUMP_ARRAYS"}]
+    flags = [
+        str(flag)
+        for flag in configured
+        if flag not in {"-DPOLYBENCH_TIME", "-DPOLYBENCH_DUMP_ARRAYS", "-ffast-math"}
+    ]
+    if config.fast_math:
+        flags.append("-ffast-math")
     flags.append("-DPOLYBENCH_DUMP_ARRAYS" if dump_arrays else "-DPOLYBENCH_TIME")
     return flags
 

@@ -75,7 +75,7 @@ def run_teacher_search(
     search_baseline_eval = baseline_summary["search_baseline"]
     clang_baseline_runtime = _get(baseline_eval, "timing", "median")
     search_baseline_runtime = _get(search_baseline_eval, "timing", "median")
-    baseline_dump = _path(_get(baseline_eval, "artifacts", "dump_stderr"))
+    baseline_dump = _path(_get(search_baseline_eval, "artifacts", "dump_stderr"))
     frontend_ir = _path(baseline_summary["frontend_ir"])
     pipeline = _path(baseline_summary["expanded_pipeline"]).read_text().strip()
     remarks_path = _get(baseline_eval, "artifacts", "remarks")
@@ -144,6 +144,9 @@ def run_teacher_search(
             remaining_teacher_budget=config.max_teachers - teacher_count,
             out_dir=resume_artifact_dir(out_dir / f"oracle_round_{round_index}"),
             repo_root=config.repo_root,
+            opt_level=config.opt_level,
+            fast_math=config.fast_math,
+            dataset=config.dataset,
         )
         if not proposals:
             break

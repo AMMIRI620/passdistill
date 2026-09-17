@@ -14,9 +14,9 @@ from .compiler import (
     preflight_pipeline,
 )
 from .config import ExperimentConfig
-from .correctness import compare_files
+from .correctness import compare_stderr_md5
 from .types import BuildArtifacts, EvaluationResult, Kernel, TimingResult
-from .util import ensure_dir, run_command, save_command_result
+from .util import ensure_dir, run_command, save_command_result, write_json
 
 
 def run_binary(
@@ -105,7 +105,8 @@ def evaluate_source(
         return result
 
     if baseline_dump is not None:
-        result.correctness = compare_files(baseline_dump, stderr, rtol=config.rtol, atol=config.atol)
+        result.correctness = compare_stderr_md5(baseline_dump, stderr)
+        write_json(out_dir / "correctness.json", result.correctness)
         if not result.correctness.ok:
             return result
 
@@ -125,7 +126,7 @@ def evaluate_pipeline_candidate(
     out_dir: Path,
     candidate_id: str,
     *,
-    baseline_dump: Path,
+    baseline_dump: Path | None,
     baseline_runtime: float,
     extra_options: list[str] | None = None,
 ) -> EvaluationResult:
@@ -225,9 +226,11 @@ def evaluate_pipeline_candidate(
     if not dump_run_result.ok:
         result.error = dump_run_result.stderr
         return result
-    result.correctness = compare_files(baseline_dump, dump_stderr, rtol=config.rtol, atol=config.atol)
-    if not result.correctness.ok:
-        return result
+    if baseline_dump is not None:
+        result.correctness = compare_stderr_md5(baseline_dump, dump_stderr)
+        write_json(out_dir / "correctness.json", result.correctness)
+        if not result.correctness.ok:
+            return result
 
     timing, run_logs = run_binary(config, binary, log_dir=out_dir / "runs")
     result.timing = timing

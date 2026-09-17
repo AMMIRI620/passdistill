@@ -44,8 +44,23 @@ def propose_teachers(
     remaining_teacher_budget: int,
     out_dir: Path,
     repo_root: Path = Path.cwd(),
+    opt_level: str = "-O3",
+    fast_math: bool = True,
+    dataset: str = "LARGE_DATASET",
 ) -> list[dict[str, Any]]:
     system = load_prompt(repo_root, "source_oracle")
+    compilation_mode = opt_level + (" -ffast-math" if fast_math else "")
+    floating_point_policy = (
+        "Therefore you may assume relaxed floating-point optimization semantics consistent with this compilation mode."
+        if fast_math else
+        "Fast-math is disabled. Do not assume relaxed floating-point semantics, "
+        "arbitrary reassociation of reductions, or that NaNs, infinities, and signed zeros can be ignored. "
+        "Preserve floating-point semantics under the stated compilation mode and satisfy the correctness check. "
+        "Do not enable fast-math through source pragmas or attributes."
+    )
+    system = system.replace("{{COMPILATION_MODE}}", compilation_mode).replace(
+        "{{FLOATING_POINT_POLICY}}", floating_point_policy
+    )
     target_function = target_function or f"kernel_{kernel_name.replace('-', '_')}"
     try:
         kernel_span = extract_function_span(original_source, target_function)
@@ -67,8 +82,8 @@ Requested new directions this round: {max_candidates}
 
 Experiment:
 - LLVM version: 22.1.3
-- Optimization level: -O3 -ffast-math
-- dataset: LARGE_DATASET
+- Optimization level: {opt_level}{' -ffast-math' if fast_math else ' (fast-math disabled)'}
+- dataset: {dataset}
 - Baseline runtime: {baseline_runtime} s (clang median)
 
 Previous teacher/recovery feedback:

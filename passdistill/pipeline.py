@@ -63,10 +63,15 @@ def normalize_opt_option(name: str, value: str | None, catalog: dict[str, Any] |
     if value is None or value == "":
         return cli_name
     lower = str(value).lower()
-    if lower in {"false", "0", "no"}:
-        return f"{cli_name}=false"
-    if lower in {"true", "1", "yes"}:
-        return f"{cli_name}=true"
+    # Numeric 0/1 are boolean aliases only for catalog-declared bool options.
+    # In particular, force-vector-interleave=1 must remain an integer.
+    if option and option.get("type") == "bool":
+        if lower in {"false", "0", "no"}:
+            return f"{cli_name}=false"
+        if lower in {"true", "1", "yes"}:
+            return f"{cli_name}=true"
+    if isinstance(value, bool):
+        return f"{cli_name}={lower}"
     return f"{cli_name}={value}"
 
 

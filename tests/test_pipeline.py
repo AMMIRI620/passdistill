@@ -222,6 +222,21 @@ def test_opt_option_normalization_and_validation():
     assert result.opt_options == ["-allow-unroll-and-jam=true"]
 
 
+def test_integer_options_are_not_boolean_aliases():
+    catalog = catalog_dict()
+    for name in ("force-vector-interleave", "force-vector-width"):
+        for value in ("0", "1", "2", "4", 0, 1):
+            assert normalize_opt_option(name, value, catalog) == f"-{name}={value}"
+            assert normalize_opt_option(name, value) == f"-{name}={value}"
+    for value, expected in (("1", "true"), ("0", "false"), ("yes", "true"), ("no", "false")):
+        assert normalize_opt_option("allow-unroll-and-jam", value, catalog) == f"-allow-unroll-and-jam={expected}"
+    result = PipelineEditor(BASE, catalog=catalog).apply_candidate(
+        {"opt_options": [{"name": "force-vector-interleave", "value": "1"}]}
+    )
+    assert result.valid
+    assert result.opt_options == ["-force-vector-interleave=1"]
+
+
 def test_catalog_accuracy_for_v4_relevant_passes():
     catalog = load_static_catalog(Path.cwd()).passes
     assert catalog["loop-unroll"]["scope"] == "function"

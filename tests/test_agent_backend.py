@@ -43,7 +43,7 @@ class OpenAICompatBackendTests(unittest.TestCase):
 
             self.assertEqual(result, {"ok": True})
             self.assertEqual(requests[0], requests[1])
-            self.assertEqual(timeouts, [300, 300])
+            self.assertEqual(timeouts, [900, 900])
             self.assertTrue((out_dir / "raw_response.txt").exists())
             self.assertFalse((out_dir / "repair_prompt_1.txt").exists())
 

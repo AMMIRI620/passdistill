@@ -214,7 +214,7 @@ class OpenAICompatBackend:
     base_url: str | None = None
     api_key: str | None = None
     retries: int = 5
-    request_timeout_sec: int = 300
+    request_timeout_sec: int = 900
 
     def complete_json(self, system: str, user: str, *, schema_hint: str, out_dir: Path) -> Any:
         api_key = self.api_key or _env_value("PASSDISTILL_OPENAI_API_KEY", "OPENAI_API_KEY")

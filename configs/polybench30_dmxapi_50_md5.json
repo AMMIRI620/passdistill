@@ -1,5 +1,5 @@
 {
-  "run_id": "polybench30-dmxapi-50-no-fast-math-md5",
+  "run_id": "polybench30-dmxapi-50-no-fast-math-md5-deepseek-v4-pro-guan",
   "kernels": [
     "2mm",
     "3mm",
@@ -44,7 +44,7 @@
   "runs": 3,
   "promotion_min_relative_gain": 0.01,
   "llm_backend": "openai",
-  "model": "gpt-5.6-sol",
+  "model": "deepseek-v4-pro-guan",
   "flat_kernel_artifacts": true,
   "command_timeout_sec": 300,
   "rtol": 0,

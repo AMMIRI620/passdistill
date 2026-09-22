@@ -1,0 +1,6868 @@
+{
+  "schema": "cbench.builds.v1",
+  "programs": [
+    {
+      "program": "automotive_bitcount",
+      "command": "1125000 > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 80,
+      "inputs": [],
+      "outputs": [
+        "ftmp_out"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/automotive_bitcount/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "bitarray.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "bitcnt_1.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "bitcnt_2.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "bitcnt_3.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_004",
+          "source": "bitcnt_4.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_005",
+          "source": "bitcnts.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_006",
+          "source": "bitfiles.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_007",
+          "source": "bitstrng.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_008",
+          "source": "bstr_i.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_009",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "automotive_qsort1",
+      "command": "../../automotive_qsort_data/1.dat output.dat > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 226,
+      "inputs": [
+        "../../automotive_qsort_data/1.dat"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "sorted_output.dat"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/automotive_qsort1/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "qsort.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "qsort_large.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "automotive_susan_c",
+      "command": "../../automotive_susan_data/1.pgm output_large.corners.pgm -c > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 782,
+      "inputs": [
+        "../../automotive_susan_data/1.pgm"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output_large.corners.pgm"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/automotive_susan_c/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "susan.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "automotive_susan_e",
+      "command": "../../automotive_susan_data/1.pgm output_large.edges.pgm -e > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 374,
+      "inputs": [
+        "../../automotive_susan_data/1.pgm"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output_large.edges.pgm"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/automotive_susan_e/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "susan.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "automotive_susan_s",
+      "command": "../../automotive_susan_data/1.pgm output_large.smoothing.pgm -s > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 49,
+      "inputs": [
+        "../../automotive_susan_data/1.pgm"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output_large.smoothing.pgm"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/automotive_susan_s/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "susan.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "bzip2d",
+      "command": "-d -k -f -c ../../bzip2_data/1.bz2 > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 80,
+      "inputs": [
+        "../../bzip2_data/1.bz2"
+      ],
+      "outputs": [
+        "ftmp_out"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/bzip2d/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "blocksort.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "bzip2.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "bzlib.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "compress.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_004",
+          "source": "crctable.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_005",
+          "source": "decompress.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_006",
+          "source": "huffman.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_007",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_008",
+          "source": "randtable.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "bzip2e",
+      "command": "-z -k -f -c ../../automotive_qsort_data/1.dat > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 40,
+      "inputs": [
+        "../../automotive_qsort_data/1.dat"
+      ],
+      "outputs": [
+        "ftmp_out"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/bzip2e/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "blocksort.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "bzip2.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "bzlib.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "compress.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_004",
+          "source": "crctable.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_005",
+          "source": "decompress.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_006",
+          "source": "huffman.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_007",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_008",
+          "source": "randtable.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "consumer_jpeg_c",
+      "command": "-dct int -progressive -opt -outfile output_large_encode.jpeg ../../consumer_jpeg_data/1.ppm > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 2114,
+      "inputs": [
+        "../../consumer_jpeg_data/1.ppm"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output_large_encode.jpeg"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/consumer_jpeg_c/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "cdjpeg.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "cjpeg.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "jcapimin.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "jcapistd.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_004",
+          "source": "jccoefct.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_005",
+          "source": "jccolor.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_006",
+          "source": "jcdctmgr.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_007",
+          "source": "jchuff.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_008",
+          "source": "jcinit.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_009",
+          "source": "jcmainct.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_010",
+          "source": "jcmarker.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_011",
+          "source": "jcmaster.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_012",
+          "source": "jcomapi.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_013",
+          "source": "jcparam.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_014",
+          "source": "jcphuff.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_015",
+          "source": "jcprepct.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_016",
+          "source": "jcsample.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_017",
+          "source": "jctrans.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_018",
+          "source": "jdapimin.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_019",
+          "source": "jdapistd.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_020",
+          "source": "jdatadst.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_021",
+          "source": "jdatasrc.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_022",
+          "source": "jdcoefct.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_023",
+          "source": "jdcolor.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_024",
+          "source": "jddctmgr.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_025",
+          "source": "jdhuff.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_026",
+          "source": "jdinput.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_027",
+          "source": "jdmainct.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_028",
+          "source": "jdmarker.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_029",
+          "source": "jdmaster.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_030",
+          "source": "jdmerge.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_031",
+          "source": "jdphuff.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_032",
+          "source": "jdpostct.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_033",
+          "source": "jdsample.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_034",
+          "source": "jdtrans.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_035",
+          "source": "jerror.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_036",
+          "source": "jfdctflt.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_037",
+          "source": "jfdctfst.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_038",
+          "source": "jfdctint.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_039",
+          "source": "jidctflt.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_040",
+          "source": "jidctfst.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_041",
+          "source": "jidctint.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_042",
+          "source": "jidctred.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_043",
+          "source": "jmemansi.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_044",
+          "source": "jmemmgr.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_045",
+          "source": "jquant1.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_046",
+          "source": "jquant2.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_047",
+          "source": "jutils.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_048",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_049",
+          "source": "rdbmp.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_050",
+          "source": "rdgif.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_051",
+          "source": "rdppm.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_052",
+          "source": "rdrle.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_053",
+          "source": "rdswitch.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_054",
+          "source": "rdtarga.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "consumer_jpeg_d",
+      "command": "-dct int -ppm -outfile output_large_decode.ppm ../../consumer_jpeg_data/1.jpg > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 8750,
+      "inputs": [
+        "../../consumer_jpeg_data/1.jpg"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output_large_decode.ppm"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/consumer_jpeg_d/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "cdjpeg.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "djpeg.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "jcapimin.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "jcapistd.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_004",
+          "source": "jccoefct.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_005",
+          "source": "jccolor.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_006",
+          "source": "jcdctmgr.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_007",
+          "source": "jchuff.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_008",
+          "source": "jcinit.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_009",
+          "source": "jcmainct.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_010",
+          "source": "jcmarker.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_011",
+          "source": "jcmaster.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_012",
+          "source": "jcomapi.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_013",
+          "source": "jcparam.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_014",
+          "source": "jcphuff.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_015",
+          "source": "jcprepct.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_016",
+          "source": "jcsample.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_017",
+          "source": "jctrans.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_018",
+          "source": "jdapimin.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_019",
+          "source": "jdapistd.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_020",
+          "source": "jdatadst.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_021",
+          "source": "jdatasrc.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_022",
+          "source": "jdcoefct.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_023",
+          "source": "jdcolor.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_024",
+          "source": "jddctmgr.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_025",
+          "source": "jdhuff.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_026",
+          "source": "jdinput.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_027",
+          "source": "jdmainct.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_028",
+          "source": "jdmarker.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_029",
+          "source": "jdmaster.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_030",
+          "source": "jdmerge.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_031",
+          "source": "jdphuff.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_032",
+          "source": "jdpostct.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_033",
+          "source": "jdsample.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_034",
+          "source": "jdtrans.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_035",
+          "source": "jerror.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_036",
+          "source": "jfdctflt.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_037",
+          "source": "jfdctfst.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_038",
+          "source": "jfdctint.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_039",
+          "source": "jidctflt.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_040",
+          "source": "jidctfst.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_041",
+          "source": "jidctint.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_042",
+          "source": "jidctred.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_043",
+          "source": "jmemansi.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_044",
+          "source": "jmemmgr.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_045",
+          "source": "jquant1.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_046",
+          "source": "jquant2.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_047",
+          "source": "jutils.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_048",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_049",
+          "source": "rdcolmap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_050",
+          "source": "wrbmp.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_051",
+          "source": "wrgif.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_052",
+          "source": "wrppm.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_053",
+          "source": "wrrle.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_054",
+          "source": "wrtarga.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "consumer_lame",
+      "command": "../../consumer_data/1.wav output_large.mp3 2> ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 228,
+      "inputs": [
+        "../../consumer_data/1.wav"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output_large.mp3"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/consumer_lame/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "VbrTag.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "amiga_mpega.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "brhist.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "common.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_004",
+          "source": "dct64_i386.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_005",
+          "source": "decode_i386.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_006",
+          "source": "fft.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_007",
+          "source": "formatBitstream.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_008",
+          "source": "get_audio.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_009",
+          "source": "gpkplotting.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_010",
+          "source": "gtkanal.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_011",
+          "source": "id3tag.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_012",
+          "source": "ieeefloat.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_013",
+          "source": "interface.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_014",
+          "source": "l3bitstream.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_015",
+          "source": "lame.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_016",
+          "source": "layer3.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_017",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_018",
+          "source": "main.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_019",
+          "source": "mainmpglib.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_020",
+          "source": "newmdct.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_021",
+          "source": "parse.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_022",
+          "source": "portableio.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_023",
+          "source": "psymodel.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_024",
+          "source": "quantize-pvt.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_025",
+          "source": "quantize.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_026",
+          "source": "reservoir.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_027",
+          "source": "rtp.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_028",
+          "source": "tabinit.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_029",
+          "source": "tables.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_030",
+          "source": "takehiro.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_031",
+          "source": "timestatus.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_032",
+          "source": "util.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_033",
+          "source": "vbrquantize.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        },
+        {
+          "id": "tu_034",
+          "source": "version.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DLAMESNDFILE",
+            "-DHAVEMPGLIB",
+            "-DLAMEPARSE"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "consumer_mad",
+      "command": "--time=100000 --output=wave:output.wav ../../consumer_data/1.mp3 2> ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 1742,
+      "inputs": [
+        "../../consumer_data/1.mp3"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output.wav"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-l:libz.so.1",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-mad-repaired-v1/consumer_mad/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "audio.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "audio_aiff.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "audio_cdda.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "audio_null.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_004",
+          "source": "audio_oss.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_005",
+          "source": "audio_raw.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_006",
+          "source": "audio_snd.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_007",
+          "source": "audio_wave.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_008",
+          "source": "bit.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_009",
+          "source": "compat.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_010",
+          "source": "crc.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_011",
+          "source": "debug.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_012",
+          "source": "decoder.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_013",
+          "source": "equalizer.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_014",
+          "source": "field.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_015",
+          "source": "file.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_016",
+          "source": "filter.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_017",
+          "source": "fixed.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_018",
+          "source": "frame.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_019",
+          "source": "frame2.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_020",
+          "source": "frametype.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_021",
+          "source": "genre.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_022",
+          "source": "huffman.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_023",
+          "source": "latin1.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_024",
+          "source": "layer12.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_025",
+          "source": "layer3.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_026",
+          "source": "madplay.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_027",
+          "source": "parse.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_028",
+          "source": "player.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_029",
+          "source": "render.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_030",
+          "source": "resample.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_031",
+          "source": "stream.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_032",
+          "source": "synth.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_033",
+          "source": "tag.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_034",
+          "source": "timer.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_035",
+          "source": "ucs4.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_036",
+          "source": "utf16.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_037",
+          "source": "utf8.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_038",
+          "source": "util.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_039",
+          "source": "version.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_040",
+          "source": "version3.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        },
+        {
+          "id": "tu_041",
+          "source": "xing.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I.",
+            "-DFPM_DEFAULT",
+            "-DHAVE_CONFIG_H",
+            "-DLOCALEDIR=\"/usr/local/share/locale\""
+          ]
+        }
+      ]
+    },
+    {
+      "program": "consumer_tiff2bw",
+      "command": "../../consumer_tiff_data/1.tif output_largebw.tif > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 6757,
+      "inputs": [
+        "../../consumer_tiff_data/1.tif"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output_largebw.tif"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/consumer_tiff2bw/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "tif_aux.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "tif_close.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "tif_codec.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_004",
+          "source": "tif_compress.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_005",
+          "source": "tif_dir.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_006",
+          "source": "tif_dirinfo.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_007",
+          "source": "tif_dirread.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_008",
+          "source": "tif_dirwrite.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_009",
+          "source": "tif_dumpmode.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_010",
+          "source": "tif_error.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_011",
+          "source": "tif_fax3.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_012",
+          "source": "tif_fax3sm.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_013",
+          "source": "tif_flush.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_014",
+          "source": "tif_getimage.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_015",
+          "source": "tif_jpeg.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_016",
+          "source": "tif_luv.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_017",
+          "source": "tif_lzw.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_018",
+          "source": "tif_next.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_019",
+          "source": "tif_open.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_020",
+          "source": "tif_packbits.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_021",
+          "source": "tif_pixarlog.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_022",
+          "source": "tif_predict.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_023",
+          "source": "tif_print.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_024",
+          "source": "tif_read.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_025",
+          "source": "tif_strip.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_026",
+          "source": "tif_swab.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_027",
+          "source": "tif_thunder.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_028",
+          "source": "tif_tile.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_029",
+          "source": "tif_unix.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_030",
+          "source": "tif_version.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_031",
+          "source": "tif_warning.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_032",
+          "source": "tif_write.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_033",
+          "source": "tif_zip.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_034",
+          "source": "tiff2bw.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "consumer_tiff2rgba",
+      "command": "-c none ../../consumer_tiff_data/1.tif output_largergba.tif > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 6579,
+      "inputs": [
+        "../../consumer_tiff_data/1.tif"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output_largergba.tif"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/consumer_tiff2rgba/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "tif_aux.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "tif_close.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "tif_codec.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_004",
+          "source": "tif_compress.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_005",
+          "source": "tif_dir.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_006",
+          "source": "tif_dirinfo.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_007",
+          "source": "tif_dirread.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_008",
+          "source": "tif_dirwrite.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_009",
+          "source": "tif_dumpmode.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_010",
+          "source": "tif_error.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_011",
+          "source": "tif_fax3.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_012",
+          "source": "tif_fax3sm.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_013",
+          "source": "tif_flush.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_014",
+          "source": "tif_getimage.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_015",
+          "source": "tif_jpeg.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_016",
+          "source": "tif_luv.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_017",
+          "source": "tif_lzw.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_018",
+          "source": "tif_next.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_019",
+          "source": "tif_open.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_020",
+          "source": "tif_packbits.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_021",
+          "source": "tif_pixarlog.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_022",
+          "source": "tif_predict.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_023",
+          "source": "tif_print.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_024",
+          "source": "tif_read.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_025",
+          "source": "tif_strip.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_026",
+          "source": "tif_swab.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_027",
+          "source": "tif_thunder.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_028",
+          "source": "tif_tile.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_029",
+          "source": "tif_unix.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_030",
+          "source": "tif_version.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_031",
+          "source": "tif_warning.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_032",
+          "source": "tif_write.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_033",
+          "source": "tif_zip.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_034",
+          "source": "tiff2rgba.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "consumer_tiffdither",
+      "command": "-c g4 ../../consumer_tiff_data/1.bw.tif output_largedither.tif 2> ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 5000,
+      "inputs": [
+        "../../consumer_tiff_data/1.bw.tif"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output_largedither.tif"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/consumer_tiffdither/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "tif_aux.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "tif_close.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "tif_codec.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_004",
+          "source": "tif_compress.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_005",
+          "source": "tif_dir.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_006",
+          "source": "tif_dirinfo.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_007",
+          "source": "tif_dirread.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_008",
+          "source": "tif_dirwrite.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_009",
+          "source": "tif_dumpmode.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_010",
+          "source": "tif_error.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_011",
+          "source": "tif_fax3.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_012",
+          "source": "tif_fax3sm.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_013",
+          "source": "tif_flush.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_014",
+          "source": "tif_getimage.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_015",
+          "source": "tif_jpeg.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_016",
+          "source": "tif_luv.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_017",
+          "source": "tif_lzw.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_018",
+          "source": "tif_next.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_019",
+          "source": "tif_open.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_020",
+          "source": "tif_packbits.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_021",
+          "source": "tif_pixarlog.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_022",
+          "source": "tif_predict.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_023",
+          "source": "tif_print.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_024",
+          "source": "tif_read.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_025",
+          "source": "tif_strip.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_026",
+          "source": "tif_swab.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_027",
+          "source": "tif_thunder.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_028",
+          "source": "tif_tile.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_029",
+          "source": "tif_unix.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_030",
+          "source": "tif_version.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_031",
+          "source": "tif_warning.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_032",
+          "source": "tif_write.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_033",
+          "source": "tif_zip.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_034",
+          "source": "tiffdither.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "consumer_tiffmedian",
+      "command": "../../consumer_tiff_data/1.nocomp.tif output_largemedian.tif > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 3659,
+      "inputs": [
+        "../../consumer_tiff_data/1.nocomp.tif"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output_largemedian.tif"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/consumer_tiffmedian/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "tif_aux.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "tif_close.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "tif_codec.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_004",
+          "source": "tif_compress.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_005",
+          "source": "tif_dir.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_006",
+          "source": "tif_dirinfo.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_007",
+          "source": "tif_dirread.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_008",
+          "source": "tif_dirwrite.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_009",
+          "source": "tif_dumpmode.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_010",
+          "source": "tif_error.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_011",
+          "source": "tif_fax3.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_012",
+          "source": "tif_fax3sm.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_013",
+          "source": "tif_flush.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_014",
+          "source": "tif_getimage.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_015",
+          "source": "tif_jpeg.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_016",
+          "source": "tif_luv.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_017",
+          "source": "tif_lzw.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_018",
+          "source": "tif_next.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_019",
+          "source": "tif_open.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_020",
+          "source": "tif_packbits.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_021",
+          "source": "tif_pixarlog.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_022",
+          "source": "tif_predict.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_023",
+          "source": "tif_print.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_024",
+          "source": "tif_read.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_025",
+          "source": "tif_strip.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_026",
+          "source": "tif_swab.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_027",
+          "source": "tif_thunder.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_028",
+          "source": "tif_tile.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_029",
+          "source": "tif_unix.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_030",
+          "source": "tif_version.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_031",
+          "source": "tif_warning.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_032",
+          "source": "tif_write.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_033",
+          "source": "tif_zip.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_034",
+          "source": "tiffmedian.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "network_dijkstra",
+      "command": "../../network_dijkstra_data/1.dat > output_large.dat",
+      "dataset_id": "1",
+      "native_repeat": 500000,
+      "inputs": [
+        "../../network_dijkstra_data/1.dat"
+      ],
+      "outputs": [
+        "output_large.dat"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/network_dijkstra/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "dijkstra_large.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "network_patricia",
+      "command": "../../network_patricia_data/1.udp > output_large.txt",
+      "dataset_id": "1",
+      "native_repeat": 50000,
+      "inputs": [
+        "../../network_patricia_data/1.udp"
+      ],
+      "outputs": [
+        "output_large.txt"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/network_patricia/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "patricia.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "patricia_test.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "office_rsynth",
+      "command": "-a -q -o large_output.au < ../../office_data/1.txt > ftmp_out 2> ftmp_out1",
+      "dataset_id": "1",
+      "native_repeat": 1300,
+      "inputs": [
+        "../../office_data/1.txt"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "ftmp_out1",
+        "large_output.au"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/office_rsynth/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "ASCII.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "Revision.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "aufile.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "darray.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_004",
+          "source": "def_pars.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_005",
+          "source": "dict.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_006",
+          "source": "elements.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_007",
+          "source": "english.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_008",
+          "source": "getarg.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_009",
+          "source": "holmes.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_010",
+          "source": "l2u.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_011",
+          "source": "linuxplay.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_012",
+          "source": "nsynth.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_013",
+          "source": "phones.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_014",
+          "source": "phtoelm.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_015",
+          "source": "say.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_016",
+          "source": "saynum.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_017",
+          "source": "text.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        },
+        {
+          "id": "tu_018",
+          "source": "trie.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-I./"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "office_stringsearch1",
+      "command": "../../office_data/1.txt ../../office_data/1.s.txt output.txt > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 2778240,
+      "inputs": [
+        "../../office_data/1.s.txt",
+        "../../office_data/1.txt"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output.txt"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/office_stringsearch1/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "bmhasrch.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DUNIX",
+            "-DPORTABLE"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "bmhisrch.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DUNIX",
+            "-DPORTABLE"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "bmhsrch.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DUNIX",
+            "-DPORTABLE"
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "pbmsrch_large.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DUNIX",
+            "-DPORTABLE"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "security_blowfish_d",
+      "command": "d ../../office_data/1.benc output_large.txt 1234567890abcdeffedcba0987654321 > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 180006,
+      "inputs": [
+        "../../office_data/1.benc"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output_large.txt"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/security_blowfish_d/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "bf.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "bf_cbc.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "bf_cfb64.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "bf_ecb.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_004",
+          "source": "bf_enc.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_005",
+          "source": "bf_ofb64.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_006",
+          "source": "bf_skey.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "security_blowfish_e",
+      "command": "e ../../office_data/1.txt output_large.enc 1234567890abcdeffedcba0987654321  > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 180006,
+      "inputs": [
+        "../../office_data/1.txt"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output_large.enc"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/security_blowfish_e/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "bf.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "bf_cbc.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "bf_cfb64.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "bf_ecb.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_004",
+          "source": "bf_enc.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_005",
+          "source": "bf_ofb64.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_006",
+          "source": "bf_skey.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "security_rijndael_d",
+      "command": "../../office_data/1.enc output_large.dec d 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321 > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 129007,
+      "inputs": [
+        "../../office_data/1.enc"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output_large.dec"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/security_rijndael_d/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "aes.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "aesxam.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "security_rijndael_e",
+      "command": "../../office_data/1.txt output_large.enc e 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321 > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 129259,
+      "inputs": [
+        "../../office_data/1.txt"
+      ],
+      "outputs": [
+        "ftmp_out",
+        "output_large.enc"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/security_rijndael_e/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "aes.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "aesxam.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "security_sha",
+      "command": "../../office_data/1.txt > ftmp_out",
+      "dataset_id": "1",
+      "native_repeat": 321506,
+      "inputs": [
+        "../../office_data/1.txt"
+      ],
+      "outputs": [
+        "ftmp_out"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/security_sha/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "sha.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "sha_driver.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "telecom_CRC32",
+      "command": "../../telecom_data/1.pcm > output_large.txt",
+      "dataset_id": "1",
+      "native_repeat": 3431,
+      "inputs": [
+        "../../telecom_data/1.pcm"
+      ],
+      "outputs": [
+        "output_large.txt"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/telecom_CRC32/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "crc_32.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "telecom_adpcm_c",
+      "command": "< ../../telecom_data/1.pcm > output_large.adpcm",
+      "dataset_id": "1",
+      "native_repeat": 6644,
+      "inputs": [
+        "../../telecom_data/1.pcm"
+      ],
+      "outputs": [
+        "output_large.adpcm"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/telecom_adpcm_c/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "adpcm.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "rawcaudio.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "telecom_adpcm_d",
+      "command": "< ../../telecom_data/1.adpcm > output_large.pcm",
+      "dataset_id": "1",
+      "native_repeat": 14287,
+      "inputs": [
+        "../../telecom_data/1.adpcm"
+      ],
+      "outputs": [
+        "output_large.pcm"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/telecom_adpcm_d/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "adpcm.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "rawdaudio.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion"
+          ]
+        }
+      ]
+    },
+    {
+      "program": "telecom_gsm",
+      "command": "-fps -c ../../telecom_gsm_data/1.au > output_large.encode.gsm",
+      "dataset_id": "1",
+      "native_repeat": 558,
+      "inputs": [
+        "../../telecom_gsm_data/1.au"
+      ],
+      "outputs": [
+        "output_large.encode.gsm"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "OMP_NUM_THREADS": "1",
+        "TZ": "UTC"
+      },
+      "link_flags": [
+        "-lm",
+        "-no-pie"
+      ],
+      "source_dir": "work/cbench-native/telecom_gsm/src",
+      "tus": [
+        {
+          "id": "tu_000",
+          "source": "add.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_001",
+          "source": "code.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_002",
+          "source": "debug.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_003",
+          "source": "decode.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_004",
+          "source": "gsm_create.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_005",
+          "source": "gsm_decode.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_006",
+          "source": "gsm_destroy.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_007",
+          "source": "gsm_encode.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_008",
+          "source": "gsm_explode.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_009",
+          "source": "gsm_implode.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_010",
+          "source": "gsm_option.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_011",
+          "source": "gsm_print.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_012",
+          "source": "long_term.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_013",
+          "source": "loop-wrap.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_014",
+          "source": "lpc.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_015",
+          "source": "preprocess.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_016",
+          "source": "rpe.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_017",
+          "source": "short_term.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_018",
+          "source": "table.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_019",
+          "source": "toast.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_020",
+          "source": "toast_alaw.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_021",
+          "source": "toast_audio.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_022",
+          "source": "toast_lin.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        },
+        {
+          "id": "tu_023",
+          "source": "toast_ulaw.c",
+          "flags": [
+            "-O3",
+            "-g",
+            "-std=gnu89",
+            "-fcommon",
+            "-Wno-error=implicit-function-declaration",
+            "-Wno-error=incompatible-pointer-types",
+            "-Wno-error=int-conversion",
+            "-DSASR",
+            "-DSTUPID_COMPILER",
+            "-DNeedFunctionPrototypes=1"
+          ]
+        }
+      ]
+    }
+  ]
+}

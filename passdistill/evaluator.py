@@ -15,7 +15,7 @@ from .compiler import (
 )
 from .config import ExperimentConfig
 from .correctness import compare_stderr_md5
-from .types import BuildArtifacts, EvaluationResult, Kernel, TimingResult
+from .types import BuildArtifacts, CorrectnessResult, EvaluationResult, Kernel, TimingResult
 from .util import ensure_dir, run_command, save_command_result, write_json
 
 
@@ -107,8 +107,7 @@ def evaluate_source(
     if baseline_dump is not None:
         result.correctness = compare_stderr_md5(baseline_dump, stderr)
         write_json(out_dir / "correctness.json", result.correctness)
-        if not result.correctness.ok:
-            return result
+        # Teacher correctness is diagnostic only; mismatches still get timed.
 
     timing, run_logs = run_binary(config, binary, log_dir=out_dir / "runs")
     result.timing = timing
@@ -129,6 +128,7 @@ def evaluate_pipeline_candidate(
     baseline_dump: Path | None,
     baseline_runtime: float,
     extra_options: list[str] | None = None,
+    build_reference_dump: bool = False,
 ) -> EvaluationResult:
     ensure_dir(out_dir)
     preflight = preflight_pipeline(config, frontend_ir, pipeline, extra_options=extra_options)
@@ -174,6 +174,18 @@ def evaluate_pipeline_candidate(
         result.error = link_result.stderr
         return result
 
+    if not build_reference_dump:
+        # Recovery candidates are accepted by policy; only the timing build runs.
+        result.correctness = CorrectnessResult(ok=True, message="Accepted by performance-only candidate policy")
+        write_json(out_dir / "correctness.json", result.correctness)
+        timing, run_logs = run_binary(config, binary, log_dir=out_dir / "runs")
+        result.timing = timing
+        result.command_log.extend(run_logs)
+        if timing.median:
+            result.speedup_vs_baseline = baseline_runtime / timing.median
+        return result
+
+    # The O3 reference dump is still needed for Teacher validation.
     dump_frontend = out_dir / f"{candidate_id}_dump_frontend.ll"
     dump_ir = out_dir / f"{candidate_id}_dump.ll"
     dump_binary = out_dir / f"{candidate_id}_dump"

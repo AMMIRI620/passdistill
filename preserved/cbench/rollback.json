@@ -1,0 +1,8 @@
+{
+  "archive": "/home/liujf/project/passdistill-polybench-minimal/artifacts/rollback-to-polybench-20260922-102912",
+  "reference": "/tmp/passdistill-pre-cbench",
+  "excluded_reference_file": "passdistill/runtime.py (unreferenced cBench helper, not original PolyBench module)",
+  "preserved": "/home/liujf/project/passdistill-polybench-minimal/preserved/cbench",
+  "historical_artifacts": "unchanged in artifacts/",
+  "native_sources": "unchanged in work/ and third_party/"
+}

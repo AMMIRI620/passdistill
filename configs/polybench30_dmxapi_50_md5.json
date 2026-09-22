@@ -1,8 +1,10 @@
 {
-  "run_id": "polybench30-dmxapi-50-no-fast-math-md5-deepseek-v4-pro-guan",
+  "run_id": "polybench30-gpt56sol-50-catalog78-perf-only-teacher-report-anchorfix-v2",
+  "candidate_evaluation_mode": "performance_only",
+  "teacher_correctness_policy": "report_only",
+  "prompt_cache_mode": "explicit",
+  "llm_api": "responses",
   "kernels": [
-    "2mm",
-    "3mm",
     "gemm",
     "gemver",
     "gesummv",
@@ -44,7 +46,7 @@
   "runs": 3,
   "promotion_min_relative_gain": 0.01,
   "llm_backend": "openai",
-  "model": "deepseek-v4-pro-guan",
+  "model": "gpt-5.6-sol",
   "flat_kernel_artifacts": true,
   "command_timeout_sec": 300,
   "rtol": 0,

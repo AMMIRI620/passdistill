@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Serial PolyBench experiments with bounded resume and artifact-based progress."""
+import argparse
 import fcntl
 import json
 import subprocess
@@ -7,6 +8,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from run_2mm_dmxapi_50 import ROOT, dmx_environment
 
@@ -29,15 +31,26 @@ def scan(kernel_dir):
     return [(p, read_json(p, {})) for p in sorted(paths, key=lambda p: (p.stat().st_mtime_ns, str(p)))]
 
 
-def main():
-    config = json.loads(CONFIG.read_text())
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--config", type=Path, default=CONFIG)
+    parser.add_argument("--env-file", type=Path, default=ROOT / ".passdistill_dmxapi.env")
+    parser.add_argument("--model", help="Explicit model override; must match experiment config")
+    args = parser.parse_args(argv)
+    config_path = args.config.resolve()
+    config = json.loads(config_path.read_text())
     run_dir = ROOT / "artifacts/runs" / config["run_id"]
     run_dir.mkdir(parents=True, exist_ok=True)
     lock = (run_dir / "runner.lock").open("a")
     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-    environment = dmx_environment()
+    environment = dmx_environment(args.env_file, model=args.model)
+    if config.get("prompt_cache_mode"):
+        environment["PASSDISTILL_PROMPT_CACHE_MODE"] = config["prompt_cache_mode"]
     if environment["PASSDISTILL_MODEL"] != config["model"]:
-        raise RuntimeError("DMX model and experiment config differ; align them before starting")
+        raise RuntimeError("API model and experiment config differ; align them or explicitly pass --model matching the config")
+    api_host = urlsplit(environment["PASSDISTILL_OPENAI_BASE_URL"]).hostname
+    log(f"API host={api_host} env_file={args.env_file.name} model={environment['PASSDISTILL_MODEL']} "
+        f"api_mode={config.get('llm_api', 'chat_completions')} cache_mode={config.get('prompt_cache_mode')}")
     budget = config["max_pass_candidates"]
     states = read_json(run_dir / "runner_status.json", {})
 
@@ -65,7 +78,7 @@ def main():
             save_state(kernel, status="running", attempt=attempt, candidates=len(seen))
             log(f"[{kernel}] attempt={attempt} candidates={len(seen)}/{budget}")
             command = [sys.executable, str(ROOT / "scripts/run_passdistill.py"),
-                       "--config", str(CONFIG), "--kernel", kernel, "--resume"]
+                       "--config", str(config_path), "--kernel", kernel, "--resume"]
             process = subprocess.Popen(command, cwd=ROOT, env=environment)
             while True:
                 code = process.poll()

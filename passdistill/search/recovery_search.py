@@ -10,7 +10,7 @@ from passdistill.agents.feedback import parse_optimization_remarks, select_relev
 from passdistill.agents.recovery_planner import plan_recovery_candidates
 from passdistill.config import ExperimentConfig
 from passdistill.evaluator import evaluate_pipeline_candidate
-from passdistill.pipeline import PipelineEditor, local_region
+from passdistill.pipeline import PipelineEditor, local_region, pipeline_outline
 from passdistill.types import Kernel
 from passdistill.util import ensure_dir, read_json, write_json
 
@@ -56,6 +56,7 @@ def _parent_summary(parent_id: str, runtime: float, pipeline: str, baseline_runt
         "runtime": runtime,
         "speedup_vs_search_baseline": _speedup(baseline_runtime, runtime),
         "local_pipeline": local_region(pipeline),
+        "pipeline_outline": pipeline_outline(pipeline),
     }
 
 
@@ -107,6 +108,7 @@ def run_recovery_episode(
     remaining_budget: int,
     start_round: int = 1,
     max_rounds: int | None = None,
+    adapter: Any = None,
 ) -> dict[str, Any]:
     ensure_dir(out_dir)
     history: list[dict[str, Any]] = read_json(out_dir / "history.json") if (out_dir / "history.json").exists() else []
@@ -156,6 +158,8 @@ def run_recovery_episode(
         }
         write_json(candidate_dir / "candidate_summary.json", feedback)
         history.append(feedback)
+        if adapter is not None:
+            adapter.progress_update('Recovery', feedback)
         known_ids.add(candidate_id)
     write_json(out_dir / "history.json", history)
 
@@ -293,7 +297,8 @@ def run_recovery_episode(
             error = "; ".join(edit_result.invalid_errors)
             if edit_result.valid:
                 stats["valid_pipeline_candidates"] += 1
-                eval_result = evaluate_pipeline_candidate(
+                evaluate = adapter.evaluate_pipeline_candidate if adapter else evaluate_pipeline_candidate
+                eval_result = evaluate(
                     config,
                     kernel,
                     frontend_ir,
@@ -382,6 +387,8 @@ def run_recovery_episode(
                 failure_counts[failure_class] = failure_counts.get(failure_class, 0) + 1
             history.append(feedback)
             write_json(out_dir / "history.json", history)
+            if adapter is not None:
+                adapter.progress_update('Recovery', feedback)
 
             if status == "measured":
                 parents[candidate_id] = {

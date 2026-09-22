@@ -1,0 +1,32 @@
+{
+  "run_id": "polybench30-gpt56sol-50-catalog78-baseline-refresh-intent-resume-v3",
+  "candidate_evaluation_mode": "performance_only",
+  "teacher_correctness_policy": "report_only",
+  "prompt_cache_mode": "explicit",
+  "llm_api": "responses",
+  "kernels": [
+    "syr2k", "correlation", "covariance",
+    "jacobi-2d", "seidel-2d", "adi", "fdtd-2d", "doitgen",
+    "cholesky", "lu", "nussinov", "heat-3d", "gramschmidt",
+    "durbin", "ludcmp", "trisolv", "deriche", "floyd-warshall"
+  ],
+  "dataset": "LARGE_DATASET",
+  "opt_level": "-O3",
+  "fast_math": false,
+  "max_teacher_rounds": 3,
+  "max_teachers": 6,
+  "max_recovery_rounds": 5,
+  "max_pass_candidates": 50,
+  "uniform_fixed_recovery_budget": true,
+  "warmups": 1,
+  "runs": 3,
+  "promotion_min_relative_gain": 0.01,
+  "llm_backend": "openai",
+  "model": "gpt-5.6-sol",
+  "flat_kernel_artifacts": true,
+  "command_timeout_sec": 300,
+  "rtol": 0,
+  "atol": 0,
+  "correctness_mode": "stderr_md5",
+  "correctness_reference": "search_baseline"
+}

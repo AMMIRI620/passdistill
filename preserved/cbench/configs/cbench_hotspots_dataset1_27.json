@@ -1,0 +1,2709 @@
+{
+  "schema": "passdistill.static_hotspot_inventory.v1",
+  "purpose": "Static sampled hotspot inventory; not an executable search manifest",
+  "generated_at": "2026-09-22T02:07:27.195046+00:00",
+  "source_manifest": "/home/liujf/project/passdistill-polybench-minimal/artifacts/runs/cbench-bitcount-retryfix-continue-20260921-164221/hotspots_snapshot.json",
+  "source_manifest_sha256": "ee73e9dc0a4efe08bc29e39c4ec7f8a3f5b69d84cc8fe07f536d77c48bca4c4c",
+  "selection_policy": "One fixed primary hotspot per program: highest eligible exclusive Self period; existing sampling reused without reselection",
+  "correctness_waivers": [
+    "consumer_lame",
+    "security_rijndael_e",
+    "security_sha"
+  ],
+  "ready_hotspots": 27,
+  "blocked_hotspots": 5,
+  "search_note": "Waiving output equality does not waive successful execution, timeouts, or the requirement for three complete timing samples. Historic baseline validity is unchanged.",
+  "programs": [
+    {
+      "program": "automotive_bitcount",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "bit_count",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 9,
+                "eligible": true,
+                "end_line": 20,
+                "function": "bit_count",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 9,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_bitcount/src/bitcnt_1.c",
+                "signature": "int CDECL bit_count(long x)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_bitcount/src/bitcnt_1.c",
+                "source_sha256": "3457fb88f0e29eaade73d6b42658478c43de1079329f04429dc35a835abeb152",
+                "start_line": 9
+              }
+            ],
+            "tu": "tu_001"
+          }
+        ],
+        "dwarf_start_line": 9,
+        "eligible": true,
+        "end_line": 20,
+        "function": "bit_count",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 9,
+        "rank": 1,
+        "sample_count": 1735,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_bitcount/src/bitcnt_1.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.3745447315447988,
+        "self_fraction_project": 0.37475226358942976,
+        "self_period": 1912181692,
+        "signature": "int CDECL bit_count(long x)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_bitcount/src/bitcnt_1.c",
+        "source_sha256": "3457fb88f0e29eaade73d6b42658478c43de1079329f04429dc35a835abeb152",
+        "start_line": 9
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            1.127007280003454,
+            1.124136553000426,
+            1.1340171629999531
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.127007280003454,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            1.1148832399994717,
+            1.1094770269992296,
+            1.11070118900534
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.11070118900534,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 80,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/automotive_bitcount/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/automotive_bitcount/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/automotive_bitcount/samples.json",
+        "profile_sha256": "af05940cabf3e717fe9f502635d945f6480b4afbe43742f162991d990d6833e0"
+      }
+    },
+    {
+      "program": "automotive_qsort1",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "qsortx",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 39,
+                "eligible": true,
+                "end_line": 120,
+                "function": "qsortx",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 39,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_qsort1/src/qsort.c",
+                "signature": "void qsortx(void *base, unsigned num, unsigned width, int (*comp)(const void *, const void *))",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_qsort1/src/qsort.c",
+                "source_sha256": "6c4c9c4b525d7d9421b690860f6c1189ce0596d6a8d465a102d1693f3225b397",
+                "start_line": 39
+              }
+            ],
+            "tu": "tu_001"
+          }
+        ],
+        "dwarf_start_line": 39,
+        "eligible": true,
+        "end_line": 120,
+        "function": "qsortx",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 39,
+        "rank": 1,
+        "sample_count": 1208,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_qsort1/src/qsort.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.17482885192564054,
+        "self_fraction_project": 0.3823775670869792,
+        "self_period": 1320322728,
+        "signature": "void qsortx(void *base, unsigned num, unsigned width, int (*comp)(const void *, const void *))",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_qsort1/src/qsort.c",
+        "source_sha256": "6c4c9c4b525d7d9421b690860f6c1189ce0596d6a8d465a102d1693f3225b397",
+        "start_line": 39
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            1.7165030340038356,
+            1.7010085369984154,
+            1.6926896990044042
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.7010085369984154,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            1.708673056004045,
+            1.71300462900399,
+            1.6906368499985547
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.708673056004045,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 226,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/automotive_qsort1/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/automotive_qsort1/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/automotive_qsort1/samples.json",
+        "profile_sha256": "386a6b66dc11a35dcaff9f73e71e4055069f644af567a95b7dc8efb5d9b1598c"
+      }
+    },
+    {
+      "program": "automotive_susan_c",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "susan_corners",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 1443,
+                "eligible": true,
+                "end_line": 1720,
+                "function": "susan_corners",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 1443,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_susan_c/src/susan.c",
+                "signature": "void susan_corners(uchar* in, int* r, uchar* bp,\n                   int max_no, CORNER_LIST corner_list,\n                   int x_size, int y_size)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_susan_c/src/susan.c",
+                "source_sha256": "dbb3ef69eacf3f383da2109d1fe73f29fdbdabf83fa253db3adf2712a572092d",
+                "start_line": 1443
+              }
+            ],
+            "tu": "tu_001"
+          }
+        ],
+        "dwarf_start_line": 1443,
+        "eligible": true,
+        "end_line": 1720,
+        "function": "susan_corners",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 1443,
+        "rank": 1,
+        "sample_count": 6943,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_susan_c/src/susan.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.9687022821667617,
+        "self_fraction_project": 0.9986914949753621,
+        "self_period": 6775419169,
+        "signature": "void susan_corners(uchar* in, int* r, uchar* bp,\n                   int max_no, CORNER_LIST corner_list,\n                   int x_size, int y_size)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_susan_c/src/susan.c",
+        "source_sha256": "dbb3ef69eacf3f383da2109d1fe73f29fdbdabf83fa253db3adf2712a572092d",
+        "start_line": 1443
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            1.7865411699967808,
+            1.7931213389965706,
+            1.787267173996952
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.787267173996952,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            1.7898300450033275,
+            1.7655300309997983,
+            1.8244239499981632
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.7898300450033275,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 782,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/automotive_susan_c/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/automotive_susan_c/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/automotive_susan_c/samples.json",
+        "profile_sha256": "6118fdfa8d165255947e4f62184b1ce3892fa005113eed58bd86ce2289b81fe9"
+      }
+    },
+    {
+      "program": "automotive_susan_e",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "susan_edges",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 1047,
+                "eligible": true,
+                "end_line": 1278,
+                "function": "susan_edges",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 1047,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_susan_e/src/susan.c",
+                "signature": "void susan_edges(uchar* in, int* r, uchar* mid, uchar* bp,\n                 int max_no, int x_size, int y_size)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_susan_e/src/susan.c",
+                "source_sha256": "dbb3ef69eacf3f383da2109d1fe73f29fdbdabf83fa253db3adf2712a572092d",
+                "start_line": 1047
+              }
+            ],
+            "tu": "tu_001"
+          }
+        ],
+        "dwarf_start_line": 1047,
+        "eligible": true,
+        "end_line": 1278,
+        "function": "susan_edges",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 1047,
+        "rank": 1,
+        "sample_count": 4912,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_susan_e/src/susan.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.709886283690651,
+        "self_fraction_project": 0.7161139336754023,
+        "self_period": 5262309730,
+        "signature": "void susan_edges(uchar* in, int* r, uchar* mid, uchar* bp,\n                 int max_no, int x_size, int y_size)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_susan_e/src/susan.c",
+        "source_sha256": "dbb3ef69eacf3f383da2109d1fe73f29fdbdabf83fa253db3adf2712a572092d",
+        "start_line": 1047
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            1.7462961549972533,
+            1.7572886779962573,
+            1.7298182390004513
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.7462961549972533,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            1.7429591280015302,
+            1.7512988060043426,
+            1.7643176400015363
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.7512988060043426,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 374,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/automotive_susan_e/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/automotive_susan_e/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/automotive_susan_e/samples.json",
+        "profile_sha256": "b202fd604f4f2726c1a8cd7b5f0b8d0fdc0770dd6d70c8f49e4cc7ef55e5b664"
+      }
+    },
+    {
+      "program": "automotive_susan_s",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "susan_smoothing",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 660,
+                "eligible": true,
+                "end_line": 792,
+                "function": "susan_smoothing",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 660,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_susan_s/src/susan.c",
+                "signature": "void susan_smoothing(int three_by_three, uchar* in, float dt, \n                     int x_size, int y_size, uchar* bp)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_susan_s/src/susan.c",
+                "source_sha256": "dbb3ef69eacf3f383da2109d1fe73f29fdbdabf83fa253db3adf2712a572092d",
+                "start_line": 660
+              }
+            ],
+            "tu": "tu_001"
+          }
+        ],
+        "dwarf_start_line": 660,
+        "eligible": true,
+        "end_line": 792,
+        "function": "susan_smoothing",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 660,
+        "rank": 1,
+        "sample_count": 5740,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_susan_s/src/susan.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.9988583054388592,
+        "self_fraction_project": 1.0,
+        "self_period": 6317554723,
+        "signature": "void susan_smoothing(int three_by_three, uchar* in, float dt, \n                     int x_size, int y_size, uchar* bp)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/automotive_susan_s/src/susan.c",
+        "source_sha256": "dbb3ef69eacf3f383da2109d1fe73f29fdbdabf83fa253db3adf2712a572092d",
+        "start_line": 660
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            1.4136496999999508,
+            1.4184241369948722,
+            1.4156709529997897
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.4156709529997897,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            1.419366688001901,
+            1.4210633949987823,
+            1.4197982030018466
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.4197982030018466,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 49,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/automotive_susan_s/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/automotive_susan_s/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/automotive_susan_s/samples.json",
+        "profile_sha256": "c40ea8aa635c37f84826540b13b1376b25f4e666585c6b5661d69c2967f49cd8"
+      }
+    },
+    {
+      "program": "bzip2d",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "BZ2_decompress",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 106,
+                "eligible": true,
+                "end_line": 621,
+                "function": "BZ2_decompress",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 106,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/bzip2d/src/decompress.c",
+                "signature": "Int32 BZ2_decompress ( DState* s )",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/bzip2d/src/decompress.c",
+                "source_sha256": "96e4f6bc0224753de00e15f3bb9d44422e462ef73edc68f1765b26d748ac1562",
+                "start_line": 106
+              }
+            ],
+            "tu": "tu_005"
+          }
+        ],
+        "dwarf_start_line": 106,
+        "eligible": true,
+        "end_line": 621,
+        "function": "BZ2_decompress",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 106,
+        "rank": 1,
+        "sample_count": 6958,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/bzip2d/src/decompress.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.553088223153034,
+        "self_fraction_project": 0.5542452030456478,
+        "self_period": 7644051177,
+        "signature": "Int32 BZ2_decompress ( DState* s )",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/bzip2d/src/decompress.c",
+        "source_sha256": "96e4f6bc0224753de00e15f3bb9d44422e462ef73edc68f1765b26d748ac1562",
+        "start_line": 106
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            3.2597863100018003,
+            3.248920268997608,
+            3.269686925006681
+          ],
+          "statistic": "median",
+          "runtime_sec": 3.2597863100018003,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            3.2130300709977746,
+            3.2419559420013684,
+            3.282285855995724
+          ],
+          "statistic": "median",
+          "runtime_sec": 3.2419559420013684,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 80,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/bzip2d/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/bzip2d/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/bzip2d/samples.json",
+        "profile_sha256": "988a8780a759bd1f62b69fde97e54c8fc72ead4a898e73ca199b0a3d54447be3"
+      }
+    },
+    {
+      "program": "bzip2e",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "BZ2_blockSort",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 621,
+                "eligible": true,
+                "end_line": 717,
+                "function": "mainQSort3",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 621,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/bzip2e/src/blocksort.c",
+                "signature": "static\nvoid mainQSort3 ( UInt32* ptr,\n                  UChar*  block,\n                  UInt16* quadrant,\n                  Int32   nblock,\n                  Int32   loSt, \n                  Int32   hiSt, \n                  Int32   dSt,\n                  Int32*  budget )",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/bzip2e/src/blocksort.c",
+                "source_sha256": "0b0e9f473917077dda0c2935e1357f8c732693ab845f9ab18d050f5f4d7ed63e",
+                "start_line": 620
+              },
+              {
+                "dwarf_start_line": 751,
+                "eligible": true,
+                "end_line": 1011,
+                "function": "mainSort",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 751,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/bzip2e/src/blocksort.c",
+                "signature": "static\nvoid mainSort ( UInt32* ptr, \n                UChar*  block,\n                UInt16* quadrant, \n                UInt32* ftab,\n                Int32   nblock,\n                Int32   verb,\n                Int32*  budget )",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/bzip2e/src/blocksort.c",
+                "source_sha256": "0b0e9f473917077dda0c2935e1357f8c732693ab845f9ab18d050f5f4d7ed63e",
+                "start_line": 750
+              },
+              {
+                "dwarf_start_line": 1031,
+                "eligible": true,
+                "end_line": 1089,
+                "function": "BZ2_blockSort",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 1031,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/bzip2e/src/blocksort.c",
+                "signature": "void BZ2_blockSort ( EState* s )",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/bzip2e/src/blocksort.c",
+                "source_sha256": "0b0e9f473917077dda0c2935e1357f8c732693ab845f9ab18d050f5f4d7ed63e",
+                "start_line": 1031
+              }
+            ],
+            "tu": "tu_000"
+          }
+        ],
+        "dwarf_start_line": 621,
+        "eligible": true,
+        "end_line": 717,
+        "function": "mainQSort3",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 621,
+        "rank": 1,
+        "sample_count": 2903,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/bzip2e/src/blocksort.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.2917608119625653,
+        "self_fraction_project": 0.29364119999470284,
+        "self_period": 3156321475,
+        "signature": "static\nvoid mainQSort3 ( UInt32* ptr,\n                  UChar*  block,\n                  UInt16* quadrant,\n                  Int32   nblock,\n                  Int32   loSt, \n                  Int32   hiSt, \n                  Int32   dSt,\n                  Int32*  budget )",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/bzip2e/src/blocksort.c",
+        "source_sha256": "0b0e9f473917077dda0c2935e1357f8c732693ab845f9ab18d050f5f4d7ed63e",
+        "start_line": 620
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            2.491508959996281,
+            2.501323354001215,
+            2.502159814001061
+          ],
+          "statistic": "median",
+          "runtime_sec": 2.501323354001215,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            2.576995026000077,
+            2.532983441997203,
+            2.500456898997072
+          ],
+          "statistic": "median",
+          "runtime_sec": 2.532983441997203,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 40,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/bzip2e/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/bzip2e/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/bzip2e/samples.json",
+        "profile_sha256": "ed82d657f099ac644822c5a3d2967e22523275c1458dd74843a9fc737374fb89"
+      }
+    },
+    {
+      "program": "consumer_jpeg_c",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "encode_mcu_AC_refine",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 614,
+                "eligible": true,
+                "end_line": 734,
+                "function": "encode_mcu_AC_refine",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 614,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_jpeg_c/src/jcphuff.c",
+                "signature": "METHODDEF(boolean)\nencode_mcu_AC_refine (j_compress_ptr cinfo, JBLOCKROW *MCU_data)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_jpeg_c/src/jcphuff.c",
+                "source_sha256": "771e9e82271377a6f7a28d4ae8a7c2ab4c6aaee3376b84191db0bc4fa810fc64",
+                "start_line": 613
+              }
+            ],
+            "tu": "tu_014"
+          }
+        ],
+        "dwarf_start_line": 614,
+        "eligible": true,
+        "end_line": 734,
+        "function": "encode_mcu_AC_refine",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 614,
+        "rank": 1,
+        "sample_count": 2929,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_jpeg_c/src/jcphuff.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.28103576382490303,
+        "self_fraction_project": 0.28366765788716924,
+        "self_period": 3094237776,
+        "signature": "METHODDEF(boolean)\nencode_mcu_AC_refine (j_compress_ptr cinfo, JBLOCKROW *MCU_data)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_jpeg_c/src/jcphuff.c",
+        "source_sha256": "771e9e82271377a6f7a28d4ae8a7c2ab4c6aaee3376b84191db0bc4fa810fc64",
+        "start_line": 613
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            2.628650660997664,
+            2.7337786720017903,
+            2.682810576996417
+          ],
+          "statistic": "median",
+          "runtime_sec": 2.682810576996417,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            3.559200402996794,
+            3.876171157004137,
+            3.358989701999235
+          ],
+          "statistic": "median",
+          "runtime_sec": 3.559200402996794,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 2114,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/consumer_jpeg_c/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/consumer_jpeg_c/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/consumer_jpeg_c/samples.json",
+        "profile_sha256": "bb9f7c82cd12dca69b6f0ab996e965c184adbd4183318e913879e59358a4c926"
+      }
+    },
+    {
+      "program": "consumer_jpeg_d",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "decode_mcu",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 437,
+                "eligible": true,
+                "end_line": 550,
+                "function": "decode_mcu",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 437,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_jpeg_d/src/jdhuff.c",
+                "signature": "METHODDEF(boolean)\ndecode_mcu (j_decompress_ptr cinfo, JBLOCKROW *MCU_data)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_jpeg_d/src/jdhuff.c",
+                "source_sha256": "fd4268d83ec2102f01f4c45ad93ccf939c8b2ce7f054af3feb073a516c951754",
+                "start_line": 436
+              }
+            ],
+            "tu": "tu_025"
+          }
+        ],
+        "dwarf_start_line": 437,
+        "eligible": true,
+        "end_line": 550,
+        "function": "decode_mcu",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 437,
+        "rank": 1,
+        "sample_count": 3689,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_jpeg_d/src/jdhuff.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.36086270148571703,
+        "self_fraction_project": 0.37480295861432733,
+        "self_period": 2895914553,
+        "signature": "METHODDEF(boolean)\ndecode_mcu (j_decompress_ptr cinfo, JBLOCKROW *MCU_data)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_jpeg_d/src/jdhuff.c",
+        "source_sha256": "fd4268d83ec2102f01f4c45ad93ccf939c8b2ce7f054af3feb073a516c951754",
+        "start_line": 436
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            2.686889843993413,
+            2.833577901998069,
+            2.675659767999605
+          ],
+          "statistic": "median",
+          "runtime_sec": 2.686889843993413,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            2.8503312320026453,
+            2.7318432619940722,
+            2.762738621000608
+          ],
+          "statistic": "median",
+          "runtime_sec": 2.762738621000608,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 8750,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/consumer_jpeg_d/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/consumer_jpeg_d/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/consumer_jpeg_d/samples.json",
+        "profile_sha256": "920f0007d8fc3b36a61408395ebb43fcef350eeaca0169515a1a83f3253a67fe"
+      }
+    },
+    {
+      "program": "consumer_lame",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "L3psycho_anal",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 50,
+                "eligible": true,
+                "end_line": 970,
+                "function": "L3psycho_anal",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 50,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_lame/src/psymodel.c",
+                "signature": "void L3psycho_anal( lame_global_flags *gfp,\n                    short int *buffer[2],int gr_out , \n                    FLOAT8 *ms_ratio,\n                    FLOAT8 *ms_ratio_next,\n\t\t    FLOAT8 *ms_ener_ratio,\n\t\t    III_psy_ratio masking_ratio[2][2],\n\t\t    III_psy_ratio masking_MS_ratio[2][2],\n\t\t    FLOAT8 percep_entropy[2],FLOAT8 percep_MS_entropy[2], \n                    int blocktype_d[2])",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_lame/src/psymodel.c",
+                "source_sha256": "00db710c031f84a89fb50d06f7ca5d303e964cc0c0319e5eb8294761eb25607b",
+                "start_line": 50
+              }
+            ],
+            "tu": "tu_023"
+          }
+        ],
+        "dwarf_start_line": 50,
+        "eligible": true,
+        "end_line": 970,
+        "function": "L3psycho_anal",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 50,
+        "rank": 1,
+        "sample_count": 1170,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_lame/src/psymodel.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.18928008636056715,
+        "self_fraction_project": 0.21090597789005414,
+        "self_period": 1285872266,
+        "signature": "void L3psycho_anal( lame_global_flags *gfp,\n                    short int *buffer[2],int gr_out , \n                    FLOAT8 *ms_ratio,\n                    FLOAT8 *ms_ratio_next,\n\t\t    FLOAT8 *ms_ener_ratio,\n\t\t    III_psy_ratio masking_ratio[2][2],\n\t\t    III_psy_ratio masking_MS_ratio[2][2],\n\t\t    FLOAT8 percep_entropy[2],FLOAT8 percep_MS_entropy[2], \n                    int blocktype_d[2])",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_lame/src/psymodel.c",
+        "source_sha256": "00db710c031f84a89fb50d06f7ca5d303e964cc0c0319e5eb8294761eb25607b",
+        "start_line": 50
+      },
+      "correctness_policy": {
+        "mode": "waived_by_user",
+        "scope": "this_program_only",
+        "authorization": "User explicitly requested inclusion despite baseline/correctness failures"
+      },
+      "search_readiness": "requires_valid_baseline_measurement",
+      "source_search_status": "blocked",
+      "original_blocking_reasons": [
+        "baseline/correctness blocked: search baseline output is not repeatable or workload failed; see measurement records",
+        "profile functional outputs differ from fixed search reference"
+      ],
+      "baseline_evidence": {
+        "search": {
+          "valid": false,
+          "samples": [],
+          "statistic": "median",
+          "runtime_sec": null,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": false
+          }
+        },
+        "clang": {
+          "valid": false,
+          "samples": [],
+          "statistic": "median",
+          "runtime_sec": null,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": false
+          }
+        }
+      },
+      "native_repeat": 228,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/consumer_lame/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/consumer_lame/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/consumer_lame/samples.json",
+        "profile_sha256": "c330e7068b3b8cd625e28742dab54f70fe2486c210e91553c1f3bc59e6dff7be"
+      }
+    },
+    {
+      "program": "consumer_mad",
+      "status": "blocked",
+      "primary_hotspot": null,
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "blocked_build",
+      "source_search_status": "blocked",
+      "original_blocking_reasons": [
+        "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-preparation-20260921-v1/consumer_mad/frontend/tu_003_frontend: audio_esd.c:30:11: fatal error: 'esd.h' file not found\n   30 | # include <esd.h>\n      |           ^~~~~~~\n1 error generated.\n"
+      ],
+      "baseline_evidence": {
+        "search": {
+          "valid": false,
+          "samples": [],
+          "statistic": null,
+          "runtime_sec": null,
+          "correctness": null
+        },
+        "clang": {
+          "valid": false,
+          "samples": [],
+          "statistic": null,
+          "runtime_sec": null,
+          "correctness": null
+        }
+      },
+      "native_repeat": 1742,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": null,
+        "raw_perf_data": null,
+        "sample_mapping": null,
+        "profile_sha256": null
+      }
+    },
+    {
+      "program": "consumer_tiff2bw",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "LZWDecode",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 311,
+                "eligible": true,
+                "end_line": 473,
+                "function": "LZWDecode",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 311,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiff2bw/src/tif_lzw.c",
+                "signature": "static int\nLZWDecode(TIFF* tif, tidata_t op0, tsize_t occ0, tsample_t s)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiff2bw/src/tif_lzw.c",
+                "source_sha256": "f414ed47436157fd197d26909016601d6f22e6081eb11a06a2cc0b78ce177e65",
+                "start_line": 310
+              }
+            ],
+            "tu": "tu_017"
+          }
+        ],
+        "dwarf_start_line": 311,
+        "eligible": true,
+        "end_line": 473,
+        "function": "LZWDecode",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 311,
+        "rank": 1,
+        "sample_count": 10986,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiff2bw/src/tif_lzw.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.8552700328495546,
+        "self_fraction_project": 0.8820380954988097,
+        "self_period": 10766625699,
+        "signature": "static int\nLZWDecode(TIFF* tif, tidata_t op0, tsize_t occ0, tsample_t s)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiff2bw/src/tif_lzw.c",
+        "source_sha256": "f414ed47436157fd197d26909016601d6f22e6081eb11a06a2cc0b78ce177e65",
+        "start_line": 310
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            3.3168622640005196,
+            3.321442256004957,
+            3.509628621999582
+          ],
+          "statistic": "median",
+          "runtime_sec": 3.321442256004957,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            3.4442517920033424,
+            3.417078902995854,
+            3.5028358609997667
+          ],
+          "statistic": "median",
+          "runtime_sec": 3.4442517920033424,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 6757,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/consumer_tiff2bw/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/consumer_tiff2bw/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/consumer_tiff2bw/samples.json",
+        "profile_sha256": "039c750fb7748c55516fb98df03745640384f8d12e69e2eed7e802b06ea25f59"
+      }
+    },
+    {
+      "program": "consumer_tiff2rgba",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "LZWDecode",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 311,
+                "eligible": true,
+                "end_line": 473,
+                "function": "LZWDecode",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 311,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiff2rgba/src/tif_lzw.c",
+                "signature": "static int\nLZWDecode(TIFF* tif, tidata_t op0, tsize_t occ0, tsample_t s)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiff2rgba/src/tif_lzw.c",
+                "source_sha256": "f414ed47436157fd197d26909016601d6f22e6081eb11a06a2cc0b78ce177e65",
+                "start_line": 310
+              }
+            ],
+            "tu": "tu_017"
+          }
+        ],
+        "dwarf_start_line": 311,
+        "eligible": true,
+        "end_line": 473,
+        "function": "LZWDecode",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 311,
+        "rank": 1,
+        "sample_count": 11995,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiff2rgba/src/tif_lzw.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.8739127951542697,
+        "self_fraction_project": 0.9119394233216075,
+        "self_period": 10523810502,
+        "signature": "static int\nLZWDecode(TIFF* tif, tidata_t op0, tsize_t occ0, tsample_t s)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiff2rgba/src/tif_lzw.c",
+        "source_sha256": "f414ed47436157fd197d26909016601d6f22e6081eb11a06a2cc0b78ce177e65",
+        "start_line": 310
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            3.7184823749994393,
+            3.9933612660024664,
+            4.035145483998349
+          ],
+          "statistic": "median",
+          "runtime_sec": 3.9933612660024664,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            3.74133932699624,
+            3.674250452000706,
+            3.924186242002179
+          ],
+          "statistic": "median",
+          "runtime_sec": 3.74133932699624,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 6579,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/consumer_tiff2rgba/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/consumer_tiff2rgba/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/consumer_tiff2rgba/samples.json",
+        "profile_sha256": "ec4251db1d202f2c3b6048c9f8df79116515e9457d2c19821adc158740532876"
+      }
+    },
+    {
+      "program": "consumer_tiffdither",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "main1",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 52,
+                "eligible": true,
+                "end_line": 131,
+                "function": "fsdither",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 52,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiffdither/src/tiffdither.c",
+                "signature": "static void\nfsdither(TIFF* in, TIFF* out)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiffdither/src/tiffdither.c",
+                "source_sha256": "1e951715f3d278b2db4bd556d93f15d97501d9c11f3865bb69eef99fceee044f",
+                "start_line": 51
+              },
+              {
+                "dwarf_start_line": 183,
+                "eligible": true,
+                "end_line": 323,
+                "function": "main1",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 183,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiffdither/src/tiffdither.c",
+                "signature": "int\nmain1(int argc, char* argv[])",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiffdither/src/tiffdither.c",
+                "source_sha256": "1e951715f3d278b2db4bd556d93f15d97501d9c11f3865bb69eef99fceee044f",
+                "start_line": 182
+              }
+            ],
+            "tu": "tu_034"
+          }
+        ],
+        "dwarf_start_line": 52,
+        "eligible": true,
+        "end_line": 131,
+        "function": "fsdither",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 52,
+        "rank": 1,
+        "sample_count": 3930,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiffdither/src/tiffdither.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.2792584719316882,
+        "self_fraction_project": 0.282319753241372,
+        "self_period": 4125235603,
+        "signature": "static void\nfsdither(TIFF* in, TIFF* out)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiffdither/src/tiffdither.c",
+        "source_sha256": "1e951715f3d278b2db4bd556d93f15d97501d9c11f3865bb69eef99fceee044f",
+        "start_line": 51
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            3.6234980360022746,
+            3.6168822840045323,
+            3.6016485229993123
+          ],
+          "statistic": "median",
+          "runtime_sec": 3.6168822840045323,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            3.526460176995897,
+            3.528249462004169,
+            3.5343159429976367
+          ],
+          "statistic": "median",
+          "runtime_sec": 3.528249462004169,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 5000,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/consumer_tiffdither/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/consumer_tiffdither/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/consumer_tiffdither/samples.json",
+        "profile_sha256": "f4ccff2ddb1b87b4a7038c82e6ea63aa6929a58b63264bfc06f25ae80f064751"
+      }
+    },
+    {
+      "program": "consumer_tiffmedian",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "create_colorcell",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 652,
+                "eligible": true,
+                "end_line": 737,
+                "function": "create_colorcell",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 652,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiffmedian/src/tiffmedian.c",
+                "signature": "static C_cell *\ncreate_colorcell(int red, int green, int blue)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiffmedian/src/tiffmedian.c",
+                "source_sha256": "b54cc627f64cd82a08638d02b982880a6547906c5cfa9984199c4d8e310070db",
+                "start_line": 651
+              }
+            ],
+            "tu": "tu_034"
+          }
+        ],
+        "dwarf_start_line": 652,
+        "eligible": true,
+        "end_line": 737,
+        "function": "create_colorcell",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 652,
+        "rank": 1,
+        "sample_count": 5648,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiffmedian/src/tiffmedian.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.5783489412644892,
+        "self_fraction_project": 0.5895952264401451,
+        "self_period": 5732525094,
+        "signature": "static C_cell *\ncreate_colorcell(int red, int green, int blue)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/consumer_tiffmedian/src/tiffmedian.c",
+        "source_sha256": "b54cc627f64cd82a08638d02b982880a6547906c5cfa9984199c4d8e310070db",
+        "start_line": 651
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            2.4486657450033817,
+            2.445540697000979,
+            2.4535054189982475
+          ],
+          "statistic": "median",
+          "runtime_sec": 2.4486657450033817,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            2.4424032690003514,
+            2.4527980700004264,
+            2.450833982002223
+          ],
+          "statistic": "median",
+          "runtime_sec": 2.450833982002223,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 3659,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/consumer_tiffmedian/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/consumer_tiffmedian/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/consumer_tiffmedian/samples.json",
+        "profile_sha256": "68a4ed19759953e075017c1b9b130e851442c4d63819180f6469c288e48b567f"
+      }
+    },
+    {
+      "program": "network_dijkstra",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "dijkstra",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 96,
+                "eligible": true,
+                "end_line": 134,
+                "function": "dijkstra",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 96,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/network_dijkstra/src/dijkstra_large.c",
+                "signature": "void dijkstra(int chStart, int chEnd)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/network_dijkstra/src/dijkstra_large.c",
+                "source_sha256": "43fb8eb84aaeef446746c79f0e3146badbc1459e2e6d29aee7376ff1e65579a0",
+                "start_line": 96
+              }
+            ],
+            "tu": "tu_000"
+          }
+        ],
+        "dwarf_start_line": 96,
+        "eligible": true,
+        "end_line": 134,
+        "function": "dijkstra",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 96,
+        "rank": 1,
+        "sample_count": 305,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/network_dijkstra/src/dijkstra_large.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.4473188514958053,
+        "self_fraction_project": 0.7787670310278902,
+        "self_period": 334721293,
+        "signature": "void dijkstra(int chStart, int chEnd)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/network_dijkstra/src/dijkstra_large.c",
+        "source_sha256": "43fb8eb84aaeef446746c79f0e3146badbc1459e2e6d29aee7376ff1e65579a0",
+        "start_line": 96
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            0.1657193759965594,
+            0.17186622599547263,
+            0.17008344100031536
+          ],
+          "statistic": "median",
+          "runtime_sec": 0.17008344100031536,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            0.16969056900416035,
+            0.16878400599671295,
+            0.16977943800156936
+          ],
+          "statistic": "median",
+          "runtime_sec": 0.16969056900416035,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 500000,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/network_dijkstra/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/network_dijkstra/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/network_dijkstra/samples.json",
+        "profile_sha256": "9ca3094a753b62d4c767fe47e6fb9c213cb7a3bfe131db76fef313afbb0409e6"
+      }
+    },
+    {
+      "program": "network_patricia",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "pat_search",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 315,
+                "eligible": true,
+                "end_line": 343,
+                "function": "pat_search",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 315,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/network_patricia/src/patricia.c",
+                "signature": "struct ptree *\npat_search(unsigned long key, struct ptree *head)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/network_patricia/src/patricia.c",
+                "source_sha256": "5b71af816f734cc492f48c705ed100742a05fce13c82c009d519f51f52786cb7",
+                "start_line": 314
+              }
+            ],
+            "tu": "tu_001"
+          }
+        ],
+        "dwarf_start_line": 315,
+        "eligible": true,
+        "end_line": 343,
+        "function": "pat_search",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 315,
+        "rank": 1,
+        "sample_count": 496,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/network_patricia/src/patricia.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.11653872865411799,
+        "self_fraction_project": 0.4186972406502986,
+        "self_period": 469286300,
+        "signature": "struct ptree *\npat_search(unsigned long key, struct ptree *head)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/network_patricia/src/patricia.c",
+        "source_sha256": "5b71af816f734cc492f48c705ed100742a05fce13c82c009d519f51f52786cb7",
+        "start_line": 314
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            1.1043780809995951,
+            1.0932108750057523,
+            1.0973674159977236
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.0973674159977236,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            1.0971800499974051,
+            1.1049861509964103,
+            1.0979306439985521
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.0979306439985521,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 50000,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/network_patricia/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/network_patricia/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/network_patricia/samples.json",
+        "profile_sha256": "ac5ab98a449be640b84151c8f09133eae97ce99acd1e441c034ec2c982d7ef73"
+      }
+    },
+    {
+      "program": "office_ghostscript",
+      "status": "blocked",
+      "primary_hotspot": null,
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "blocked_build",
+      "source_search_status": "blocked",
+      "original_blocking_reasons": [
+        "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-preparation-20260921-v1/office_ghostscript/frontend/tu_000_frontend: In file included from gconfig.c:21:\nIn file included from ./gx.h:21:\nIn file included from ./stdio_.h:25:\n/usr/include/stdio.h:413:31: error: too many arguments provided to function-like macro invocation\n  413 | extern int dprintf (int __fd, const char *__restrict __fmt, ...)\n      |                               ^\n./std.h:128:9: note: macro 'dprintf' defined here\n  128 | #define dprintf(str)\\\n      |         ^\n1 error generated.\n"
+      ],
+      "baseline_evidence": {
+        "search": {
+          "valid": false,
+          "samples": [],
+          "statistic": null,
+          "runtime_sec": null,
+          "correctness": null
+        },
+        "clang": {
+          "valid": false,
+          "samples": [],
+          "statistic": null,
+          "runtime_sec": null,
+          "correctness": null
+        }
+      },
+      "native_repeat": 40,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": null,
+        "raw_perf_data": null,
+        "sample_mapping": null,
+        "profile_sha256": null
+      }
+    },
+    {
+      "program": "office_ispell",
+      "status": "blocked",
+      "primary_hotspot": null,
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "blocked_build",
+      "source_search_status": "blocked",
+      "original_blocking_reasons": [
+        "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-preparation-20260921-v1/office_ispell/frontend/tu_000_frontend: bilities (word)\n      |      ^\ncorrect.c:812:12: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n  812 | static int insert (word)\n      |            ^\ncorrect.c:836:13: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n  836 | static void wrongcapital (word)\n      |             ^\ncorrect.c:855:13: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n  855 | static void wrongletter (word)\n      |             ^\ncorrect.c:890:13: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n  890 | static void extraletter (word)\n      |             ^\ncorrect.c:912:13: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n  912 | static void missingletter (word)\n      |             ^\ncorrect.c:949:13: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n  949 | static void missingspace (word)\n      |             ^\ncorrect.c:1008:5: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n 1008 | int compoundgood (word, pfxopts)\n      |     ^\ncorrect.c:1065:13: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n 1065 | static void transposedletter (word)\n      |             ^\ncorrect.c:1089:13: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n 1089 | static void tryveryhard (word)\n      |             ^\ncorrect.c:1096:12: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n 1096 | static int ins_cap (word, pattern)\n      |            ^\ncorrect.c:1114:12: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n 1114 | static int save_cap (word, pattern, savearea)\n      |            ^\ncorrect.c:1154:5: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n 1154 | int ins_root_cap (word, pattern, prestrip, preadd, sufstrip, sufadd,\n      |     ^\ncorrect.c:1182:13: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n 1182 | static void save_root_cap (word, pattern, prestrip, preadd, sufstrip, sufadd,\n      |             ^\ncorrect.c:1391:15: error: static declaration of 'getline' follows non-static declaration\n 1391 | static char * getline (s)\n      |               ^\n/usr/include/stdio.h:707:18: note: previous declaration is here\n  707 | extern __ssize_t getline (char **__restrict __lineptr,\n      |                  ^\ncorrect.c:1391:15: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n 1391 | static char * getline (s)\n      |               ^\ncorrect.c:1601:6: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n 1601 | void copyout (cc, cnt)\n      |      ^\ncorrect.c:1616:13: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]\n 1616 | static void lookharder (string)\n      |             ^\n27 warnings and 5 errors generated.\n"
+      ],
+      "baseline_evidence": {
+        "search": {
+          "valid": false,
+          "samples": [],
+          "statistic": null,
+          "runtime_sec": null,
+          "correctness": null
+        },
+        "clang": {
+          "valid": false,
+          "samples": [],
+          "statistic": null,
+          "runtime_sec": null,
+          "correctness": null
+        }
+      },
+      "native_repeat": 3662,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": null,
+        "raw_perf_data": null,
+        "sample_mapping": null,
+        "profile_sha256": null
+      }
+    },
+    {
+      "program": "office_rsynth",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "parwave",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 737,
+                "eligible": true,
+                "end_line": 745,
+                "function": "resonator",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 737,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/office_rsynth/src/nsynth.c",
+                "signature": "static float\nresonator(r, input)\nresonator_ptr r;\nFloat input;",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/office_rsynth/src/nsynth.c",
+                "source_sha256": "107da988e8ac32a96687209fc526bd17d4e02cad93649cd71b9a09fe60afb703",
+                "start_line": 736
+              },
+              {
+                "dwarf_start_line": 773,
+                "eligible": true,
+                "end_line": 971,
+                "function": "parwave",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 773,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/office_rsynth/src/nsynth.c",
+                "signature": "void\nparwave(globals, frame, jwave)\nklatt_global_ptr globals;\nklatt_frame_ptr frame;\nshort int *jwave;",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/office_rsynth/src/nsynth.c",
+                "source_sha256": "107da988e8ac32a96687209fc526bd17d4e02cad93649cd71b9a09fe60afb703",
+                "start_line": 772
+              }
+            ],
+            "tu": "tu_012"
+          }
+        ],
+        "dwarf_start_line": 737,
+        "eligible": true,
+        "end_line": 745,
+        "function": "resonator",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 737,
+        "rank": 1,
+        "sample_count": 3934,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/office_rsynth/src/nsynth.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.6756726859262477,
+        "self_fraction_project": 0.7007138810243109,
+        "self_period": 4398079802,
+        "signature": "static float\nresonator(r, input)\nresonator_ptr r;\nFloat input;",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/office_rsynth/src/nsynth.c",
+        "source_sha256": "107da988e8ac32a96687209fc526bd17d4e02cad93649cd71b9a09fe60afb703",
+        "start_line": 736
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            1.4266658589986037,
+            1.4291327519968036,
+            1.4251736779988278
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.4266658589986037,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            1.4142739539965987,
+            1.4152687980022165,
+            1.4169171050016303
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.4152687980022165,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 1300,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/office_rsynth/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/office_rsynth/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/office_rsynth/samples.json",
+        "profile_sha256": "e146591b73effbe413fea997f015a087a39fdc27a3d0b75d0742bce62e6534be"
+      }
+    },
+    {
+      "program": "office_stringsearch1",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "main",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 46,
+                "eligible": true,
+                "end_line": 71,
+                "function": "strsearch",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 46,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/office_stringsearch1/src/pbmsrch_large.c",
+                "signature": "char *strsearch(const char *string)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/office_stringsearch1/src/pbmsrch_large.c",
+                "source_sha256": "afc84a87d45e6dae4c43944a109dc0e87f64427a420043d7077b00f196a14afa",
+                "start_line": 46
+              },
+              {
+                "dwarf_start_line": 75,
+                "eligible": true,
+                "end_line": 209,
+                "function": "main",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 75,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/office_stringsearch1/src/pbmsrch_large.c",
+                "signature": "int main(int argc, char* argv[])",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/office_stringsearch1/src/pbmsrch_large.c",
+                "source_sha256": "afc84a87d45e6dae4c43944a109dc0e87f64427a420043d7077b00f196a14afa",
+                "start_line": 75
+              }
+            ],
+            "tu": "tu_003"
+          }
+        ],
+        "dwarf_start_line": 46,
+        "eligible": true,
+        "end_line": 71,
+        "function": "strsearch",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 46,
+        "rank": 1,
+        "sample_count": 4699,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/office_stringsearch1/src/pbmsrch_large.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.9096782269937835,
+        "self_fraction_project": 0.9689235006610577,
+        "self_period": 5220518465,
+        "signature": "char *strsearch(const char *string)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/office_stringsearch1/src/pbmsrch_large.c",
+        "source_sha256": "afc84a87d45e6dae4c43944a109dc0e87f64427a420043d7077b00f196a14afa",
+        "start_line": 46
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            1.2968022450004355,
+            1.296781427001406,
+            1.2943364849998034
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.296781427001406,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            1.292998399992939,
+            1.3042478429997573,
+            1.3041912659973605
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.3041912659973605,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 2778240,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/office_stringsearch1/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/office_stringsearch1/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/office_stringsearch1/samples.json",
+        "profile_sha256": "6a1637fef8e1646e5c0cd01fc169359ba6fb1ff50049e6d9e1adc49eff35474a"
+      }
+    },
+    {
+      "program": "security_blowfish_d",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "BF_encrypt",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 72,
+                "eligible": true,
+                "end_line": 140,
+                "function": "BF_encrypt",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 72,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_blowfish_d/src/bf_enc.c",
+                "signature": "void BF_encrypt(data,key,encrypt)\nBF_LONG *data;\nBF_KEY *key;\nint encrypt;",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_blowfish_d/src/bf_enc.c",
+                "source_sha256": "99a949ae6624ce3f501a5633485f4d3fe8b443932fa16807ef34e11f467742ee",
+                "start_line": 72
+              }
+            ],
+            "tu": "tu_004"
+          }
+        ],
+        "dwarf_start_line": 72,
+        "eligible": true,
+        "end_line": 140,
+        "function": "BF_encrypt",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 72,
+        "rank": 1,
+        "sample_count": 13847,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_blowfish_d/src/bf_enc.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.8405083585944457,
+        "self_fraction_project": 0.8406008375396161,
+        "self_period": 15526516413,
+        "signature": "void BF_encrypt(data,key,encrypt)\nBF_LONG *data;\nBF_KEY *key;\nint encrypt;",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_blowfish_d/src/bf_enc.c",
+        "source_sha256": "99a949ae6624ce3f501a5633485f4d3fe8b443932fa16807ef34e11f467742ee",
+        "start_line": 72
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            4.130429775002995,
+            4.133483751000313,
+            4.144454023997241
+          ],
+          "statistic": "median",
+          "runtime_sec": 4.133483751000313,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            4.134325530998467,
+            4.186993363000511,
+            4.12374049200298
+          ],
+          "statistic": "median",
+          "runtime_sec": 4.134325530998467,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 180006,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/security_blowfish_d/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/security_blowfish_d/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/security_blowfish_d/samples.json",
+        "profile_sha256": "485d847d24fafd9c2a14d6a6ab78addf0e85e7a1d2af69211d759757e8fb825a"
+      }
+    },
+    {
+      "program": "security_blowfish_e",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "BF_encrypt",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 72,
+                "eligible": true,
+                "end_line": 140,
+                "function": "BF_encrypt",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 72,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_blowfish_e/src/bf_enc.c",
+                "signature": "void BF_encrypt(data,key,encrypt)\nBF_LONG *data;\nBF_KEY *key;\nint encrypt;",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_blowfish_e/src/bf_enc.c",
+                "source_sha256": "99a949ae6624ce3f501a5633485f4d3fe8b443932fa16807ef34e11f467742ee",
+                "start_line": 72
+              }
+            ],
+            "tu": "tu_004"
+          }
+        ],
+        "dwarf_start_line": 72,
+        "eligible": true,
+        "end_line": 140,
+        "function": "BF_encrypt",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 72,
+        "rank": 1,
+        "sample_count": 14209,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_blowfish_e/src/bf_enc.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.8441018923677372,
+        "self_fraction_project": 0.8441703276780319,
+        "self_period": 15918793961,
+        "signature": "void BF_encrypt(data,key,encrypt)\nBF_LONG *data;\nBF_KEY *key;\nint encrypt;",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_blowfish_e/src/bf_enc.c",
+        "source_sha256": "99a949ae6624ce3f501a5633485f4d3fe8b443932fa16807ef34e11f467742ee",
+        "start_line": 72
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            4.26386002000072,
+            4.210657363997598,
+            4.2011131909966934
+          ],
+          "statistic": "median",
+          "runtime_sec": 4.210657363997598,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            4.193900406004104,
+            4.198779676997219,
+            4.223096304005594
+          ],
+          "statistic": "median",
+          "runtime_sec": 4.198779676997219,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 180006,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/security_blowfish_e/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/security_blowfish_e/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/security_blowfish_e/samples.json",
+        "profile_sha256": "7257d83d65080e4114894d8dc3da59a530b0f08eb48a5e9fe8b9eea591dcb630"
+      }
+    },
+    {
+      "program": "security_pgp_d",
+      "status": "blocked",
+      "primary_hotspot": null,
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "blocked_build",
+      "source_search_status": "blocked",
+      "original_blocking_reasons": [
+        "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-preparation-20260921-v1/security_pgp_d/frontend/tu_000_frontend: cure) [-Wformat-security]\n 1043 |                     LANG(\"WARNING: No ASCII armor `END' line.\\n\"));\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\narmor.c:1043:7: note: treat the string as an argument to avoid this\n 1043 |                     LANG(\"WARNING: No ASCII armor `END' line.\\n\"));\n      |                     ^\n      |                     \"%s\", \narmor.c:1074:7: warning: format string is not a string literal (potentially insecure) [-Wformat-security]\n 1074 |                     LANG(\"ERROR: Bad ASCII armor checksum\"));\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\narmor.c:1074:7: note: treat the string as an argument to avoid this\n 1074 |                     LANG(\"ERROR: Bad ASCII armor checksum\"));\n      |                     ^\n      |                     \"%s\", \narmor.c:1083:3: warning: format string is not a string literal (potentially insecure) [-Wformat-security]\n 1083 |                 LANG(\"Warning: Transport armor lacks a checksum.\\n\"));\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\narmor.c:1083:3: note: treat the string as an argument to avoid this\n 1083 |                 LANG(\"Warning: Transport armor lacks a checksum.\\n\"));\n      |                 ^\n      |                 \"%s\", \narmor.c:1173:7: warning: format string is not a string literal (potentially insecure) [-Wformat-security]\n 1173 |                     LANG(\"ERROR: No ASCII armor `BEGIN' line!\\n\"));\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\narmor.c:1173:7: note: treat the string as an argument to avoid this\n 1173 |                     LANG(\"ERROR: No ASCII armor `BEGIN' line!\\n\"));\n      |                     ^\n      |                     \"%s\", \narmor.c:1209:1: warning: format string is not a string literal (potentially insecure) [-Wformat-security]\n 1209 | LANG(\"ERROR: ASCII armor decode input ended unexpectedly!\\n\"));\n      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\narmor.c:1209:1: note: treat the string as an argument to avoid this\n 1209 | LANG(\"ERROR: ASCII armor decode input ended unexpectedly!\\n\"));\n      | ^\n      | \"%s\", \narmor.c:1234:23: warning: incompatible pointer types passing 'char[80]' to parameter of type 'char **' [-Wincompatible-pointer-types]\n 1234 |             status = getline(buf, sizeof buf, in);\n      |                              ^~~\n/usr/include/stdio.h:707:45: note: passing argument to parameter '__lineptr' here\n  707 | extern __ssize_t getline (char **__restrict __lineptr,\n      |                                             ^\narmor.c:1234:28: warning: incompatible integer to pointer conversion passing '__size_t' (aka 'unsigned long') to parameter of type 'size_t *' (aka 'unsigned long *') [-Wint-conversion]\n 1234 |             status = getline(buf, sizeof buf, in);\n      |                                   ^~~~~~~~~~\n/usr/include/stdio.h:708:46: note: passing argument to parameter '__n' here\n  708 |                           size_t *__restrict __n,\n      |                                              ^\narmor.c:1237:1: warning: format string is not a string literal (potentially insecure) [-Wformat-security]\n 1237 | LANG(\"ERROR: ASCII armor decode input ended unexpectedly!\\n\"));\n      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\narmor.c:1237:1: note: treat the string as an argument to avoid this\n 1237 | LANG(\"ERROR: ASCII armor decode input ended unexpectedly!\\n\"));\n      | ^\n      | \"%s\", \narmor.c:1269:18: warning: format string is not a string literal (potentially insecure) [-Wformat-security]\n 1269 |         fprintf(pgpout, LANG(\"ERROR: Hit EOF in header.\\n\"));\n      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\narmor.c:1269:18: note: treat the string as an argument to avoid this\n 1269 |         fprintf(pgpout, LANG(\"ERROR: Hit EOF in header.\\n\"));\n      |                         ^\n      |                         \"%s\", \n12 warnings and 1 error generated.\n"
+      ],
+      "baseline_evidence": {
+        "search": {
+          "valid": false,
+          "samples": [],
+          "statistic": null,
+          "runtime_sec": null,
+          "correctness": null
+        },
+        "clang": {
+          "valid": false,
+          "samples": [],
+          "statistic": null,
+          "runtime_sec": null,
+          "correctness": null
+        }
+      },
+      "native_repeat": 41673,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": null,
+        "raw_perf_data": null,
+        "sample_mapping": null,
+        "profile_sha256": null
+      }
+    },
+    {
+      "program": "security_pgp_e",
+      "status": "blocked",
+      "primary_hotspot": null,
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "blocked_build",
+      "source_search_status": "blocked",
+      "original_blocking_reasons": [
+        "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-preparation-20260921-v1/security_pgp_e/frontend/tu_000_frontend: cure) [-Wformat-security]\n 1043 |                     LANG(\"WARNING: No ASCII armor `END' line.\\n\"));\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\narmor.c:1043:7: note: treat the string as an argument to avoid this\n 1043 |                     LANG(\"WARNING: No ASCII armor `END' line.\\n\"));\n      |                     ^\n      |                     \"%s\", \narmor.c:1074:7: warning: format string is not a string literal (potentially insecure) [-Wformat-security]\n 1074 |                     LANG(\"ERROR: Bad ASCII armor checksum\"));\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\narmor.c:1074:7: note: treat the string as an argument to avoid this\n 1074 |                     LANG(\"ERROR: Bad ASCII armor checksum\"));\n      |                     ^\n      |                     \"%s\", \narmor.c:1083:3: warning: format string is not a string literal (potentially insecure) [-Wformat-security]\n 1083 |                 LANG(\"Warning: Transport armor lacks a checksum.\\n\"));\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\narmor.c:1083:3: note: treat the string as an argument to avoid this\n 1083 |                 LANG(\"Warning: Transport armor lacks a checksum.\\n\"));\n      |                 ^\n      |                 \"%s\", \narmor.c:1173:7: warning: format string is not a string literal (potentially insecure) [-Wformat-security]\n 1173 |                     LANG(\"ERROR: No ASCII armor `BEGIN' line!\\n\"));\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\narmor.c:1173:7: note: treat the string as an argument to avoid this\n 1173 |                     LANG(\"ERROR: No ASCII armor `BEGIN' line!\\n\"));\n      |                     ^\n      |                     \"%s\", \narmor.c:1209:1: warning: format string is not a string literal (potentially insecure) [-Wformat-security]\n 1209 | LANG(\"ERROR: ASCII armor decode input ended unexpectedly!\\n\"));\n      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\narmor.c:1209:1: note: treat the string as an argument to avoid this\n 1209 | LANG(\"ERROR: ASCII armor decode input ended unexpectedly!\\n\"));\n      | ^\n      | \"%s\", \narmor.c:1234:23: warning: incompatible pointer types passing 'char[80]' to parameter of type 'char **' [-Wincompatible-pointer-types]\n 1234 |             status = getline(buf, sizeof buf, in);\n      |                              ^~~\n/usr/include/stdio.h:707:45: note: passing argument to parameter '__lineptr' here\n  707 | extern __ssize_t getline (char **__restrict __lineptr,\n      |                                             ^\narmor.c:1234:28: warning: incompatible integer to pointer conversion passing '__size_t' (aka 'unsigned long') to parameter of type 'size_t *' (aka 'unsigned long *') [-Wint-conversion]\n 1234 |             status = getline(buf, sizeof buf, in);\n      |                                   ^~~~~~~~~~\n/usr/include/stdio.h:708:46: note: passing argument to parameter '__n' here\n  708 |                           size_t *__restrict __n,\n      |                                              ^\narmor.c:1237:1: warning: format string is not a string literal (potentially insecure) [-Wformat-security]\n 1237 | LANG(\"ERROR: ASCII armor decode input ended unexpectedly!\\n\"));\n      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\narmor.c:1237:1: note: treat the string as an argument to avoid this\n 1237 | LANG(\"ERROR: ASCII armor decode input ended unexpectedly!\\n\"));\n      | ^\n      | \"%s\", \narmor.c:1269:18: warning: format string is not a string literal (potentially insecure) [-Wformat-security]\n 1269 |         fprintf(pgpout, LANG(\"ERROR: Hit EOF in header.\\n\"));\n      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\narmor.c:1269:18: note: treat the string as an argument to avoid this\n 1269 |         fprintf(pgpout, LANG(\"ERROR: Hit EOF in header.\\n\"));\n      |                         ^\n      |                         \"%s\", \n12 warnings and 1 error generated.\n"
+      ],
+      "baseline_evidence": {
+        "search": {
+          "valid": false,
+          "samples": [],
+          "statistic": null,
+          "runtime_sec": null,
+          "correctness": null
+        },
+        "clang": {
+          "valid": false,
+          "samples": [],
+          "statistic": null,
+          "runtime_sec": null,
+          "correctness": null
+        }
+      },
+      "native_repeat": 6072,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": null,
+        "raw_perf_data": null,
+        "sample_mapping": null,
+        "profile_sha256": null
+      }
+    },
+    {
+      "program": "security_rijndael_d",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "decrypt",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 769,
+                "eligible": true,
+                "end_line": 827,
+                "function": "decrypt",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 769,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_rijndael_d/src/aes.c",
+                "signature": "cf_dec c_name(decrypt)(const byte in_blk[], byte out_blk[], const c_name(aes) *cx)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_rijndael_d/src/aes.c",
+                "source_sha256": "5033a2ce6fbbd35903607180a45cf66049afb65f758d0ed03605b081440cbaf4",
+                "start_line": 769
+              }
+            ],
+            "tu": "tu_000"
+          }
+        ],
+        "dwarf_start_line": 769,
+        "eligible": true,
+        "end_line": 827,
+        "function": "decrypt",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 769,
+        "rank": 1,
+        "sample_count": 14694,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_rijndael_d/src/aes.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.7100957481778932,
+        "self_fraction_project": 0.8832029805371228,
+        "self_period": 6301390258,
+        "signature": "cf_dec c_name(decrypt)(const byte in_blk[], byte out_blk[], const c_name(aes) *cx)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_rijndael_d/src/aes.c",
+        "source_sha256": "5033a2ce6fbbd35903607180a45cf66049afb65f758d0ed03605b081440cbaf4",
+        "start_line": 769
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            5.486365349999687,
+            5.7992879540033755,
+            5.413616637000814
+          ],
+          "statistic": "median",
+          "runtime_sec": 5.486365349999687,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            5.830272113998944,
+            5.374688252995838,
+            5.508826653996948
+          ],
+          "statistic": "median",
+          "runtime_sec": 5.508826653996948,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 129007,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/security_rijndael_d/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/security_rijndael_d/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/security_rijndael_d/samples.json",
+        "profile_sha256": "8c62079c911b14c3a64685f3df948d6a8db93177d7cddb083e682294caf436ef"
+      }
+    },
+    {
+      "program": "security_rijndael_e",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "encrypt",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 709,
+                "eligible": true,
+                "end_line": 767,
+                "function": "encrypt",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 709,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_rijndael_e/src/aes.c",
+                "signature": "cf_dec c_name(encrypt)(const byte in_blk[], byte out_blk[], const c_name(aes) *cx)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_rijndael_e/src/aes.c",
+                "source_sha256": "9c89d8265a1943b9db3578a26b336d0a6a38f25a2147feae12ad4c304188114c",
+                "start_line": 709
+              }
+            ],
+            "tu": "tu_000"
+          }
+        ],
+        "dwarf_start_line": 709,
+        "eligible": true,
+        "end_line": 767,
+        "function": "encrypt",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 709,
+        "rank": 1,
+        "sample_count": 15447,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_rijndael_e/src/aes.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.7598972038961758,
+        "self_fraction_project": 0.9683643392643254,
+        "self_period": 6945614876,
+        "signature": "cf_dec c_name(encrypt)(const byte in_blk[], byte out_blk[], const c_name(aes) *cx)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_rijndael_e/src/aes.c",
+        "source_sha256": "9c89d8265a1943b9db3578a26b336d0a6a38f25a2147feae12ad4c304188114c",
+        "start_line": 709
+      },
+      "correctness_policy": {
+        "mode": "waived_by_user",
+        "scope": "this_program_only",
+        "authorization": "User explicitly requested inclusion despite baseline/correctness failures"
+      },
+      "search_readiness": "requires_valid_baseline_measurement",
+      "source_search_status": "blocked",
+      "original_blocking_reasons": [
+        "baseline/correctness blocked: Clang baseline failed or differs from fixed search reference"
+      ],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            5.646111796995683,
+            5.9590683940041345,
+            5.722609897995426
+          ],
+          "statistic": "median",
+          "runtime_sec": 5.722609897995426,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": false,
+          "samples": [],
+          "statistic": "median",
+          "runtime_sec": null,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": false
+          }
+        }
+      },
+      "native_repeat": 129259,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/security_rijndael_e/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/security_rijndael_e/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/security_rijndael_e/samples.json",
+        "profile_sha256": "7a69b896336a1de30f4ea54aad126982f92ce5d906ac6fbe1c9b3a24b0524052"
+      }
+    },
+    {
+      "program": "security_sha",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "sha_transform",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 38,
+                "eligible": true,
+                "end_line": 96,
+                "function": "sha_transform",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 38,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_sha/src/sha.c",
+                "signature": "static void sha_transform(SHA_INFO *sha_info)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_sha/src/sha.c",
+                "source_sha256": "a78fa96999b57d72d3bc6a8d0ac63b29e55ff3005c139120a9650986ba00e5c7",
+                "start_line": 38
+              }
+            ],
+            "tu": "tu_001"
+          }
+        ],
+        "dwarf_start_line": 38,
+        "eligible": true,
+        "end_line": 96,
+        "function": "sha_transform",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 38,
+        "rank": 1,
+        "sample_count": 12494,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_sha/src/sha.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.95257253427832,
+        "self_fraction_project": 0.9826386391081326,
+        "self_period": 12416633660,
+        "signature": "static void sha_transform(SHA_INFO *sha_info)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/security_sha/src/sha.c",
+        "source_sha256": "a78fa96999b57d72d3bc6a8d0ac63b29e55ff3005c139120a9650986ba00e5c7",
+        "start_line": 38
+      },
+      "correctness_policy": {
+        "mode": "waived_by_user",
+        "scope": "this_program_only",
+        "authorization": "User explicitly requested inclusion despite baseline/correctness failures"
+      },
+      "search_readiness": "requires_valid_baseline_measurement",
+      "source_search_status": "blocked",
+      "original_blocking_reasons": [
+        "baseline/correctness blocked: search baseline output is not repeatable or workload failed; see measurement records",
+        "profile functional outputs differ from fixed search reference"
+      ],
+      "baseline_evidence": {
+        "search": {
+          "valid": false,
+          "samples": [],
+          "statistic": "median",
+          "runtime_sec": null,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": false
+          }
+        },
+        "clang": {
+          "valid": false,
+          "samples": [],
+          "statistic": "median",
+          "runtime_sec": null,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": false
+          }
+        }
+      },
+      "native_repeat": 321506,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/security_sha/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/security_sha/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/security_sha/samples.json",
+        "profile_sha256": "be51a76a47cbc450d1a618b0c2bbc30b44e9860fbf3340e3a9050ce8d4121a2c"
+      }
+    },
+    {
+      "program": "telecom_CRC32",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "crc32file",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 125,
+                "eligible": true,
+                "end_line": 157,
+                "function": "crc32file",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 125,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_CRC32/src/crc_32.c",
+                "signature": "Boolean_T crc32file(char *name, DWORD *crc, long *charcnt)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_CRC32/src/crc_32.c",
+                "source_sha256": "5b18e3751ad059badb3fdbfc01ab0974b3828acadfdf247db9a1975ae2800afb",
+                "start_line": 125
+              }
+            ],
+            "tu": "tu_000"
+          }
+        ],
+        "dwarf_start_line": 125,
+        "eligible": true,
+        "end_line": 157,
+        "function": "crc32file",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 125,
+        "rank": 1,
+        "sample_count": 2566,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_CRC32/src/crc_32.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.6408300825191634,
+        "self_fraction_project": 1.0,
+        "self_period": 2827671605,
+        "signature": "Boolean_T crc32file(char *name, DWORD *crc, long *charcnt)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_CRC32/src/crc_32.c",
+        "source_sha256": "5b18e3751ad059badb3fdbfc01ab0974b3828acadfdf247db9a1975ae2800afb",
+        "start_line": 125
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            1.0163760880022892,
+            1.0244912600028329,
+            1.0197685560051468
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.0197685560051468,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            1.0127923370018834,
+            1.0156574479988194,
+            1.0220038769984967
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.0156574479988194,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 3431,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/telecom_CRC32/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/telecom_CRC32/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/telecom_CRC32/samples.json",
+        "profile_sha256": "c0369fcb647ebaa0c6b233ff5cc4ba16f3af8b8463a8ad5117e16989e6309e31"
+      }
+    },
+    {
+      "program": "telecom_adpcm_c",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "adpcm_coder",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 73,
+                "eligible": true,
+                "end_line": 173,
+                "function": "adpcm_coder",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 73,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_adpcm_c/src/adpcm.c",
+                "signature": "void\nadpcm_coder(indata, outdata, len, state)\n    short indata[];\n    char outdata[];\n    int len;\n    struct adpcm_state *state;",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_adpcm_c/src/adpcm.c",
+                "source_sha256": "15f1187d0bdfb8a8decc6e8175dfdbfecabb84168b9cf404deb147f49d47d1a4",
+                "start_line": 72
+              }
+            ],
+            "tu": "tu_000"
+          }
+        ],
+        "dwarf_start_line": 73,
+        "eligible": true,
+        "end_line": 173,
+        "function": "adpcm_coder",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 73,
+        "rank": 1,
+        "sample_count": 12091,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_adpcm_c/src/adpcm.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.9998049791320885,
+        "self_fraction_project": 1.0,
+        "self_period": 14030510175,
+        "signature": "void\nadpcm_coder(indata, outdata, len, state)\n    short indata[];\n    char outdata[];\n    int len;\n    struct adpcm_state *state;",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_adpcm_c/src/adpcm.c",
+        "source_sha256": "15f1187d0bdfb8a8decc6e8175dfdbfecabb84168b9cf404deb147f49d47d1a4",
+        "start_line": 72
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            3.177314266002213,
+            3.165689018998819,
+            3.16124700599903
+          ],
+          "statistic": "median",
+          "runtime_sec": 3.165689018998819,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            3.1364103970045107,
+            3.1480199830039055,
+            3.1463168200061773
+          ],
+          "statistic": "median",
+          "runtime_sec": 3.1463168200061773,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 6644,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/telecom_adpcm_c/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/telecom_adpcm_c/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/telecom_adpcm_c/samples.json",
+        "profile_sha256": "f3250309b10cf1e4bb43fdc97dc366a5540597c9f76083516ce966820a520554"
+      }
+    },
+    {
+      "program": "telecom_adpcm_d",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "adpcm_decoder",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 176,
+                "eligible": true,
+                "end_line": 252,
+                "function": "adpcm_decoder",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 176,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_adpcm_d/src/adpcm.c",
+                "signature": "void\nadpcm_decoder(indata, outdata, len, state)\n    char indata[];\n    short outdata[];\n    int len;\n    struct adpcm_state *state;",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_adpcm_d/src/adpcm.c",
+                "source_sha256": "15f1187d0bdfb8a8decc6e8175dfdbfecabb84168b9cf404deb147f49d47d1a4",
+                "start_line": 175
+              }
+            ],
+            "tu": "tu_000"
+          }
+        ],
+        "dwarf_start_line": 176,
+        "eligible": true,
+        "end_line": 252,
+        "function": "adpcm_decoder",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 176,
+        "rank": 1,
+        "sample_count": 8598,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_adpcm_d/src/adpcm.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.9996059797684992,
+        "self_fraction_project": 1.0,
+        "self_period": 9755508814,
+        "signature": "void\nadpcm_decoder(indata, outdata, len, state)\n    char indata[];\n    short outdata[];\n    int len;\n    struct adpcm_state *state;",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_adpcm_d/src/adpcm.c",
+        "source_sha256": "15f1187d0bdfb8a8decc6e8175dfdbfecabb84168b9cf404deb147f49d47d1a4",
+        "start_line": 175
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            2.2268107879935997,
+            2.1934103649982717,
+            2.192814093999914
+          ],
+          "statistic": "median",
+          "runtime_sec": 2.1934103649982717,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            2.208806631999323,
+            2.199507088000246,
+            2.191251727002964
+          ],
+          "statistic": "median",
+          "runtime_sec": 2.199507088000246,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 14287,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/telecom_adpcm_d/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/telecom_adpcm_d/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/telecom_adpcm_d/samples.json",
+        "profile_sha256": "c0d28ffe14eae0c5b7341f60d4d6edd597bdfb009ebe24aa87f7068bf26f399c"
+      }
+    },
+    {
+      "program": "telecom_gsm",
+      "status": "ready",
+      "primary_hotspot": {
+        "carriers": [
+          {
+            "binary_symbol": "Gsm_Long_Term_Predictor",
+            "inline_chain": [
+              {
+                "dwarf_start_line": 73,
+                "eligible": true,
+                "end_line": 208,
+                "function": "Calculation_of_the_LTP_parameters",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 73,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_gsm/src/long_term.c",
+                "signature": "static void Calculation_of_the_LTP_parameters P4((d,dp,bc_out,Nc_out),\n\tregister word\t* d,\t\t/* [0..39]\tIN\t*/\n\tregister word\t* dp,\t\t/* [-120..-1]\tIN\t*/\n\tword\t\t* bc_out,\t/* \t\tOUT\t*/\n\tword\t\t* Nc_out\t/* \t\tOUT\t*/\n)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_gsm/src/long_term.c",
+                "source_sha256": "8308500f18a07840b048d7429e94cd1489262dec85b7b9763b10637cd63f2c9b",
+                "start_line": 73
+              },
+              {
+                "dwarf_start_line": 532,
+                "eligible": true,
+                "end_line": 556,
+                "function": "Gsm_Long_Term_Predictor",
+                "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+                "name_line": 532,
+                "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_gsm/src/long_term.c",
+                "signature": "void Gsm_Long_Term_Predictor P7((S,d,dp,e,dpp,Nc,bc), \t/* 4x for 160 samples */\n\n\tstruct gsm_state\t* S,\n\n\tword\t* d,\t/* [0..39]   residual signal\tIN\t*/\n\tword\t* dp,\t/* [-120..-1] d'\t\tIN\t*/\n\n\tword\t* e,\t/* [0..39] \t\t\tOUT\t*/\n\tword\t* dpp,\t/* [0..39] \t\t\tOUT\t*/\n\tword\t* Nc,\t/* correlation lag\t\tOUT\t*/\n\tword\t* bc\t/* gain factor\t\t\tOUT\t*/\n)",
+                "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_gsm/src/long_term.c",
+                "source_sha256": "8308500f18a07840b048d7429e94cd1489262dec85b7b9763b10637cd63f2c9b",
+                "start_line": 532
+              }
+            ],
+            "tu": "tu_012"
+          }
+        ],
+        "dwarf_start_line": 73,
+        "eligible": true,
+        "end_line": 208,
+        "function": "Calculation_of_the_LTP_parameters",
+        "location_basis": "Clang AST FunctionDecl byte range + LLVM DWARF",
+        "name_line": 73,
+        "rank": 1,
+        "sample_count": 3340,
+        "sample_file": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_gsm/src/long_term.c",
+        "selection_reason": "highest eligible exclusive period",
+        "self_fraction_all": 0.4178414212818376,
+        "self_fraction_project": 0.419638177208308,
+        "self_period": 3700231551,
+        "signature": "static void Calculation_of_the_LTP_parameters P4((d,dp,bc_out,Nc_out),\n\tregister word\t* d,\t\t/* [0..39]\tIN\t*/\n\tregister word\t* dp,\t\t/* [-120..-1]\tIN\t*/\n\tword\t\t* bc_out,\t/* \t\tOUT\t*/\n\tword\t\t* Nc_out\t/* \t\tOUT\t*/\n)",
+        "source": "/home/liujf/project/passdistill-polybench-minimal/work/cbench-native/telecom_gsm/src/long_term.c",
+        "source_sha256": "8308500f18a07840b048d7429e94cd1489262dec85b7b9763b10637cd63f2c9b",
+        "start_line": 73
+      },
+      "correctness_policy": {
+        "mode": "required",
+        "scope": "unchanged",
+        "authorization": null
+      },
+      "search_readiness": "ready",
+      "source_search_status": "ready",
+      "original_blocking_reasons": [],
+      "baseline_evidence": {
+        "search": {
+          "valid": true,
+          "samples": [
+            2.010426606000692,
+            2.009330756998679,
+            2.1552436169949942
+          ],
+          "statistic": "median",
+          "runtime_sec": 2.010426606000692,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        },
+        "clang": {
+          "valid": true,
+          "samples": [
+            1.8849933130040881,
+            1.8889769620000152,
+            1.8967922930023633
+          ],
+          "statistic": "median",
+          "runtime_sec": 1.8889769620000152,
+          "correctness": {
+            "message": "exact functional outputs checked before and after timing",
+            "ok": true
+          }
+        }
+      },
+      "native_repeat": 558,
+      "dataset_id": "1",
+      "evidence": {
+        "profile_analysis": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/telecom_gsm/profile.json",
+        "raw_perf_data": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-unlocked-v2/telecom_gsm/perf.data",
+        "sample_mapping": "/home/liujf/project/passdistill-polybench-minimal/artifacts/cbench-profile-analysis-v3/telecom_gsm/samples.json",
+        "profile_sha256": "b6c9b53c8a621132ccda37a5a826424bf8995cf9a77952f05470d70e0a01bacc"
+      }
+    }
+  ]
+}

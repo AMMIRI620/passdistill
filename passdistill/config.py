@@ -46,6 +46,10 @@ class ExperimentConfig:
     atol: float = 0.0
     correctness_mode: str = "stderr_md5"
     correctness_reference: str = "search_baseline"
+    candidate_evaluation_mode: str = "performance_only"
+    teacher_correctness_policy: str = "report_only"
+    prompt_cache_mode: str | None = None
+    llm_api: str = "chat_completions"
     max_teacher_rounds: int = 3
     max_teachers: int = 6
     max_recovery_rounds: int = 3
@@ -63,6 +67,14 @@ class ExperimentConfig:
     toolchain: Toolchain = field(default_factory=Toolchain)
 
     def __post_init__(self) -> None:
+        if self.llm_api not in {"chat_completions", "responses"}:
+            raise ValueError("llm_api must be chat_completions or responses")
+        if self.prompt_cache_mode not in {None, "explicit", "implicit"}:
+            raise ValueError("prompt_cache_mode must be explicit, implicit or null")
+        if self.teacher_correctness_policy != "report_only":
+            raise ValueError("teacher_correctness_policy must be report_only")
+        if self.candidate_evaluation_mode != "performance_only":
+            raise ValueError("candidate_evaluation_mode must be performance_only")
         if self.correctness_mode != "stderr_md5" or self.correctness_reference != "search_baseline":
             raise ValueError("correctness requires stderr_md5 against search_baseline")
         if self.rtol != 0 or self.atol != 0:

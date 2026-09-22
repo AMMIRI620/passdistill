@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from passdistill.pipeline import local_region, pass_name, pipeline_outline, split_pipeline
+from passdistill.pipeline import local_region, pipeline_outline
 from passdistill.util import ensure_dir, write_json
 
 
@@ -22,14 +23,30 @@ class PassCatalog:
     def hidden_option_names(self) -> list[str]:
         return sorted(self.opt_options)
 
-    def for_prompt(self, *, limit_passes: int = 50, limit_options: int = 40) -> dict[str, Any]:
-        names = sorted(self.passes)[:limit_passes]
-        options = sorted(self.opt_options)[:limit_options]
+    def for_prompt(
+        self,
+        *,
+        limit_passes: int | None = None,
+        limit_options: int | None = None,
+    ) -> dict[str, Any]:
+        """Return the full fixed action catalog.
+
+        limit_passes / limit_options are retained only for backward compatibility
+        with existing callers. They are intentionally ignored: PassDistill now
+        exposes the complete curated catalog to the Recovery Planner and lets the
+        model choose passes and parameters directly.
+        """
+        del limit_passes, limit_options
         return {
             "llvm_version": self.llvm_version,
             "managers": self.managers,
-            "passes": {name: self.passes[name] for name in names},
-            "opt_options": {name: self.opt_options[name] for name in options},
+            "passes": {name: self.passes[name] for name in sorted(self.passes)},
+            "opt_options": {
+                name: self.opt_options[name] for name in sorted(self.opt_options)
+            },
+            "families": {
+                name: self.families[name] for name in sorted(self.families)
+            },
             "supported_edits": [
                 "replace_region",
                 "insert_fragment",
@@ -40,14 +57,22 @@ class PassCatalog:
         }
 
 
-_CACHE: dict[Path, PassCatalog] = {}
+_CACHE: dict[tuple[Path, str], PassCatalog] = {}
+
+
+def catalog_sha256(repo_root: Path) -> str:
+    return hashlib.sha256((repo_root / "configs/llvm22.1.3_pass_catalog.json").read_bytes()).hexdigest()
 
 
 def load_static_catalog(repo_root: Path, path: Path | None = None) -> PassCatalog:
-    catalog_path = (path or repo_root / "configs" / "llvm22.1.3_pass_catalog.json").resolve()
-    if catalog_path in _CACHE:
-        return _CACHE[catalog_path]
-    data = json.loads(catalog_path.read_text())
+    catalog_path = (
+        path or repo_root / "configs" / "llvm22.1.3_pass_catalog.json"
+    ).resolve()
+    raw = catalog_path.read_bytes()
+    cache_key = (catalog_path, hashlib.sha256(raw).hexdigest())
+    if cache_key in _CACHE:
+        return _CACHE[cache_key]
+    data = json.loads(raw)
     catalog = PassCatalog(
         llvm_version=data["llvm_version"],
         managers=data.get("managers", {}),
@@ -56,40 +81,8 @@ def load_static_catalog(repo_root: Path, path: Path | None = None) -> PassCatalo
         families=data.get("families", {}),
         source=data.get("source", {}),
     )
-    _CACHE[catalog_path] = catalog
+    _CACHE[cache_key] = catalog
     return catalog
-
-
-def _terms_from_direction(direction: dict[str, Any]) -> set[str]:
-    terms: set[str] = set()
-    guidance = direction.get("search_guidance", {}) if isinstance(direction, dict) else {}
-    for key in (
-        "candidate_passes",
-        "candidate_parameters",
-        "ordering_hypotheses",
-        "prerequisite_transformations",
-        "alternative_realizations",
-    ):
-        values = guidance.get(key, [])
-        if isinstance(values, str):
-            values = [values]
-        for value in values:
-            text = str(value).lower()
-            for token in text.replace("/", " ").replace(",", " ").split():
-                terms.add(token.strip("`'\".;:()[]{}"))
-    for key in ("optimization_intent", "summary", "target_description"):
-        for token in str(direction.get(key, "")).lower().replace("/", " ").replace(",", " ").split():
-            terms.add(token.strip("`'\".;:()[]{}"))
-    return {term for term in terms if term}
-
-
-def _pipeline_passes(pipeline: str) -> set[str]:
-    names: set[str] = set()
-    for item in split_pipeline(pipeline):
-        names.add(pass_name(item))
-        if "(" in item:
-            names |= _pipeline_passes(item[item.find("(") + 1 : -1])
-    return names
 
 
 def relevant_catalog(
@@ -98,80 +91,35 @@ def relevant_catalog(
     direction: dict[str, Any],
     baseline_pipeline: str,
     current_pipeline: str,
-    limit: int = 50,
+    limit: int | None = None,
 ) -> dict[str, Any]:
-    selected: set[str] = set()
-    terms = _terms_from_direction(direction)
-    pipeline_names = _pipeline_passes(local_region(current_pipeline).get("nodes_text", "")) if False else set()
-    pipeline_names |= set(local_region(current_pipeline).get("outline", [])) if False else set()
-    pipeline_names |= _pipeline_passes(baseline_pipeline)
-    pipeline_names |= _pipeline_passes(current_pipeline)
+    """Return the complete curated catalog plus pipeline context.
 
-    for name, entry in catalog.passes.items():
-        family = str(entry.get("family", ""))
-        if name in pipeline_names or name in terms or family in terms:
-            selected.add(name)
-        for term in terms:
-            if term and term in name:
-                selected.add(name)
-    for name in list(selected):
-        entry = catalog.passes.get(name, {})
-        family = entry.get("family")
-        if family and family in catalog.families:
-            selected.update(catalog.families[family][:8])
-        for related in entry.get("related_passes", []):
-            selected.add(related)
-        hints = entry.get("soft_hints", {})
-        for values in hints.values():
-            selected.update(values)
-
-    default_focus = [
-        "loop-distribute",
-        "loop-interchange",
-        "licm",
-        "loop-vectorize",
-        "slp-vectorizer",
-        "vector-combine",
-        "gvn",
-        "instcombine",
-        "loop-simplify",
-        "lcssa",
-        "indvars",
-        "loop-versioning-licm",
-        "loop-unroll-and-jam",
-    ]
-    selected.update(default_focus)
-    selected = {name for name in selected if name in catalog.passes}
-    ordered = sorted(selected)[:limit]
-
-    option_names: set[str] = set()
-    for name in ordered:
-        option_names.update(catalog.passes[name].get("related_options", []))
-    for option, entry in catalog.opt_options.items():
-        related = set(entry.get("related_passes", []))
-        if related & set(ordered):
-            option_names.add(option)
-    option_names = {name for name in option_names if name in catalog.opt_options}
-
-    return {
-        "llvm_version": catalog.llvm_version,
-        "managers": catalog.managers,
-        "passes": {name: catalog.passes[name] for name in ordered},
-        "opt_options": {name: catalog.opt_options[name] for name in sorted(option_names)},
-        "supported_edits": [
-            "replace_region",
-            "insert_fragment",
-            "remove_node",
-            "move_node",
-            "set_pass_parameter",
-        ],
-        "baseline_local_pipeline": local_region(baseline_pipeline),
-        "current_local_pipeline": local_region(current_pipeline),
-        "full_pipeline_outline": pipeline_outline(current_pipeline, limit=100),
-    }
+    The old implementation performed keyword/family/O3-based retrieval and then
+    truncated pass names. That retrieval is intentionally removed. `direction`
+    and `limit` remain in the signature only to avoid touching the recovery-search
+    call sites; the Recovery Planner receives every curated pass and option.
+    """
+    del direction, limit
+    result = catalog.for_prompt()
+    result.update(
+        {
+            "catalog_policy": "full_catalog_no_retrieval",
+            "baseline_local_pipeline": local_region(baseline_pipeline),
+            "current_local_pipeline": local_region(current_pipeline),
+            "current_pipeline_outline": pipeline_outline(current_pipeline),
+            "baseline_pipeline_outline": pipeline_outline(baseline_pipeline),
+        }
+    )
+    return result
 
 
-def build_pass_catalog(config, out_dir: Path, baseline_pipeline: str | None = None) -> PassCatalog:
+def build_pass_catalog(
+    config,
+    out_dir: Path,
+    baseline_pipeline: str | None = None,
+) -> PassCatalog:
+    del baseline_pipeline
     ensure_dir(out_dir)
     catalog = load_static_catalog(config.repo_root)
     write_json(
@@ -181,8 +129,9 @@ def build_pass_catalog(config, out_dir: Path, baseline_pipeline: str | None = No
             "source": catalog.source,
             "pass_count": len(catalog.passes),
             "option_count": len(catalog.opt_options),
+            "catalog_policy": "full_catalog_no_retrieval",
             "runtime_probe": False,
+            "catalog_sha256": catalog_sha256(config.repo_root),
         },
     )
     return catalog
-

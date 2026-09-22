@@ -5,95 +5,872 @@
       "LLVM 22.1.3 opt --print-passes",
       "LLVM 22.1.3 opt --help-hidden",
       "observed expanded default<O3> pipeline",
-      "observed PassDistill 2mm recovery failures and valid preflight behavior"
+      "observed PassDistill 2mm recovery failures and valid preflight behavior",
+      "LLVM 22.1.3 llvm/lib/Passes/PassRegistry.def",
+      "LLVM 22.1.3 llvm/lib/Passes/PassBuilderPipelines.cpp"
     ],
-    "coverage": "Focused static subset for PassDistill recovery around loop, vectorization, scalar cleanup, inlining, and O3-adjacent passes."
+    "coverage": "Curated performance-relevant LLVM 22.1.3 catalog for PassDistill recovery across PolyBench, cBench, and NPB. The full catalog is intended to be sent to the Recovery Planner without per-round pass retrieval.",
+    "planner_policy": "full_catalog_no_retrieval"
   },
   "managers": {
-    "module": {"can_contain": ["module", "cgscc", "function"]},
-    "cgscc": {"can_contain": ["cgscc", "function"]},
-    "function": {"can_contain": ["function", "loop", "loop-mssa"]},
-    "loop": {"can_contain": ["loop"]},
-    "loop-mssa": {"can_contain": ["loop"]}
+    "module": {
+      "can_contain": [
+        "module",
+        "cgscc",
+        "function"
+      ]
+    },
+    "cgscc": {
+      "can_contain": [
+        "cgscc",
+        "function"
+      ]
+    },
+    "function": {
+      "can_contain": [
+        "function",
+        "loop",
+        "loop-mssa"
+      ]
+    },
+    "loop": {
+      "can_contain": [
+        "loop"
+      ]
+    },
+    "loop-mssa": {
+      "can_contain": [
+        "loop"
+      ]
+    }
   },
   "passes": {
-    "adce": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "aggressive-instcombine": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "alignment-from-assumptions": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "always-inline": {"scope": "module", "allowed_managers": ["module"], "family": "inline"},
-    "argpromotion": {"scope": "cgscc", "allowed_managers": ["cgscc"], "family": "inline"},
-    "bdce": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
+    "adce": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "aggressive-instcombine": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "alignment-from-assumptions": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "always-inline": {
+      "scope": "module",
+      "allowed_managers": [
+        "module"
+      ],
+      "family": "inline"
+    },
+    "argpromotion": {
+      "scope": "cgscc",
+      "allowed_managers": [
+        "cgscc"
+      ],
+      "family": "inline"
+    },
+    "assume-simplify": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "bdce": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "called-value-propagation": {
+      "scope": "module",
+      "allowed_managers": [
+        "module"
+      ],
+      "family": "ipo"
+    },
     "callsite-splitting": {
       "scope": "function",
-      "allowed_managers": ["function"],
+      "allowed_managers": [
+        "function"
+      ],
       "family": "scalar-cleanup",
       "source": "opt --print-passes Function passes"
     },
-    "called-value-propagation": {"scope": "module", "allowed_managers": ["module"], "family": "ipo"},
-    "coro-cleanup": {"scope": "module", "allowed_managers": ["module"], "family": "coroutine"},
-    "coro-early": {"scope": "module", "allowed_managers": ["module"], "family": "coroutine"},
-    "deadargelim": {"scope": "module", "allowed_managers": ["module"], "family": "ipo"},
-    "div-rem-pairs": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "drop-unnecessary-assumes": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "dse": {"scope": "function", "allowed_managers": ["function"], "family": "memory"},
-    "early-cse": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "float2int": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "function-attrs": {"scope": "cgscc", "allowed_managers": ["cgscc"], "family": "ipo"},
-    "globaldce": {"scope": "module", "allowed_managers": ["module"], "family": "ipo"},
-    "globalopt": {"scope": "module", "allowed_managers": ["module"], "family": "ipo"},
-    "gvn": {"scope": "function", "allowed_managers": ["function"], "family": "memory", "soft_hints": {"often_before": ["loop-vectorize", "slp-vectorizer"]}},
-    "indvars": {"scope": "loop", "allowed_managers": ["loop", "loop-mssa"], "family": "loop-canonicalize"},
-    "infer-alignment": {"scope": "function", "allowed_managers": ["function"], "family": "vectorization"},
-    "inline": {"scope": "cgscc", "allowed_managers": ["cgscc"], "family": "inline"},
-    "instcombine": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "instsimplify": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "ipsccp": {"scope": "module", "allowed_managers": ["module"], "family": "ipo"},
-    "jump-threading": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "lcssa": {"scope": "function", "allowed_managers": ["function"], "family": "loop-canonicalize"},
-    "licm": {"scope": "loop", "allowed_managers": ["loop-mssa"], "required_manager": "loop-mssa", "requires": ["MemorySSA"], "family": "loop-memory"},
-    "load-store-vectorizer": {"scope": "function", "allowed_managers": ["function"], "family": "vectorization"},
-    "loop-deletion": {"scope": "loop", "allowed_managers": ["loop", "loop-mssa"], "family": "loop-cleanup"},
-    "loop-distribute": {"scope": "function", "allowed_managers": ["function"], "family": "loop-transform"},
-    "loop-interchange": {"scope": "loop", "allowed_managers": ["loop", "loop-mssa"], "family": "loop-transform", "soft_hints": {"often_after": ["loop-distribute"], "often_before": ["loop-vectorize"]}},
-    "loop-load-elim": {"scope": "function", "allowed_managers": ["function"], "family": "loop-memory"},
-    "loop-rotate": {"scope": "loop", "allowed_managers": ["loop", "loop-mssa"], "family": "loop-canonicalize"},
-    "loop-simplify": {"scope": "function", "allowed_managers": ["function"], "family": "loop-canonicalize"},
-    "loop-simplifycfg": {"scope": "loop", "allowed_managers": ["loop", "loop-mssa"], "family": "loop-canonicalize"},
-    "loop-sink": {"scope": "function", "allowed_managers": ["function"], "family": "loop-memory"},
+    "consthoist": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "constmerge": {
+      "scope": "module",
+      "allowed_managers": [
+        "module"
+      ],
+      "family": "ipo"
+    },
+    "constraint-elimination": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "cfg-value"
+    },
+    "correlated-propagation": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "cfg-value"
+    },
+    "dce": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "deadargelim": {
+      "scope": "module",
+      "allowed_managers": [
+        "module"
+      ],
+      "family": "ipo"
+    },
+    "dfa-jump-threading": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "cfg-value"
+    },
+    "div-rem-pairs": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "drop-unnecessary-assumes": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup",
+      "parameter_schema": [
+        "drop-deref"
+      ]
+    },
+    "dse": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "memory"
+    },
+    "early-cse": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup",
+      "parameter_schema": [
+        "memssa"
+      ]
+    },
+    "float2int": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "function-attrs": {
+      "scope": "cgscc",
+      "allowed_managers": [
+        "cgscc"
+      ],
+      "family": "ipo",
+      "parameter_schema": [
+        "skip-non-recursive-function-attrs"
+      ]
+    },
+    "globaldce": {
+      "scope": "module",
+      "allowed_managers": [
+        "module"
+      ],
+      "family": "ipo",
+      "parameter_schema": [
+        "vfe-linkage-unit-visibility"
+      ]
+    },
+    "globalopt": {
+      "scope": "module",
+      "allowed_managers": [
+        "module"
+      ],
+      "family": "ipo"
+    },
+    "gvn": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "memory",
+      "soft_hints": {
+        "often_before": [
+          "loop-vectorize",
+          "slp-vectorizer"
+        ]
+      },
+      "parameter_schema": [
+        "no-pre",
+        "pre",
+        "no-load-pre",
+        "load-pre",
+        "no-split-backedge-load-pre",
+        "split-backedge-load-pre",
+        "no-memdep",
+        "memdep",
+        "no-memoryssa",
+        "memoryssa"
+      ]
+    },
+    "hotcoldsplit": {
+      "scope": "module",
+      "allowed_managers": [
+        "module"
+      ],
+      "family": "ipo"
+    },
+    "indvars": {
+      "scope": "loop",
+      "allowed_managers": [
+        "loop",
+        "loop-mssa"
+      ],
+      "family": "loop-canonicalize"
+    },
+    "infer-alignment": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "vectorization"
+    },
+    "inferattrs": {
+      "scope": "module",
+      "allowed_managers": [
+        "module"
+      ],
+      "family": "ipo"
+    },
+    "inline": {
+      "scope": "cgscc",
+      "allowed_managers": [
+        "cgscc"
+      ],
+      "family": "inline",
+      "parameter_schema": [
+        "only-mandatory"
+      ]
+    },
+    "instcombine": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup",
+      "parameter_schema": [
+        "no-verify-fixpoint",
+        "verify-fixpoint",
+        "max-iterations=N"
+      ]
+    },
+    "instsimplify": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "ipsccp": {
+      "scope": "module",
+      "allowed_managers": [
+        "module"
+      ],
+      "family": "ipo",
+      "parameter_schema": [
+        "no-func-spec",
+        "func-spec"
+      ]
+    },
+    "irce": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "loop-control"
+    },
+    "jump-threading": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "lcssa": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "loop-canonicalize"
+    },
+    "libcalls-shrinkwrap": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "libcall"
+    },
+    "licm": {
+      "scope": "loop",
+      "allowed_managers": [
+        "loop-mssa"
+      ],
+      "required_manager": "loop-mssa",
+      "requires": [
+        "MemorySSA"
+      ],
+      "family": "loop-memory",
+      "parameter_schema": [
+        "allowspeculation",
+        "no-allowspeculation"
+      ]
+    },
+    "load-store-vectorizer": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "vectorization"
+    },
+    "loop-data-prefetch": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "loop-memory"
+    },
+    "loop-deletion": {
+      "scope": "loop",
+      "allowed_managers": [
+        "loop",
+        "loop-mssa"
+      ],
+      "family": "loop-cleanup"
+    },
+    "loop-distribute": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "loop-transform"
+    },
+    "loop-flatten": {
+      "scope": "loop",
+      "allowed_managers": [
+        "loop",
+        "loop-mssa"
+      ],
+      "family": "loop-transform",
+      "registry_kind": "loopnest"
+    },
+    "loop-fusion": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "loop-transform"
+    },
+    "loop-idiom": {
+      "scope": "loop",
+      "allowed_managers": [
+        "loop",
+        "loop-mssa"
+      ],
+      "family": "loop-transform"
+    },
+    "loop-instsimplify": {
+      "scope": "loop",
+      "allowed_managers": [
+        "loop",
+        "loop-mssa"
+      ],
+      "family": "loop-canonicalize"
+    },
+    "loop-interchange": {
+      "scope": "loop",
+      "allowed_managers": [
+        "loop",
+        "loop-mssa"
+      ],
+      "family": "loop-transform",
+      "soft_hints": {
+        "often_after": [
+          "loop-distribute"
+        ],
+        "often_before": [
+          "loop-vectorize"
+        ]
+      },
+      "registry_kind": "loopnest"
+    },
+    "loop-load-elim": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "loop-memory"
+    },
+    "loop-predication": {
+      "scope": "loop",
+      "allowed_managers": [
+        "loop",
+        "loop-mssa"
+      ],
+      "family": "loop-control"
+    },
+    "loop-reduce": {
+      "scope": "loop",
+      "allowed_managers": [
+        "loop",
+        "loop-mssa"
+      ],
+      "family": "loop-transform"
+    },
+    "loop-rotate": {
+      "scope": "loop",
+      "allowed_managers": [
+        "loop",
+        "loop-mssa"
+      ],
+      "family": "loop-canonicalize",
+      "parameter_schema": [
+        "no-header-duplication",
+        "header-duplication",
+        "no-prepare-for-lto",
+        "prepare-for-lto"
+      ]
+    },
+    "loop-simplify": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "loop-canonicalize"
+    },
+    "loop-simplifycfg": {
+      "scope": "loop",
+      "allowed_managers": [
+        "loop",
+        "loop-mssa"
+      ],
+      "family": "loop-canonicalize"
+    },
+    "loop-sink": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "loop-memory"
+    },
+    "loop-term-fold": {
+      "scope": "loop",
+      "allowed_managers": [
+        "loop",
+        "loop-mssa"
+      ],
+      "family": "loop-control"
+    },
     "loop-unroll": {
       "scope": "function",
-      "allowed_managers": ["function"],
+      "allowed_managers": [
+        "function"
+      ],
       "canonical_spelling": "loop-unroll<O0;O1;O2;O3;full-unroll-max=N;no-partial;partial;no-peeling;peeling;no-profile-peeling;profile-peeling;no-runtime;runtime;no-upperbound;upperbound>",
-      "parameter_schema": ["O0", "O1", "O2", "O3", "full-unroll-max=N", "no-partial", "partial", "no-peeling", "peeling", "no-profile-peeling", "profile-peeling", "no-runtime", "runtime", "no-upperbound", "upperbound"],
+      "parameter_schema": [
+        "O0",
+        "O1",
+        "O2",
+        "O3",
+        "full-unroll-max=N",
+        "no-partial",
+        "partial",
+        "no-peeling",
+        "peeling",
+        "no-profile-peeling",
+        "profile-peeling",
+        "no-runtime",
+        "runtime",
+        "no-upperbound",
+        "upperbound"
+      ],
       "family": "loop-transform",
       "source": "opt --print-passes Function passes with params; sanity: function(loop-unroll<O3>) accepted, function(loop(loop-unroll)) rejected"
     },
-    "loop-unroll-and-jam": {"scope": "loop", "allowed_managers": ["loop", "loop-mssa"], "family": "loop-transform", "related_options": ["allow-unroll-and-jam"]},
-    "loop-vectorize": {"scope": "function", "allowed_managers": ["function"], "family": "vectorization"},
-    "loop-versioning-licm": {"scope": "function", "allowed_managers": ["function"], "family": "loop-memory"},
-    "mem2reg": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "mldst-motion": {"scope": "function", "allowed_managers": ["function"], "family": "memory"},
-    "reassociate": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "sccp": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "simplifycfg": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "slp-vectorizer": {"scope": "function", "allowed_managers": ["function"], "family": "vectorization"},
-    "sroa": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "tailcallelim": {"scope": "function", "allowed_managers": ["function"], "family": "scalar-cleanup"},
-    "verify": {"scope": "module", "allowed_managers": ["module"], "family": "verification"},
-    "vector-combine": {"scope": "function", "allowed_managers": ["function"], "family": "vectorization"}
+    "loop-unroll-and-jam": {
+      "scope": "loop",
+      "allowed_managers": [
+        "loop",
+        "loop-mssa"
+      ],
+      "family": "loop-transform",
+      "related_options": [
+        "allow-unroll-and-jam"
+      ],
+      "registry_kind": "loopnest"
+    },
+    "loop-vectorize": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "vectorization",
+      "parameter_schema": [
+        "no-interleave-forced-only",
+        "interleave-forced-only",
+        "no-vectorize-forced-only",
+        "vectorize-forced-only"
+      ],
+      "related_options": [
+        "force-vector-interleave",
+        "force-vector-width"
+      ]
+    },
+    "loop-versioning": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "loop-memory"
+    },
+    "loop-versioning-licm": {
+      "scope": "loop",
+      "allowed_managers": [
+        "loop",
+        "loop-mssa"
+      ],
+      "family": "loop-memory"
+    },
+    "mem2reg": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "memcpyopt": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "memory"
+    },
+    "mergefunc": {
+      "scope": "module",
+      "allowed_managers": [
+        "module"
+      ],
+      "family": "ipo"
+    },
+    "mergeicmps": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "cfg-value"
+    },
+    "mldst-motion": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "memory",
+      "parameter_schema": [
+        "no-split-footer-bb",
+        "split-footer-bb"
+      ]
+    },
+    "newgvn": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "memory"
+    },
+    "partial-inliner": {
+      "scope": "module",
+      "allowed_managers": [
+        "module"
+      ],
+      "family": "inline"
+    },
+    "reassociate": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "rpo-function-attrs": {
+      "scope": "module",
+      "allowed_managers": [
+        "module"
+      ],
+      "family": "ipo"
+    },
+    "sccp": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "simple-loop-unswitch": {
+      "scope": "loop",
+      "allowed_managers": [
+        "loop",
+        "loop-mssa"
+      ],
+      "family": "loop-control",
+      "canonical_spelling": "simple-loop-unswitch<nontrivial;no-nontrivial;trivial;no-trivial>",
+      "parameter_schema": [
+        "nontrivial",
+        "no-nontrivial",
+        "trivial",
+        "no-trivial"
+      ]
+    },
+    "simplifycfg": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup",
+      "parameter_schema": [
+        "no-speculate-blocks",
+        "speculate-blocks",
+        "no-simplify-cond-branch",
+        "simplify-cond-branch",
+        "no-forward-switch-cond",
+        "forward-switch-cond",
+        "no-switch-range-to-icmp",
+        "switch-range-to-icmp",
+        "no-switch-to-arithmetic",
+        "switch-to-arithmetic",
+        "no-switch-to-lookup",
+        "switch-to-lookup",
+        "no-keep-loops",
+        "keep-loops",
+        "no-hoist-common-insts",
+        "hoist-common-insts",
+        "no-hoist-loads-stores-with-cond-faulting",
+        "hoist-loads-stores-with-cond-faulting",
+        "no-sink-common-insts",
+        "sink-common-insts",
+        "no-speculate-unpredictables",
+        "speculate-unpredictables",
+        "bonus-inst-threshold=N"
+      ]
+    },
+    "sink": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "slp-vectorizer": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "vectorization"
+    },
+    "slsr": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "sroa": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup",
+      "parameter_schema": [
+        "preserve-cfg",
+        "modify-cfg"
+      ]
+    },
+    "tailcallelim": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "scalar-cleanup"
+    },
+    "vector-combine": {
+      "scope": "function",
+      "allowed_managers": [
+        "function"
+      ],
+      "family": "vectorization"
+    }
   },
   "opt_options": {
-    "allow-unroll-and-jam": {"cli_name": "-allow-unroll-and-jam", "type": "bool", "related_passes": ["loop-unroll-and-jam"]},
-    "debug-pass-manager": {"cli_name": "-debug-pass-manager", "type": "bool"},
-    "enable-loopinterchange": {"cli_name": "-enable-loopinterchange", "type": "bool", "related_passes": ["loop-interchange"]},
-    "force-vector-width": {"cli_name": "-force-vector-width", "type": "int", "related_passes": ["loop-vectorize"]},
-    "force-vector-interleave": {"cli_name": "-force-vector-interleave", "type": "int", "related_passes": ["loop-vectorize"]}
+    "allow-unroll-and-jam": {
+      "cli_name": "-allow-unroll-and-jam",
+      "type": "bool",
+      "related_passes": [
+        "loop-unroll-and-jam"
+      ]
+    },
+    "force-vector-interleave": {
+      "cli_name": "-force-vector-interleave",
+      "type": "int",
+      "related_passes": [
+        "loop-vectorize"
+      ]
+    },
+    "force-vector-width": {
+      "cli_name": "-force-vector-width",
+      "type": "int",
+      "related_passes": [
+        "loop-vectorize"
+      ]
+    }
   },
   "families": {
-    "loop-transform": ["loop-distribute", "loop-interchange", "loop-unroll", "loop-unroll-and-jam"],
-    "loop-canonicalize": ["loop-simplify", "lcssa", "loop-rotate", "indvars", "loop-simplifycfg"],
-    "loop-memory": ["licm", "loop-versioning-licm", "loop-load-elim", "loop-sink"],
-    "vectorization": ["loop-vectorize", "slp-vectorizer", "vector-combine", "load-store-vectorizer", "infer-alignment"],
-    "scalar-cleanup": ["instcombine", "instsimplify", "simplifycfg", "gvn", "reassociate", "adce", "bdce", "callsite-splitting"]
+    "cfg-value": [
+      "constraint-elimination",
+      "correlated-propagation",
+      "dfa-jump-threading",
+      "mergeicmps"
+    ],
+    "inline": [
+      "always-inline",
+      "argpromotion",
+      "inline",
+      "partial-inliner"
+    ],
+    "ipo": [
+      "called-value-propagation",
+      "constmerge",
+      "deadargelim",
+      "function-attrs",
+      "globaldce",
+      "globalopt",
+      "hotcoldsplit",
+      "inferattrs",
+      "ipsccp",
+      "mergefunc",
+      "rpo-function-attrs"
+    ],
+    "libcall": [
+      "libcalls-shrinkwrap"
+    ],
+    "loop-canonicalize": [
+      "indvars",
+      "lcssa",
+      "loop-instsimplify",
+      "loop-rotate",
+      "loop-simplify",
+      "loop-simplifycfg"
+    ],
+    "loop-cleanup": [
+      "loop-deletion"
+    ],
+    "loop-control": [
+      "irce",
+      "loop-predication",
+      "loop-term-fold",
+      "simple-loop-unswitch"
+    ],
+    "loop-memory": [
+      "licm",
+      "loop-data-prefetch",
+      "loop-load-elim",
+      "loop-sink",
+      "loop-versioning",
+      "loop-versioning-licm"
+    ],
+    "loop-transform": [
+      "loop-distribute",
+      "loop-flatten",
+      "loop-fusion",
+      "loop-idiom",
+      "loop-interchange",
+      "loop-reduce",
+      "loop-unroll",
+      "loop-unroll-and-jam"
+    ],
+    "memory": [
+      "dse",
+      "gvn",
+      "memcpyopt",
+      "mldst-motion",
+      "newgvn"
+    ],
+    "scalar-cleanup": [
+      "adce",
+      "aggressive-instcombine",
+      "alignment-from-assumptions",
+      "assume-simplify",
+      "bdce",
+      "callsite-splitting",
+      "consthoist",
+      "dce",
+      "div-rem-pairs",
+      "drop-unnecessary-assumes",
+      "early-cse",
+      "float2int",
+      "instcombine",
+      "instsimplify",
+      "jump-threading",
+      "mem2reg",
+      "reassociate",
+      "sccp",
+      "simplifycfg",
+      "sink",
+      "slsr",
+      "sroa",
+      "tailcallelim"
+    ],
+    "vectorization": [
+      "infer-alignment",
+      "load-store-vectorizer",
+      "loop-vectorize",
+      "slp-vectorizer",
+      "vector-combine"
+    ]
   }
 }

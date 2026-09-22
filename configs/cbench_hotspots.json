@@ -1,0 +1,278 @@
+{
+  "schema": "cbench.locations.v1",
+  "evidence": "preserved/cbench/configs/cbench_hotspots_dataset1_28.json",
+  "programs": [
+    {
+      "program": "automotive_bitcount",
+      "status": "ready",
+      "file": "bitcnt_1.c",
+      "path": "work/cbench-native/automotive_bitcount/src/bitcnt_1.c",
+      "function": "bit_count",
+      "start_line": 9,
+      "end_line": 20
+    },
+    {
+      "program": "automotive_qsort1",
+      "status": "ready",
+      "file": "qsort.c",
+      "path": "work/cbench-native/automotive_qsort1/src/qsort.c",
+      "function": "qsortx",
+      "start_line": 39,
+      "end_line": 120
+    },
+    {
+      "program": "automotive_susan_c",
+      "status": "ready",
+      "file": "susan.c",
+      "path": "work/cbench-native/automotive_susan_c/src/susan.c",
+      "function": "susan_corners",
+      "start_line": 1443,
+      "end_line": 1720
+    },
+    {
+      "program": "automotive_susan_e",
+      "status": "ready",
+      "file": "susan.c",
+      "path": "work/cbench-native/automotive_susan_e/src/susan.c",
+      "function": "susan_edges",
+      "start_line": 1047,
+      "end_line": 1278
+    },
+    {
+      "program": "automotive_susan_s",
+      "status": "ready",
+      "file": "susan.c",
+      "path": "work/cbench-native/automotive_susan_s/src/susan.c",
+      "function": "susan_smoothing",
+      "start_line": 660,
+      "end_line": 792
+    },
+    {
+      "program": "bzip2d",
+      "status": "ready",
+      "file": "decompress.c",
+      "path": "work/cbench-native/bzip2d/src/decompress.c",
+      "function": "BZ2_decompress",
+      "start_line": 106,
+      "end_line": 621
+    },
+    {
+      "program": "bzip2e",
+      "status": "ready",
+      "file": "blocksort.c",
+      "path": "work/cbench-native/bzip2e/src/blocksort.c",
+      "function": "mainQSort3",
+      "start_line": 620,
+      "end_line": 717
+    },
+    {
+      "program": "consumer_jpeg_c",
+      "status": "ready",
+      "file": "jcphuff.c",
+      "path": "work/cbench-native/consumer_jpeg_c/src/jcphuff.c",
+      "function": "encode_mcu_AC_refine",
+      "start_line": 613,
+      "end_line": 734
+    },
+    {
+      "program": "consumer_jpeg_d",
+      "status": "ready",
+      "file": "jdhuff.c",
+      "path": "work/cbench-native/consumer_jpeg_d/src/jdhuff.c",
+      "function": "decode_mcu",
+      "start_line": 436,
+      "end_line": 550
+    },
+    {
+      "program": "consumer_lame",
+      "status": "ready",
+      "file": "psymodel.c",
+      "path": "work/cbench-native/consumer_lame/src/psymodel.c",
+      "function": "L3psycho_anal",
+      "start_line": 50,
+      "end_line": 970
+    },
+    {
+      "program": "consumer_mad",
+      "status": "ready",
+      "file": "layer3.c",
+      "path": "work/cbench-mad-repaired-v1/consumer_mad/src/layer3.c",
+      "function": "III_huffdecode",
+      "start_line": 932,
+      "end_line": 1271
+    },
+    {
+      "program": "consumer_tiff2bw",
+      "status": "ready",
+      "file": "tif_lzw.c",
+      "path": "work/cbench-native/consumer_tiff2bw/src/tif_lzw.c",
+      "function": "LZWDecode",
+      "start_line": 310,
+      "end_line": 473
+    },
+    {
+      "program": "consumer_tiff2rgba",
+      "status": "ready",
+      "file": "tif_lzw.c",
+      "path": "work/cbench-native/consumer_tiff2rgba/src/tif_lzw.c",
+      "function": "LZWDecode",
+      "start_line": 310,
+      "end_line": 473
+    },
+    {
+      "program": "consumer_tiffdither",
+      "status": "ready",
+      "file": "tiffdither.c",
+      "path": "work/cbench-native/consumer_tiffdither/src/tiffdither.c",
+      "function": "fsdither",
+      "start_line": 51,
+      "end_line": 131
+    },
+    {
+      "program": "consumer_tiffmedian",
+      "status": "ready",
+      "file": "tiffmedian.c",
+      "path": "work/cbench-native/consumer_tiffmedian/src/tiffmedian.c",
+      "function": "create_colorcell",
+      "start_line": 651,
+      "end_line": 737
+    },
+    {
+      "program": "network_dijkstra",
+      "status": "ready",
+      "file": "dijkstra_large.c",
+      "path": "work/cbench-native/network_dijkstra/src/dijkstra_large.c",
+      "function": "dijkstra",
+      "start_line": 96,
+      "end_line": 134
+    },
+    {
+      "program": "network_patricia",
+      "status": "ready",
+      "file": "patricia.c",
+      "path": "work/cbench-native/network_patricia/src/patricia.c",
+      "function": "pat_search",
+      "start_line": 314,
+      "end_line": 343
+    },
+    {
+      "program": "office_ghostscript",
+      "status": "blocked",
+      "reason": "Build blocked; full diagnostics remain in the evidence inventory"
+    },
+    {
+      "program": "office_ispell",
+      "status": "blocked",
+      "reason": "Build blocked; full diagnostics remain in the evidence inventory"
+    },
+    {
+      "program": "office_rsynth",
+      "status": "ready",
+      "file": "nsynth.c",
+      "path": "work/cbench-native/office_rsynth/src/nsynth.c",
+      "function": "resonator",
+      "start_line": 736,
+      "end_line": 745
+    },
+    {
+      "program": "office_stringsearch1",
+      "status": "ready",
+      "file": "pbmsrch_large.c",
+      "path": "work/cbench-native/office_stringsearch1/src/pbmsrch_large.c",
+      "function": "strsearch",
+      "start_line": 46,
+      "end_line": 71
+    },
+    {
+      "program": "security_blowfish_d",
+      "status": "ready",
+      "file": "bf_enc.c",
+      "path": "work/cbench-native/security_blowfish_d/src/bf_enc.c",
+      "function": "BF_encrypt",
+      "start_line": 72,
+      "end_line": 140
+    },
+    {
+      "program": "security_blowfish_e",
+      "status": "ready",
+      "file": "bf_enc.c",
+      "path": "work/cbench-native/security_blowfish_e/src/bf_enc.c",
+      "function": "BF_encrypt",
+      "start_line": 72,
+      "end_line": 140
+    },
+    {
+      "program": "security_pgp_d",
+      "status": "blocked",
+      "reason": "Build blocked; full diagnostics remain in the evidence inventory"
+    },
+    {
+      "program": "security_pgp_e",
+      "status": "blocked",
+      "reason": "Build blocked; full diagnostics remain in the evidence inventory"
+    },
+    {
+      "program": "security_rijndael_d",
+      "status": "ready",
+      "file": "aes.c",
+      "path": "work/cbench-native/security_rijndael_d/src/aes.c",
+      "function": "decrypt",
+      "start_line": 769,
+      "end_line": 827
+    },
+    {
+      "program": "security_rijndael_e",
+      "status": "ready",
+      "file": "aes.c",
+      "path": "work/cbench-native/security_rijndael_e/src/aes.c",
+      "function": "encrypt",
+      "start_line": 709,
+      "end_line": 767
+    },
+    {
+      "program": "security_sha",
+      "status": "ready",
+      "file": "sha.c",
+      "path": "work/cbench-native/security_sha/src/sha.c",
+      "function": "sha_transform",
+      "start_line": 38,
+      "end_line": 96
+    },
+    {
+      "program": "telecom_CRC32",
+      "status": "ready",
+      "file": "crc_32.c",
+      "path": "work/cbench-native/telecom_CRC32/src/crc_32.c",
+      "function": "crc32file",
+      "start_line": 125,
+      "end_line": 157
+    },
+    {
+      "program": "telecom_adpcm_c",
+      "status": "ready",
+      "file": "adpcm.c",
+      "path": "work/cbench-native/telecom_adpcm_c/src/adpcm.c",
+      "function": "adpcm_coder",
+      "start_line": 72,
+      "end_line": 173
+    },
+    {
+      "program": "telecom_adpcm_d",
+      "status": "ready",
+      "file": "adpcm.c",
+      "path": "work/cbench-native/telecom_adpcm_d/src/adpcm.c",
+      "function": "adpcm_decoder",
+      "start_line": 175,
+      "end_line": 252
+    },
+    {
+      "program": "telecom_gsm",
+      "status": "ready",
+      "file": "long_term.c",
+      "path": "work/cbench-native/telecom_gsm/src/long_term.c",
+      "function": "Calculation_of_the_LTP_parameters",
+      "start_line": 73,
+      "end_line": 208
+    }
+  ]
+}

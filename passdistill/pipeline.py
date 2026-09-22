@@ -263,10 +263,11 @@ def local_region(
     parent = find_manager(root, parent_manager)
     if parent is None:
         return {"parent_manager": parent_manager, "nodes": []}
-    start = find_node(parent, start_anchor)
-    end = find_node(parent, end_anchor)
-    if start is None or end is None:
+    start = find_node(root, start_anchor, parent_manager=parent_manager)
+    end = find_node(root, end_anchor, parent_manager=parent_manager)
+    if start is None or end is None or start.parent is not end.parent:
         return {"parent_manager": parent_manager, "nodes": [child.to_dict(max_depth=3) for child in parent.children]}
+    parent = start.parent
     lo, hi = sorted([start.index, end.index])
     return {
         "parent_manager": parent_manager,
@@ -276,9 +277,9 @@ def local_region(
     }
 
 
-def pipeline_outline(pipeline: str, limit: int = 120) -> list[str]:
+def pipeline_outline(pipeline: str, limit: int | None = None) -> list[str]:
     refs = enumerate_nodes(parse_pipeline(pipeline))
-    return [ref.occurrence_label for ref in refs[:limit]]
+    return [ref.occurrence_label for ref in (refs if limit is None else refs[:limit])]
 
 
 def _pass_catalog_entry(catalog: dict[str, Any], name: str) -> dict[str, Any] | None:
@@ -307,10 +308,11 @@ def _validate_node(node: PipelineNode, parent_manager: str, catalog: dict[str, A
         errors.append(f"pass {name} is not allowed in manager {parent_manager}; allowed={allowed}")
     schema = entry.get("parameter_schema", [])
     if node.parameters and schema:
-        allowed_keys = {str(item).split("=", 1)[0].removeprefix("no-") for item in schema}
+        flags = {item for item in schema if "=" not in item}
+        value_keys = {item.split("=", 1)[0] for item in schema if "=" in item}
         for param in [item for item in node.parameters.split(";") if item]:
-            key = param.split("=", 1)[0].removeprefix("no-")
-            if key not in allowed_keys:
+            key, separator, value = param.partition("=")
+            if not ((not separator and param in flags) or (separator and key in value_keys and value and not any(c in value for c in "=<>(),"))):
                 errors.append(f"pass {name} has unknown parameter {param}")
 
 
@@ -396,6 +398,16 @@ class PipelineEditor:
             self.invalid_errors.append(f"parent manager not found: {manager}#{occurrence}")
         return parent
 
+    def _target_ref(self, target: dict[str, Any], key: str = "anchor") -> NodeRef | None:
+        # Occurrences always refer to the complete current pipeline, never a
+        # manager-local recount. Manager fields constrain, rather than redirect.
+        ref = find_node(self.root, str(target.get(key, "")), parent_manager=target.get("parent_manager"))
+        if ref is not None and "parent_occurrence" in target:
+            parent = find_manager(self.root, str(target.get("parent_manager", "module")), int(target["parent_occurrence"]))
+            if ref.parent is not parent:
+                return None
+        return ref
+
     def _fragment(self, edit: dict[str, Any], parent_manager: str) -> list[PipelineNode]:
         specs = edit.get("replacement", edit.get("fragment", []))
         nodes = [node_from_fragment(spec) for spec in specs]
@@ -424,15 +436,16 @@ class PipelineEditor:
 
     def replace_region(self, edit: dict[str, Any]) -> None:
         target = edit.get("target", {})
-        parent = self._target_parent(target)
-        if parent is None:
-            return
-        parent_manager = parent.manager or "module"
-        start = find_node(parent, str(target.get("start_anchor", "")))
-        end = find_node(parent, str(target.get("end_anchor", "")))
+        start = self._target_ref(target, "start_anchor")
+        end = self._target_ref(target, "end_anchor")
         if start is None or end is None:
             self.invalid_errors.append(f"replace_region anchors not found: {target}")
             return
+        if start.parent is not end.parent:
+            self.invalid_errors.append("replace_region anchors must be direct siblings in the same manager")
+            return
+        parent = start.parent
+        parent_manager = start.parent_manager
         lo, hi = sorted([start.index, end.index])
         replacement = [node_from_fragment(spec) for spec in edit.get("replacement", edit.get("fragment", []))]
         mark_inherited_nodes(replacement, parent.children[lo : hi + 1])
@@ -441,26 +454,25 @@ class PipelineEditor:
 
     def insert_fragment(self, edit: dict[str, Any]) -> None:
         target = edit.get("target", {})
-        parent = self._target_parent(target)
-        if parent is None:
-            return
-        parent_manager = parent.manager or "module"
-        fragment = self._fragment(edit, parent_manager)
         anchor = target.get("anchor")
         if not anchor:
-            parent.children.extend(fragment)
+            parent = self._target_parent(target)
+            if parent is not None:
+                parent.children.extend(self._fragment(edit, parent.manager or "module"))
             return
-        ref = find_node(parent, str(anchor))
+        ref = self._target_ref(target)
         if ref is None:
             self.invalid_errors.append(f"insert_fragment anchor not found: {anchor}")
             return
+        parent = ref.parent
+        fragment = self._fragment(edit, ref.parent_manager)
         position = target.get("position", "after")
         index = ref.index if position == "before" else ref.index + 1
         parent.children[index:index] = fragment
 
     def remove_node(self, edit: dict[str, Any]) -> None:
         target = edit.get("target", {})
-        ref = find_node(self.root, str(target.get("anchor", "")), parent_manager=target.get("parent_manager"))
+        ref = self._target_ref(target)
         if ref is None:
             self.invalid_errors.append(f"remove_node anchor not found: {target}")
             return
@@ -473,34 +485,73 @@ class PipelineEditor:
         if src is None or dst is None:
             self.invalid_errors.append(f"move_node anchor not found: {target}")
             return
-        node = src.parent.children.pop(src.index)
-        dst = find_node(self.root, str(target.get("dest_anchor", "")), parent_manager=target.get("dest_parent_manager"))
-        if dst is None:
-            self.invalid_errors.append(f"move_node destination disappeared: {target}")
+        if src.node is dst.node or any(ref.node is dst.node for ref in enumerate_nodes(src.node)):
+            self.invalid_errors.append("move_node cannot move a node into itself or its descendants")
             return
-        index = dst.index if target.get("position", "after") == "before" else dst.index + 1
+        self._validate_fragment([src.node], dst.parent_manager)
+        if self.invalid_errors:
+            return
+        node = src.parent.children.pop(src.index)
+        # Keep destination identity: removing an earlier repeated pass must not
+        # redirect the edit to a different occurrence.
+        dest_index = next(i for i, child in enumerate(dst.parent.children) if child is dst.node)
+        index = dest_index if target.get("position", "after") == "before" else dest_index + 1
         dst.parent.children.insert(index, node)
 
     def set_pass_parameter(self, edit: dict[str, Any]) -> None:
         target = edit.get("target", {})
-        ref = find_node(self.root, str(target.get("anchor", edit.get("pass", ""))), parent_manager=target.get("parent_manager"))
+        ref = self._target_ref({"anchor": edit.get("pass", ""), **target})
         if ref is None or ref.node.kind != "pass":
             self.invalid_errors.append(f"set_pass_parameter target not found: {target or edit}")
             return
-        key = str(edit.get("name"))
-        value = str(edit.get("value"))
-        params = ref.node.parameters.split(";") if ref.node.parameters else []
-        replaced = False
-        new_params: list[str] = []
-        for param in params:
-            if param.split("=", 1)[0] == key:
-                new_params.append(f"{key}={value}")
-                replaced = True
+        if "parameters" in edit:
+            if "name" in edit or "value" in edit or not isinstance(edit["parameters"], str):
+                self.invalid_errors.append("set_pass_parameter requires either parameters string or name/value, not both")
+                return
+            node = ref.node.clone()
+            node.parameters = edit["parameters"]
+            node.origin = "planner_modified"
+            errors = validate_fragment([node], ref.parent_manager, self.catalog)
+            self.invalid_errors.extend(errors)
+            if not errors:
+                ref.node.parameters = node.parameters
+            return
+        key = edit.get("name")
+        schema = self.catalog.get("passes", {}).get(ref.node.name, {}).get("parameter_schema", [])
+        flags = {item for item in schema if "=" not in item}
+        value_keys = {item.split("=", 1)[0] for item in schema if "=" in item}
+        value = edit.get("value")
+        remove = {key}
+        if key in value_keys:
+            if value is None or isinstance(value, bool) or not str(value) or any(c in str(value) for c in ";=<>(),"):
+                self.invalid_errors.append(f"invalid value for parameter {key}: {value}")
+                return
+            token = f"{key}={value}"
+        elif key in flags:
+            base = key.removeprefix("no-")
+            opposite = base if key.startswith("no-") else "no-" + base
+            if value is None:
+                token = key
+            elif isinstance(value, bool) or str(value).lower() in {"true", "false"}:
+                enabled = str(value).lower() == "true"
+                token = key if enabled else opposite
             else:
-                new_params.append(param)
-        if not replaced:
-            new_params.append(f"{key}={value}")
-        ref.node.parameters = ";".join(new_params)
+                self.invalid_errors.append(f"flag {key} does not accept value {value}")
+                return
+            if token not in flags:
+                self.invalid_errors.append(f"unsupported flag {token}")
+                return
+            remove.update({base, "no-" + base})
+            # LLVM's SROA modes and unroll optimization levels are exclusive.
+            if ref.node.name == "sroa" and key in {"preserve-cfg", "modify-cfg"}:
+                remove.update({"preserve-cfg", "modify-cfg"})
+            if key in {"O0", "O1", "O2", "O3"}:
+                remove.update({"O0", "O1", "O2", "O3"})
+        else:
+            self.invalid_errors.append(f"unknown parameter {key} for pass {ref.node.name}")
+            return
+        params = ref.node.parameters.split(";") if ref.node.parameters else []
+        ref.node.parameters = ";".join([p for p in params if p.split("=", 1)[0] not in remove] + [token])
 
     def apply_legacy_operation(self, operation: dict[str, Any]) -> None:
         kind = operation.get("type")

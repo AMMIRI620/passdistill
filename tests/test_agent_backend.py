@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from passdistill.agents.base import OpenAICompatBackend
+from passdistill.agents.base import OpenAICompatBackend, make_backend
 from passdistill.search.teacher_search import completed_teachers_in_round, resume_artifact_dir
 
 
@@ -23,6 +23,96 @@ class FakeResponse:
 
 
 class OpenAICompatBackendTests(unittest.TestCase):
+    @staticmethod
+    def responses_response(text, status="completed"):
+        response = FakeResponse("")
+        response.payload = json.dumps({
+            "id": "resp_test", "model": "gpt-5.6-sol", "status": status,
+            "output": [{"type": "reasoning", "summary": []},
+                       {"type": "message", "content": [
+                           {"type": "output_text", "text": text[:3]},
+                           {"type": "output_text", "text": text[3:]}]}],
+            "usage": {"input_tokens": 2000, "input_tokens_details": {"cached_tokens": 0, "cache_write_tokens": 0}}
+        }).encode()
+        return response
+
+    def test_responses_explicit_success_and_json_repair(self):
+        requests = []
+        def fake_urlopen(request, timeout):
+            self.assertTrue(request.full_url.endswith('/responses'))
+            self.assertEqual(timeout, 900)
+            requests.append(json.loads(request.data))
+            return self.responses_response('not json' if len(requests) == 1 else '{"ok":true}')
+        with tempfile.TemporaryDirectory() as directory, patch(
+            'passdistill.agents.base.urllib.request.urlopen', side_effect=fake_urlopen
+        ), patch('passdistill.agents.base.time.sleep'), patch.dict('os.environ', {'PASSDISTILL_PROMPT_CACHE_MODE': 'implicit'}):
+            backend = OpenAICompatBackend(model='gpt-5.6-sol', api_key='key', retries=1,
+                                          api_mode='responses', prompt_cache_mode='explicit')
+            root = Path(directory)
+            self.assertEqual(backend.complete_json('sys', 'usr', schema_hint='test', out_dir=root), {'ok': True})
+            self.assertEqual(requests[0]['input'], [{'role': 'system', 'content': 'sys'}, {'role': 'user', 'content': 'usr'}])
+            self.assertEqual(len(requests[1]['input']), 4)
+            self.assertEqual(requests[1]['input'][2], {'role': 'assistant', 'content': 'not json'})
+            self.assertEqual([r['temperature'] for r in requests], [0.2, 0.0])
+            for request in requests:
+                self.assertEqual(request['prompt_cache_options'], {'mode': 'explicit'})
+                self.assertNotIn('prompt_cache_breakpoint', json.dumps(request))
+                self.assertNotIn('messages', request)
+                self.assertNotIn('previous_response_id', request)
+                self.assertFalse(request['store'])
+                self.assertFalse(request['stream'])
+            usage = json.loads((root / 'api_usage_1.json').read_text())
+            self.assertEqual(usage['api_mode'], 'responses')
+            self.assertEqual(usage['usage']['input_tokens_details']['cache_write_tokens'], 0)
+            self.assertTrue((root / 'response_envelope_1.json').exists())
+
+    def test_responses_transport_retry_same_input_no_fallback(self):
+        requests = []
+        def fake_urlopen(request, timeout):
+            self.assertTrue(request.full_url.endswith('/responses'))
+            requests.append(json.loads(request.data))
+            if len(requests) == 1:
+                raise ConnectionResetError('dropped')
+            return self.responses_response('{"ok":true}')
+        with tempfile.TemporaryDirectory() as directory, patch(
+            'passdistill.agents.base.urllib.request.urlopen', side_effect=fake_urlopen
+        ), patch('passdistill.agents.base.time.sleep'):
+            backend = OpenAICompatBackend(model='test', api_key='key', retries=1,
+                                          api_mode='responses', prompt_cache_mode='explicit')
+            backend.complete_json('sys', 'usr', schema_hint='test', out_dir=Path(directory))
+            self.assertEqual(requests[0], requests[1])
+
+    def test_responses_incomplete_not_accepted_even_with_valid_json(self):
+        with tempfile.TemporaryDirectory() as directory, patch(
+            'passdistill.agents.base.urllib.request.urlopen', return_value=self.responses_response('{"ok":true}', 'incomplete')
+        ):
+            backend = OpenAICompatBackend(model='test', api_key='key', retries=0, api_mode='responses')
+            with self.assertRaisesRegex(RuntimeError, 'not completed'):
+                backend.complete_json('sys', 'usr', schema_hint='test', out_dir=Path(directory))
+            self.assertFalse((Path(directory) / 'response.json').exists())
+            self.assertTrue((Path(directory) / 'response_envelope_0.json').exists())
+
+    def test_configured_responses_backend(self):
+        backend = make_backend('openai', 'gpt-5.6-sol', api_mode='responses', prompt_cache_mode='explicit')
+        self.assertEqual(backend.api_mode, 'responses')
+        self.assertEqual(backend.prompt_cache_mode, 'explicit')
+
+    def test_explicit_no_breakpoints_survives_json_repair(self):
+        requests = []
+        def fake_urlopen(request, timeout):
+            requests.append(json.loads(request.data))
+            return FakeResponse('not json' if len(requests) == 1 else '{"ok": true}')
+        with tempfile.TemporaryDirectory() as directory, patch.dict(
+            'os.environ', {'PASSDISTILL_PROMPT_CACHE_MODE': 'explicit'}
+        ), patch('passdistill.agents.base.urllib.request.urlopen', side_effect=fake_urlopen), patch('passdistill.agents.base.time.sleep'):
+            root = Path(directory)
+            OpenAICompatBackend(model='test', api_key='key', retries=1).complete_json('system', 'user', schema_hint='test', out_dir=root)
+            self.assertEqual(len(requests), 2)
+            for request in requests:
+                self.assertEqual(request['prompt_cache_options'], {'mode': 'explicit'})
+                self.assertNotIn('prompt_cache_breakpoint', json.dumps(request))
+            self.assertTrue((root / 'api_usage_1.json').exists())
+
     def test_transport_retry_reuses_original_payload(self):
         requests = []
         timeouts = []

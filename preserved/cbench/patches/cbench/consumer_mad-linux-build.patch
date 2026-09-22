@@ -1,0 +1,24 @@
+--- a/Makefile
++++ b/Makefile
+@@ -19,8 +19,8 @@
+ 
+ # Actions
+ all:		
+-	$(ZCC) $(CCC_OPTS) $(CCC_OPTS_ADD) -c -I. -DFPM_DEFAULT -DHAVE_CONFIG_H -DLOCALEDIR=\"/usr/local/share/locale\" *.c
+-	$(LDCC) $(LD_OPTS) $(CCC_OPTS_ADD) -lm -lz -lesd *.o
++	$(ZCC) $(CCC_OPTS) $(CCC_OPTS_ADD) -c -I. -DFPM_DEFAULT -DHAVE_CONFIG_H -DLOCALEDIR=\"/usr/local/share/locale\" $(filter-out audio_esd.c,$(wildcard *.c))
++	$(LDCC) $(LD_OPTS) $(CCC_OPTS_ADD) -lm -l:libz.so.1 *.o
+ 
+ clean:
+ 	rm -f a.out *.o *.a *.s *.i *.I
+--- a/config1.h
++++ b/config1.h
+@@ -50,7 +50,7 @@
+ #define HAVE_UNISTD_H 1
+ 
+ /* Define if you have the <zlib.h> header file.  */
+-#define HAVE_ZLIB_H 1
++#undef HAVE_ZLIB_H /* use util.c portable declarations */
+ 
+ /* Name of package */
+ #define PACKAGE "libid3tag"

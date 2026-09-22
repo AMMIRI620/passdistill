@@ -1,13 +1,57 @@
 from __future__ import annotations
 
 from pathlib import Path
+from datetime import datetime, timezone
 
 from .compiler import emit_frontend_ir, emit_optimized_ir, expanded_o3_pipeline
 from .correctness import stderr_md5
 from .config import ExperimentConfig
-from .evaluator import evaluate_pipeline_candidate, evaluate_source
-from .types import EvaluationResult, Kernel
+from .evaluator import evaluate_pipeline_candidate, evaluate_source, run_binary
+from .types import EvaluationResult, Kernel, to_jsonable
 from .util import ensure_dir, save_command_result, write_json
+
+
+def remeasure_search_baseline(config: ExperimentConfig, summary: dict, out_dir: Path) -> float:
+    """Refresh timing only, immediately before a zero-candidate recovery search.
+
+    Preserve the executable, correctness reference, original measurements, and
+    every remeasurement attempt. The caller must not use this mid-search.
+    """
+    updated = to_jsonable(summary)
+    search_eval = updated["search_baseline"]
+    binary = Path(search_eval["artifacts"]["binary"])
+    if not binary.is_file():
+        raise RuntimeError(f"Missing search baseline executable: {binary}")
+    attempt = 1
+    while (out_dir / "search_baseline" / f"remeasure_{attempt}").exists():
+        attempt += 1
+    measurement_dir = ensure_dir(out_dir / "search_baseline" / f"remeasure_{attempt}")
+    timing, logs = run_binary(config, binary, log_dir=measurement_dir / "runs")
+    record = {
+        "reason": "before_zero_candidate_recovery",
+        "measured_at_utc": datetime.now(timezone.utc).isoformat(),
+        "previous_timing": search_eval["timing"],
+        "timing": timing,
+        "binary": binary,
+        "command_log": logs,
+    }
+    write_json(measurement_dir / "measurement.json", record)
+    if timing.median is None or timing.median <= 0 or len(timing.measured) != config.runs or len(timing.warmups) != config.warmups:
+        raise RuntimeError(f"Search baseline remeasurement failed: {measurement_dir}")
+    updated.setdefault("initial_search_baseline", to_jsonable(summary["search_baseline"]))
+    search_eval["timing"] = to_jsonable(timing)
+    search_eval["command_log"] = search_eval.get("command_log", []) + to_jsonable(logs)
+    clang_runtime = updated["baseline"]["timing"]["median"]
+    search_eval["speedup_vs_baseline"] = clang_runtime / timing.median
+    updated["search_baseline_remeasurement"] = str(measurement_dir / "measurement.json")
+    temporary = out_dir / "baseline_summary.tmp.json"
+    write_json(temporary, updated)
+    temporary.replace(out_dir / "baseline_summary.json")
+    summary.clear()
+    summary.update(updated)
+    print(f"[{summary['kernel']}] search baseline remeasured before candidate 1: "
+          f"{timing.median:.6f}s ({config.warmups} warmups, {config.runs} runs)", flush=True)
+    return timing.median
 
 
 def build_baseline(
@@ -53,6 +97,7 @@ def build_baseline(
         # The O3 pipeline establishes the reference; it is not gated by Clang's output.
         baseline_dump=None,
         baseline_runtime=source_eval.timing.median,
+        build_reference_dump=True,
     )
     if search_eval.timing is None or search_eval.timing.median is None or not search_eval.artifacts.dump_stderr:
         raise RuntimeError(f"O3 pipeline reference failed for {kernel.name}: {search_eval.error}")

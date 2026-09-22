@@ -5,6 +5,7 @@ from pathlib import Path
 import time
 
 from .agents.base import make_backend
+from .agents.catalog import catalog_sha256
 from .baseline import build_baseline
 from .config import ExperimentConfig
 from .polybench import discover_kernels, find_kernel
@@ -69,13 +70,18 @@ def run(
     config_path = run_dir / "config.json"
     if config.resume and config_path.exists():
         previous = read_json(config_path)
-        if any(previous.get(key) != getattr(config, key) for key in ("correctness_mode", "correctness_reference")):
+        if any(previous.get(key) != getattr(config, key) for key in ("correctness_mode", "correctness_reference", "candidate_evaluation_mode", "teacher_correctness_policy")):
             raise ValueError("Cannot resume artifacts with a different or legacy correctness policy; choose a new run_id")
-    write_json(run_dir / "config.json", config.as_json())
+    catalog_hash = catalog_sha256(config.repo_root)
+    if config.resume and config_path.exists() and previous.get("catalog_sha256") != catalog_hash:
+        raise ValueError("Cannot resume with a different or unrecorded catalog hash; choose a new run_id")
+    write_json(run_dir / "config.json", {**config.as_json(), "catalog_sha256": catalog_hash})
+    (run_dir / "catalog_snapshot.json").write_bytes((config.repo_root / "configs/llvm22.1.3_pass_catalog.json").read_bytes())
     backend = None
     summary_path = run_dir / "summary.json"
     final: dict = read_json(summary_path) if config.resume and summary_path.exists() else {"kernels": {}}
     final["active_experiment_model"] = config.model
+    final["catalog_sha256"] = catalog_hash
     for item in selected_kernels(config, kernel, all_kernels, kernels):
         kernel_started = time.perf_counter()
         kernel_dir = ensure_dir(run_dir / item.name if config.flat_kernel_artifacts else run_dir / "kernels" / item.name)
@@ -98,7 +104,7 @@ def run(
             search_summary = {"dry_run": True}
         else:
             if backend is None:
-                backend = make_backend(config.llm_backend, config.model)
+                backend = make_backend(config.llm_backend, config.model, api_mode=config.llm_api, prompt_cache_mode=config.prompt_cache_mode)
             search_summary = run_teacher_search(
                 config,
                 backend,
@@ -167,6 +173,13 @@ def run(
         else:
             recovery_status = "incomplete"
         kernel_summary = {
+            "catalog_sha256": catalog_hash,
+            "teacher_correctness_policy": config.teacher_correctness_policy,
+            "teacher_correct_count": search_summary.get("teacher_correct_count", 0),
+            "teacher_incorrect_count": search_summary.get("teacher_incorrect_count", 0),
+            "teacher_unchecked_count": search_summary.get("teacher_unchecked_count", 0),
+            "best_teacher_correctness_ok": best_teacher.get("correctness_ok") if best_teacher else None,
+            "candidate_evaluation_mode": config.candidate_evaluation_mode,
             "correctness_mode": config.correctness_mode,
             "correctness_reference": config.correctness_reference,
             "correctness_reference_md5": baseline_summary.get("correctness_reference_md5"),

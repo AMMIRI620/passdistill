@@ -1,0 +1,22 @@
+{
+  "dataset": "1",
+  "fast_math": false,
+  "cpu": 0,
+  "warmups": 0,
+  "runs": 3,
+  "max_teacher_rounds": 3,
+  "max_teachers": 6,
+  "max_recovery_rounds": 5,
+  "max_pass_candidates": 50,
+  "uniform_fixed_recovery_budget": true,
+  "llm_backend": "openai",
+  "command_timeout_sec": 300,
+  "suite": "cbench",
+  "correctness_mode": "outputs_md5",
+  "candidate_evaluation_mode": "correctness_required",
+  "teacher_correctness_policy": "required",
+  "model": "gpt-5.6-sol",
+  "llm_api": "responses",
+  "prompt_cache_mode": "explicit",
+  "timing_statistic": "median"
+}

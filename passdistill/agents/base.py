@@ -4,6 +4,7 @@ import json
 import os
 import time
 import urllib.request
+from urllib.parse import urlsplit
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Protocol
@@ -215,6 +216,8 @@ class OpenAICompatBackend:
     api_key: str | None = None
     retries: int = 5
     request_timeout_sec: int = 900
+    api_mode: str = "chat_completions"
+    prompt_cache_mode: str | None = None
 
     def complete_json(self, system: str, user: str, *, schema_hint: str, out_dir: Path) -> Any:
         api_key = self.api_key or _env_value("PASSDISTILL_OPENAI_API_KEY", "OPENAI_API_KEY")
@@ -235,11 +238,34 @@ class OpenAICompatBackend:
         }
         last_error: Exception | None = None
         repair_mode = False
+        if self.api_mode not in {"chat_completions", "responses"}:
+            raise ValueError("Invalid LLM API mode")
+        cache_mode = (self.prompt_cache_mode if self.prompt_cache_mode is not None else os.environ.get("PASSDISTILL_PROMPT_CACHE_MODE", "")).strip()
+        if cache_mode not in {"", "explicit", "implicit"}:
+            raise ValueError("Invalid PASSDISTILL_PROMPT_CACHE_MODE")
+        write_json(out_dir / "request_settings.json", {
+            "model": self.model,
+            "prompt_cache_mode": cache_mode or "provider_default",
+            "explicit_cache_breakpoints": 0,
+            "api_mode": self.api_mode,
+            "api_host": urlsplit(base_url).hostname,
+        })
         for attempt in range(self.retries + 1):
+            # Reapply after JSON-repair payload reconstruction as well.
+            if cache_mode:
+                payload["prompt_cache_options"] = {"mode": cache_mode}
+            request_payload = dict(payload)
+            endpoint = "/chat/completions"
+            if self.api_mode == "responses":
+                endpoint = "/responses"
+                request_payload["input"] = request_payload.pop("messages")
+                # Response persistence is separate from prompt caching.
+                request_payload["store"] = False
+                request_payload["stream"] = False
             content: str | None = None
             request = urllib.request.Request(
-                base_url.rstrip("/") + "/chat/completions",
-                data=json.dumps(payload).encode(),
+                base_url.rstrip("/") + endpoint,
+                data=json.dumps(request_payload).encode(),
                 headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
                 method="POST",
             )
@@ -247,7 +273,28 @@ class OpenAICompatBackend:
                 with urllib.request.urlopen(request, timeout=self.request_timeout_sec) as response:
                     raw = response.read().decode()
                 data = json.loads(raw)
-                content = data["choices"][0]["message"]["content"]
+                write_json(out_dir / f"api_usage_{attempt}.json", {
+                    "response_id": data.get("id"),
+                    "model": data.get("model"),
+                    "usage": data.get("usage"),
+                    "requested_prompt_cache_mode": cache_mode or "provider_default",
+                    "api_mode": self.api_mode,
+                    "api_host": urlsplit(base_url).hostname,
+                    "response_status": data.get("status"),
+                })
+                if self.api_mode == "responses":
+                    write_json(out_dir / f"response_envelope_{attempt}.json", data)
+                    if data.get("status") != "completed":
+                        raise RuntimeError(f"Responses request not completed: {data.get('status')}; {data.get('error') or data.get('incomplete_details')}")
+                    chunks = [part["text"] for item in data.get("output", [])
+                              if item.get("type") == "message"
+                              for part in item.get("content", [])
+                              if part.get("type") == "output_text"]
+                    if not chunks:
+                        raise RuntimeError("Responses request contains no output_text")
+                    content = "".join(chunks)
+                else:
+                    content = data["choices"][0]["message"]["content"]
                 if repair_mode:
                     (out_dir / f"repair_response_{attempt}.txt").write_text(content)
                 else:
@@ -284,9 +331,9 @@ class OpenAICompatBackend:
         raise RuntimeError(f"LLM JSON completion failed: {last_error}")
 
 
-def make_backend(name: str, model: str | None) -> AgentBackend:
+def make_backend(name: str, model: str | None, *, api_mode: str = "chat_completions", prompt_cache_mode: str | None = None) -> AgentBackend:
     if name == "mock":
         return MockBackend()
     if name in {"openai", "openai-compatible", "http"}:
-        return OpenAICompatBackend(model=model or os.environ.get("PASSDISTILL_MODEL", "gpt-5"))
+        return OpenAICompatBackend(model=model or os.environ.get("PASSDISTILL_MODEL", "gpt-5"), api_mode=api_mode, prompt_cache_mode=prompt_cache_mode)
     raise ValueError(f"unknown LLM backend: {name}")

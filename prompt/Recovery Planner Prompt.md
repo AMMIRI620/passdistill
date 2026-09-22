@@ -193,6 +193,20 @@ Allowed edit types:
 
 Candidate-level opt options are supplied separately as `opt_options`.
 
+Anchor numbering is global within the complete selected parent pipeline, as in
+its pipeline outline, NOT recounted inside each manager. `parent_manager` is a
+scope constraint, not an instruction to search only the first manager of that
+type. Optional `parent_occurrence` further constrains the owning manager.
+For replace_region, both anchors must be direct children of the same manager.
+Edits execute sequentially; earlier edits can change subsequent anchor numbers.
+
+For set_pass_parameter use `target.anchor`, plus `name` and optional `value`:
+`{"type":"set_pass_parameter","target":{"anchor":"gvn#1"},"name":"pre","value":false}`.
+A bare flag uses only `name`; numeric parameters use `name` and `value`.
+Alternatively, `parameters` may replace the entire parameter string, e.g.
+`{"type":"set_pass_parameter","target":{"anchor":"loop-vectorize#1"},"parameters":"no-interleave-forced-only;no-vectorize-forced-only"}`.
+Do not combine `parameters` with `name`/`value`. All syntax is catalog-validated.
+
 Use only operations supported by the supplied pass catalog / pipeline representation.
 
 Do not invent LLVM pass names or options that are not available in the provided context.

@@ -16,7 +16,7 @@ from passdistill.util import ensure_dir, read_json, write_json
 
 
 def round_teacher_limit(round_index: int) -> int:
-    return {1: 3, 2: 2, 3: 1}.get(round_index, 1)
+    return 2
 
 
 def _path(value) -> Path:
@@ -62,6 +62,18 @@ def uniform_round_target(total_budget: int, teacher_count: int, teacher_index: i
     return base * round_index + min(round_index, extra)
 
 
+def has_recovery_candidates(out_dir: Path, history: list[dict[str, Any]]) -> bool:
+    # Invalid/partially written candidates count too: never change their baseline.
+    if any(entry.get("recovery", {}).get("candidates_tried", 0) for entry in history):
+        return True
+    if any((out_dir / "recovery").glob("*/candidates/*")):
+        return True
+    if any(read_json(path) for path in (out_dir / "recovery").glob("*/history.json")):
+        return True
+    return any(read_json(path).get("candidates_tried", 0)
+               for path in (out_dir / "recovery").glob("*/summary.json"))
+
+
 def run_teacher_search(
     config: ExperimentConfig,
     backend: AgentBackend,
@@ -69,6 +81,7 @@ def run_teacher_search(
     *,
     baseline_summary: dict[str, Any],
     out_dir: Path,
+    adapter: Any = None,
 ) -> dict[str, Any]:
     ensure_dir(out_dir)
     baseline_eval = baseline_summary["baseline"]
@@ -81,7 +94,11 @@ def run_teacher_search(
     remarks_path = _get(baseline_eval, "artifacts", "remarks")
     remarks_path = _path(remarks_path) if remarks_path else None
     baseline_remarks = remarks_path.read_text(errors="replace") if remarks_path and remarks_path.exists() else ""
-    original_source = kernel.source.read_text()
+    source_text = adapter.source_text if adapter else lambda path: path.read_text()
+    propose = adapter.propose_teachers if adapter else propose_teachers
+    patch_source = adapter.apply_teacher_patch if adapter else apply_teacher_patch
+    evaluate = adapter.evaluate_source if adapter else evaluate_source
+    original_source = source_text(kernel.source)
     history: list[dict[str, Any]] = []
     valid_directions: list[dict[str, Any]] = []
     recovery_summaries: list[dict[str, Any]] = []
@@ -95,8 +112,28 @@ def run_teacher_search(
             direction_id = entry.get("direction_id")
             teacher_dir = out_dir / "teachers" / str(direction_id)
             intent_path = teacher_dir / "intent.json"
-            if not (entry.get("correctness_ok") and entry.get("runtime") and intent_path.exists()):
+            if not (entry.get("compile_ok") and entry.get("runtime")):
                 continue
+            if entry["runtime"] >= clang_baseline_runtime and not config.uniform_fixed_recovery_budget:
+                continue
+            if not intent_path.exists():
+                # Evaluation is checkpointed before distillation. Resume that
+                # unfinished stage instead of silently dropping the teacher.
+                proposal = read_json(teacher_dir / "proposal.json")
+                teacher_source = teacher_dir / "source.c"
+                teacher_remarks_path = teacher_dir / "eval" / "remarks" / "o3.opt.yaml"
+                teacher_remarks = teacher_remarks_path.read_text(errors="replace") if teacher_remarks_path.exists() else ""
+                print(f"[{kernel.name}] resuming missing intent for {direction_id}", flush=True)
+                direction = distill_direction(
+                    backend, direction_id=direction_id,
+                    original_source=original_source, teacher_source=source_text(teacher_source),
+                    original_remarks=baseline_remarks, teacher_remarks=teacher_remarks,
+                    baseline_runtime=clang_baseline_runtime, teacher_runtime=entry["runtime"],
+                    out_dir=resume_artifact_dir(teacher_dir / "distill"), repo_root=config.repo_root,
+                )
+                direction["direction_id"] = direction_id
+                direction["local_direction_id"] = proposal.get("local_direction_id", proposal.get("direction_id"))
+                write_json(intent_path, direction)
             direction = read_json(intent_path)
             recovery_dir = out_dir / "recovery" / str(direction_id)
             recovery_path = recovery_dir / "summary.json"
@@ -131,7 +168,7 @@ def run_teacher_search(
         remaining_in_round = max(0, round_teacher_limit(round_index) - completed_in_round)
         if remaining_in_round == 0:
             continue
-        proposals = propose_teachers(
+        proposals = propose(
             backend,
             kernel_name=kernel.name,
             target_function=kernel.target_function,
@@ -169,14 +206,16 @@ def run_teacher_search(
             write_json(teacher_dir / "proposal.json", proposal)
             teacher_source = teacher_dir / "source.c"
             try:
-                apply_teacher_patch(kernel.source, proposal.get("source_patch", ""), teacher_source)
+                patch_source(kernel.source, proposal.get("source_patch", ""), teacher_source)
             except Exception as exc:
                 entry = {"direction_id": direction_id, "compile_ok": False, "error": f"patch failed: {exc}"}
                 history.append(entry)
                 write_json(teacher_dir / "runtime.json", entry)
                 write_json(out_dir / "teacher_history.json", history)
+                if adapter is not None:
+                    adapter.progress_update('Teacher', entry)
                 continue
-            eval_result = evaluate_source(
+            eval_result = evaluate(
                 config,
                 kernel,
                 teacher_source,
@@ -189,6 +228,7 @@ def run_teacher_search(
                 "direction_id": direction_id,
                 "compile_ok": eval_result.compile_ok,
                 "correctness_ok": bool(eval_result.correctness and eval_result.correctness.ok),
+                "correctness_checked": eval_result.correctness is not None,
                 "runtime": eval_result.timing.median if eval_result.timing else None,
                 "teacher_speedup_vs_clang": eval_result.speedup_vs_baseline,
                 "error": eval_result.error,
@@ -196,7 +236,9 @@ def run_teacher_search(
             history.append(entry)
             write_json(teacher_dir / "runtime.json", entry)
             write_json(out_dir / "teacher_history.json", history)
-            if not (eval_result.correctness and eval_result.correctness.ok and eval_result.timing and eval_result.timing.median):
+            if adapter is not None:
+                adapter.progress_update('Teacher', entry)
+            if not (eval_result.compile_ok and eval_result.timing and eval_result.timing.median):
                 continue
             if eval_result.timing.median >= clang_baseline_runtime and not config.uniform_fixed_recovery_budget:
                 continue
@@ -206,7 +248,7 @@ def run_teacher_search(
                 backend,
                 direction_id=direction_id,
                 original_source=original_source,
-                teacher_source=teacher_source.read_text(),
+                teacher_source=source_text(teacher_source),
                 original_remarks=baseline_remarks,
                 teacher_remarks=teacher_remarks,
                 baseline_runtime=clang_baseline_runtime,
@@ -229,6 +271,7 @@ def run_teacher_search(
             write_json(out_dir / "teacher_history.json", history)
 
     valid_directions = sort_valid_directions_for_recovery(valid_directions)
+    # Keep the saved baseline fixed across teacher generation and recovery/resume.
     if config.uniform_fixed_recovery_budget:
         for teacher_index, item in enumerate(valid_directions):
             final_quota = uniform_round_target(
@@ -263,6 +306,7 @@ def run_teacher_search(
                 batch_budget = min(3, remaining)
             if batch_budget <= 0:
                 break
+            recovery_kwargs = {"adapter": adapter} if adapter else {}
             recovery = run_recovery_episode(
                 config,
                 backend,
@@ -276,6 +320,7 @@ def run_teacher_search(
                 remaining_budget=batch_budget,
                 start_round=item["rounds_done"] + 1,
                 max_rounds=1,
+                **recovery_kwargs,
             )
             item["rounds_done"] += 1
             used = recovery.get("new_candidates_tried", recovery.get("candidates_tried", 0))
@@ -319,6 +364,9 @@ def run_teacher_search(
         "clang_baseline_runtime": clang_baseline_runtime,
         "search_baseline_runtime": search_baseline_runtime,
         "teacher_candidates_tried": teacher_count,
+        "teacher_correct_count": sum(h.get("correctness_checked", False) and h.get("correctness_ok") is True for h in history),
+        "teacher_incorrect_count": sum(h.get("correctness_checked", False) and h.get("correctness_ok") is False for h in history),
+        "teacher_unchecked_count": sum(not h.get("correctness_checked", False) for h in history),
         "valid_teacher_count": len(valid_directions),
         "pass_candidates_tried": pass_budget_used,
         "total_recovery_budget": config.max_pass_candidates,

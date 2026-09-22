@@ -21,9 +21,10 @@ MAX_TOTAL_ATTEMPTS = 10
 PROGRESS_POLL_SECONDS = 2
 
 
-def dmx_environment() -> dict[str, str]:
+def dmx_environment(env_file: Path | None = None, *, model: str | None = None) -> dict[str, str]:
+    env_file = env_file or ENV_FILE
     values: dict[str, str] = {}
-    for raw in ENV_FILE.read_text().splitlines():
+    for raw in env_file.read_text().splitlines():
         line = raw.strip()
         if not line or line.startswith("#") or "=" not in line:
             continue
@@ -31,9 +32,11 @@ def dmx_environment() -> dict[str, str]:
         key = key.strip()
         if key in {"PASSDISTILL_OPENAI_API_KEY", "PASSDISTILL_OPENAI_BASE_URL", "PASSDISTILL_MODEL"}:
             values[key] = value.strip().strip('"').strip("'")
+    if model is not None:
+        values["PASSDISTILL_MODEL"] = model
     for key in ("PASSDISTILL_OPENAI_API_KEY", "PASSDISTILL_OPENAI_BASE_URL", "PASSDISTILL_MODEL"):
         if not values.get(key):
-            raise RuntimeError(f"{ENV_FILE.name} is missing {key}")
+            raise RuntimeError(f"{env_file.name} is missing {key}")
     environment = os.environ.copy()
     environment.update(values)
     return environment
